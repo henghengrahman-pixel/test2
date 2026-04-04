@@ -1,4 +1,4 @@
-<div class="crumbrow">
+<div class="crumbrow reveal">
   <div class="wrap">
     <div class="crumbtxt">
       <a href="/">Home</a>
@@ -12,27 +12,27 @@
 
 <main class="wrap pdp-wrap">
   <div class="pdp">
-    <section class="pdp-left">
+    <section class="pdp-left reveal reveal-left">
       <div class="pdp-badges">
         <% if (product.badge) { %><span class="pill"><%= product.badge %></span><% } %>
         <% if (product.topSeller) { %><span class="pill">Top Seller</span><% } %>
         <% if (product.soldOut) { %><span class="pill soldout-pill">Sold Out</span><% } %>
       </div>
 
-      <div class="pdp-image">
+      <div class="pdp-image image-float">
         <img id="pImage" src="<%= product.image %>" alt="<%= product.name %>">
       </div>
 
       <div class="pdp-thumbs" id="thumbs">
         <% product.gallery.forEach(function(image, index){ %>
-          <button class="thumb <%= index === 0 ? 'active' : '' %>" data-image="<%= image %>" type="button">
+          <button class="thumb <%= index === 0 ? 'active' : '' %> magnetic" data-image="<%= image %>" type="button">
             <img src="<%= image %>" alt="<%= product.name %>">
           </button>
         <% }) %>
       </div>
     </section>
 
-    <section class="pdp-right">
+    <section class="pdp-right reveal reveal-right">
       <h1 class="pdp-title"><%= product.name %></h1>
 
       <div class="pdp-price">
@@ -44,15 +44,15 @@
       </div>
 
       <div class="notes-grid">
-        <div class="note-card">
+        <div class="note-card reveal delay-1">
           <strong>Top Notes</strong>
           <div><%= product.topNotes || '-' %></div>
         </div>
-        <div class="note-card">
+        <div class="note-card reveal delay-2">
           <strong>Mid Notes</strong>
           <div><%= product.midNotes || '-' %></div>
         </div>
-        <div class="note-card">
+        <div class="note-card reveal delay-3">
           <strong>Base Notes</strong>
           <div><%= product.baseNotes || '-' %></div>
         </div>
@@ -60,12 +60,14 @@
 
       <div class="pdp-cta">
         <div class="qty">
-          <button type="button" id="minus">−</button>
+          <button type="button" id="minus" class="magnetic">−</button>
           <input id="qty" type="number" min="1" value="1">
-          <button type="button" id="plus">+</button>
+          <button type="button" id="plus" class="magnetic">+</button>
         </div>
 
-        <button class="btn-cart" id="addProductCart"
+        <button
+          class="btn-cart magnetic"
+          id="addProductCart"
           data-id="<%= product.id %>"
           data-name="<%= product.name %>"
           data-price="<%= product.price %>"
@@ -73,21 +75,22 @@
           Add to Cart
         </button>
 
-        <a class="btn-checkout" href="/checkout">Checkout</a>
+        <a class="btn-checkout magnetic" href="/checkout">Checkout</a>
       </div>
     </section>
   </div>
 
   <% if (relatedProducts.length) { %>
-  <section class="related">
+  <section class="related reveal">
     <h2>Produk Lainnya</h2>
 
     <div class="related-grid">
-      <% relatedProducts.forEach(function(item){ %>
-      <article class="product-card">
-        <a href="/product/<%= item.slug %>">
+      <% relatedProducts.forEach(function(item, index){ %>
+      <article class="product-card related-card reveal delay-<%= (index % 5) + 1 %>">
+        <a href="/product/<%= item.slug %>" class="related-image-link">
           <img src="<%= item.image %>" alt="<%= item.name %>">
         </a>
+
         <div class="card-body">
           <h3><a href="/product/<%= item.slug %>"><%= item.name %></a></h3>
           <div class="muted"><%= item.desc %></div>
@@ -100,120 +103,436 @@
 </main>
 
 <style>
-.pdp-wrap{
-  padding:20px 0 60px;
-}
+  .pdp-wrap{
+    padding:24px 0 64px;
+  }
 
-.pdp{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:34px;
-  align-items:start;
-}
-
-.pdp-image img{
-  width:100%;
-  border-radius:24px;
-  aspect-ratio:3/4;
-  object-fit:cover;
-}
-
-.pdp-thumbs{
-  display:flex;
-  gap:10px;
-  margin-top:14px;
-}
-
-.thumb{
-  border:1px solid rgba(255,255,255,.12);
-  background:transparent;
-  border-radius:12px;
-  padding:4px;
-}
-
-.thumb img{
-  width:70px;
-  height:70px;
-  object-fit:cover;
-  border-radius:8px;
-}
-
-.pdp-title{
-  font-size:32px;
-  margin-bottom:8px;
-}
-
-.pdp-price{
-  font-size:28px;
-  font-weight:900;
-  color:#fff4d6;
-}
-
-.pdp-desc{
-  margin-top:10px;
-  line-height:1.9;
-  color:rgba(255,255,255,.75);
-}
-
-.notes-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:12px;
-  margin-top:20px;
-}
-
-.note-card{
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:14px;
-  padding:12px;
-  background:rgba(255,255,255,.03);
-}
-
-.pdp-cta{
-  display:flex;
-  gap:12px;
-  margin-top:20px;
-  flex-wrap:wrap;
-}
-
-.qty{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.qty input{
-  width:70px;
-  text-align:center;
-}
-
-.btn-cart,
-.btn-checkout{
-  padding:12px 18px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.05);
-  color:#fff;
-}
-
-.related{
-  margin-top:40px;
-}
-
-.related-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
-  margin-top:16px;
-}
-
-@media (max-width:900px){
   .pdp{
-    grid-template-columns:1fr;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:38px;
+    align-items:start;
+  }
+
+  .pdp-left,
+  .pdp-right{
+    min-width:0;
+  }
+
+  .pdp-badges{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:12px;
+  }
+
+  .pdp-image{
+    border-radius:26px;
+    overflow:hidden;
+    background:linear-gradient(180deg, #ffffff, #faf8f4);
+    border:1px solid #ece8e1;
+    box-shadow:0 16px 40px rgba(0,0,0,.06);
+  }
+
+  .pdp-image img{
+    width:100%;
+    border-radius:26px;
+    aspect-ratio:3/4;
+    object-fit:cover;
+    transition:transform .45s ease;
+  }
+
+  .pdp-image:hover img{
+    transform:scale(1.03);
+  }
+
+  .image-float{
+    animation:floatImage 4.8s ease-in-out infinite;
+  }
+
+  @keyframes floatImage{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-5px)}
+  }
+
+  .pdp-thumbs{
+    display:flex;
+    gap:10px;
+    margin-top:14px;
+    flex-wrap:wrap;
+  }
+
+  .thumb{
+    border:1px solid #ece8e1;
+    background:#fff;
+    border-radius:14px;
+    padding:4px;
+    box-shadow:0 8px 18px rgba(0,0,0,.04);
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+
+  .thumb:hover{
+    transform:translateY(-2px);
+    border-color:rgba(216,179,106,.45);
+    background:#faf8f4;
+    box-shadow:0 14px 28px rgba(0,0,0,.08);
+  }
+
+  .thumb.active{
+    border-color:rgba(216,179,106,.58);
+    background:#faf6ee;
+  }
+
+  .thumb img{
+    width:72px;
+    height:72px;
+    object-fit:cover;
+    border-radius:10px;
+  }
+
+  .pdp-title{
+    margin:0 0 10px;
+    font-size:34px;
+    line-height:1.2;
+    letter-spacing:.04em;
+    color:#181818;
+  }
+
+  .pdp-price{
+    font-size:30px;
+    font-weight:900;
+    color:#7a2946;
+    line-height:1.2;
+  }
+
+  .pdp-desc{
+    margin-top:12px;
+    line-height:1.9;
+    color:#666;
+    font-size:15px;
   }
 
   .notes-grid{
-    grid-template-columns:1fr;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:12px;
+    margin-top:22px;
   }
-}
+
+  .note-card{
+    border:1px solid #ece8e1;
+    border-radius:16px;
+    padding:14px;
+    background:#fff;
+    box-shadow:0 10px 24px rgba(0,0,0,.04);
+    transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+  }
+
+  .note-card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(216,179,106,.42);
+    box-shadow:0 16px 30px rgba(0,0,0,.07);
+  }
+
+  .note-card strong{
+    display:block;
+    margin-bottom:6px;
+    color:#1c1c1c;
+    font-size:13px;
+    letter-spacing:.04em;
+  }
+
+  .note-card div{
+    color:#666;
+    line-height:1.7;
+    font-size:14px;
+  }
+
+  .pdp-cta{
+    display:flex;
+    gap:12px;
+    margin-top:22px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+
+  .qty{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:6px;
+    border:1px solid #ece8e1;
+    border-radius:16px;
+    background:#fff;
+    box-shadow:0 8px 18px rgba(0,0,0,.04);
+  }
+
+  .qty button{
+    width:40px;
+    height:40px;
+    border:1px solid #ece8e1;
+    background:#fff;
+    border-radius:12px;
+    color:#1b1b1b;
+    font-size:18px;
+    transition:transform .25s ease, background .25s ease, border-color .25s ease;
+  }
+
+  .qty button:hover{
+    background:#faf8f4;
+    border-color:#ddd5c7;
+    transform:translateY(-1px);
+  }
+
+  .qty input{
+    width:78px;
+    min-height:40px;
+    text-align:center;
+    border:1px solid #ece8e1;
+    border-radius:12px;
+    background:#fff;
+    color:#111;
+    font-weight:700;
+    outline:none;
+  }
+
+  .btn-cart,
+  .btn-checkout{
+    min-height:46px;
+    padding:0 18px;
+    border-radius:14px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease;
+  }
+
+  .btn-cart{
+    border:1px solid rgba(216,179,106,.45);
+    background:linear-gradient(180deg, #f5e6c7, #e3c085);
+    color:#2c1d08;
+    box-shadow:0 10px 22px rgba(216,179,106,.16);
+  }
+
+  .btn-checkout{
+    border:1px solid #ece8e1;
+    background:#fff;
+    color:#222;
+    box-shadow:0 8px 18px rgba(0,0,0,.04);
+  }
+
+  .btn-cart:hover,
+  .btn-checkout:hover{
+    transform:translateY(-2px);
+  }
+
+  .btn-cart[disabled]{
+    opacity:.55;
+    cursor:not-allowed;
+  }
+
+  .related{
+    margin-top:46px;
+  }
+
+  .related h2{
+    margin:0 0 16px;
+    color:#181818;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    font-size:24px;
+  }
+
+  .related-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+  }
+
+  .related-card{
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid #ece8e1;
+    background:#fff;
+    box-shadow:0 10px 24px rgba(0,0,0,.05);
+    transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+  }
+
+  .related-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(216,179,106,.45);
+    box-shadow:0 18px 36px rgba(0,0,0,.08);
+  }
+
+  .related-image-link{
+    display:block;
+    overflow:hidden;
+    background:#faf8f4;
+  }
+
+  .related-card img{
+    width:100%;
+    aspect-ratio:3/4;
+    object-fit:cover;
+    transition:transform .35s ease;
+  }
+
+  .related-card:hover img{
+    transform:scale(1.04);
+  }
+
+  .related-card .card-body{
+    padding:14px;
+  }
+
+  .related-card h3{
+    margin:0 0 8px;
+    font-size:16px;
+    line-height:1.4;
+  }
+
+  .related-card h3 a{
+    color:#181818;
+  }
+
+  .related-card .muted{
+    color:#666;
+    font-size:13px;
+    line-height:1.7;
+  }
+
+  /* reveal support */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .8s ease, transform .8s ease;
+    will-change:opacity, transform;
+  }
+
+  .reveal.is-visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .reveal-left{
+    opacity:0;
+    transform:translateX(-30px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+
+  .reveal-left.is-visible{
+    opacity:1;
+    transform:translateX(0);
+  }
+
+  .reveal-right{
+    opacity:0;
+    transform:translateX(30px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+
+  .reveal-right.is-visible{
+    opacity:1;
+    transform:translateX(0);
+  }
+
+  .reveal-zoom{
+    opacity:0;
+    transform:scale(.96);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+
+  .reveal-zoom.is-visible{
+    opacity:1;
+    transform:scale(1);
+  }
+
+  .delay-1{transition-delay:.08s}
+  .delay-2{transition-delay:.16s}
+  .delay-3{transition-delay:.24s}
+  .delay-4{transition-delay:.32s}
+  .delay-5{transition-delay:.40s}
+
+  @media (max-width:900px){
+    .pdp{
+      grid-template-columns:1fr;
+      gap:26px;
+    }
+
+    .notes-grid{
+      grid-template-columns:1fr;
+    }
+  }
+
+  @media (max-width:600px){
+    .pdp-wrap{
+      padding:18px 0 50px;
+    }
+
+    .pdp-title{
+      font-size:24px;
+    }
+
+    .pdp-price{
+      font-size:24px;
+    }
+
+    .pdp-desc{
+      font-size:13px;
+      line-height:1.8;
+    }
+
+    .thumb img{
+      width:64px;
+      height:64px;
+    }
+
+    .pdp-cta{
+      flex-direction:column;
+      align-items:stretch;
+    }
+
+    .qty{
+      width:100%;
+      justify-content:space-between;
+    }
+
+    .qty input{
+      flex:1;
+      width:auto;
+    }
+
+    .btn-cart,
+    .btn-checkout{
+      width:100%;
+      min-height:42px;
+      font-size:10px;
+    }
+
+    .related{
+      margin-top:38px;
+    }
+
+    .related h2{
+      font-size:20px;
+      letter-spacing:.06em;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .image-float,
+    .thumb,
+    .related-card,
+    .note-card,
+    .btn-cart,
+    .btn-checkout{
+      animation:none !important;
+      transition:none !important;
+      transform:none !important;
+    }
+  }
 </style>
