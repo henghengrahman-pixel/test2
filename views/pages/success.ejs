@@ -1,19 +1,39 @@
-
 <div class="success-wrap">
   <div class="success-card">
     <div class="success-inner">
-      <div class="success-top"><div class="badge-ok">✓</div><h1 class="success-title"><%= messageTitle %></h1></div>
-      <p class="success-sub"><%= messageText %></p>
-      <% if (orderCode) { %>
-      <div class="code-box">
-        <div class="code-left"><div class="code-label">Kode Order</div><div class="code" id="orderCode"><%= orderCode %></div></div>
-        <button class="btn btn-ghost" type="button" onclick="navigator.clipboard.writeText('<%= orderCode %>')">📋 COPY</button>
+      <div class="success-top">
+        <div class="badge-ok">✓</div>
+        <h1 class="success-title"><%= messageTitle %></h1>
       </div>
+
+      <p class="success-sub"><%= messageText %></p>
+
+      <% if (orderCode) { %>
+        <div class="code-box">
+          <div class="code-left">
+            <div class="code-label">Kode Order</div>
+            <div class="code" id="orderCode"><%= orderCode %></div>
+          </div>
+
+          <button
+            class="btn btn-ghost"
+            type="button"
+            onclick="navigator.clipboard.writeText('<%= orderCode %>')"
+          >
+            📋 COPY
+          </button>
+        </div>
       <% } %>
-      <div class="note">Admin sudah menerima order kamu dan akan menghubungi kontak yang kamu berikan.</div>
+
+      <div class="note">
+        Admin sudah menerima order kamu dan akan menghubungi kontak yang kamu berikan.
+      </div>
+
       <div class="btn-row">
         <a class="btn btn-primary" href="/">🏠 Kembali ke Home</a>
-        <% if (!showHomeOnly) { %><a class="btn btn-ghost" href="/checkout">🧾 Lihat Checkout</a><% } %>
+        <% if (!showHomeOnly) { %>
+          <a class="btn btn-ghost" href="/checkout">🧾 Lihat Checkout</a>
+        <% } %>
       </div>
     </div>
   </div>
