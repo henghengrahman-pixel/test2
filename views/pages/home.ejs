@@ -1,39 +1,300 @@
-
 <section class="hero">
   <h1>MAWAR PARFUME</h1>
   <p>Extrait de parfum halal, wangi mewah, dan tahan lama.</p>
 </section>
-<main class="wrap" style="padding:28px 18px 54px;">
-  <div style="display:flex;justify-content:space-between;gap:12px;align-items:end;flex-wrap:wrap;margin-bottom:16px;">
+
+<main class="wrap home-products-wrap">
+  <div class="collection-head">
     <div>
-      <div class="muted" style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;">Collection</div>
-      <h2 style="margin:6px 0 0;font-size:18px;letter-spacing:.18em;text-transform:uppercase;">Signature Fragrance</h2>
+      <div class="collection-label">Collection</div>
+      <h2 class="collection-title">Signature Fragrance</h2>
     </div>
-    <div class="muted" id="resultInfo" style="font-size:12px;"><%= products.length %> produk aktif</div>
+    <div class="muted result-info" id="resultInfo"><%= products.length %> produk aktif</div>
   </div>
-  <section class="products-grid" id="productsGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;">
-    <% products.forEach(function(product){ %>
-      <article class="product-card" data-name="<%= product.name %>" data-category="<%= product.category %>" data-badge="<%= product.badge %>" style="border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;background:rgba(255,255,255,.04);box-shadow:var(--lux-shadow2)">
-        <a href="/product/<%= product.slug %>" style="display:block;">
-          <img src="<%= product.image %>" alt="<%= product.name %>" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;">
-        </a>
-        <div style="padding:16px;">
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
-            <% if (product.badge) { %><span class="pill" style="padding:5px 10px;border-radius:999px;border:1px solid rgba(231,192,107,.35);color:#fff4d6;"><%= product.badge %></span><% } %>
-            <% if (product.topSeller) { %><span class="pill" style="padding:5px 10px;border-radius:999px;border:1px solid rgba(231,192,107,.35);color:#fff4d6;">TOP SELLER</span><% } %>
-            <% if (product.soldOut) { %><span class="pill" style="padding:5px 10px;border-radius:999px;border:1px solid rgba(255,120,120,.35);color:#ffd0d0;">SOLD OUT</span><% } %>
-          </div>
-          <h3 style="margin:0 0 8px;font-size:18px;letter-spacing:.08em;"><a href="/product/<%= product.slug %>"><%= product.name %></a></h3>
-          <div class="muted" style="font-size:14px;line-height:1.6;"><%= product.desc %></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px;">
-            <strong style="color:#fff4d6;font-size:18px;">Rp <%= Number(product.price).toLocaleString('id-ID') %></strong>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;">
-              <a class="checkout-link" href="/product/<%= product.slug %>">Detail</a>
-              <button class="iconbtn add-cart" type="button" data-id="<%= product.id %>" data-name="<%= product.name %>" data-price="<%= product.price %>" style="width:auto;padding:0 14px;" <%= product.soldOut ? 'disabled' : '' %>>Add</button>
+
+  <% if (products && products.length) { %>
+    <section class="products-grid products-grid-home" id="productsGrid">
+      <% products.forEach(function(product){ %>
+        <article
+          class="product-card product-card-home"
+          data-name="<%= product.name %>"
+          data-category="<%= product.category %>"
+          data-badge="<%= product.badge %>"
+        >
+          <a href="/product/<%= product.slug %>" class="product-image-link" aria-label="<%= product.name %>">
+            <div class="product-image-wrap">
+              <img
+                src="<%= product.image %>"
+                alt="<%= product.name %>"
+                class="product-image"
+                loading="lazy"
+              >
+            </div>
+          </a>
+
+          <div class="product-body">
+            <div class="product-badges">
+              <% if (product.badge) { %>
+                <span class="product-pill"><%= product.badge %></span>
+              <% } %>
+
+              <% if (product.topSeller) { %>
+                <span class="product-pill">TOP SELLER</span>
+              <% } %>
+
+              <% if (product.soldOut) { %>
+                <span class="product-pill soldout-pill">SOLD OUT</span>
+              <% } %>
+
+              <% if (product.category) { %>
+                <span class="product-pill category-pill"><%= product.category %></span>
+              <% } %>
+            </div>
+
+            <h3 class="product-name">
+              <a href="/product/<%= product.slug %>"><%= product.name %></a>
+            </h3>
+
+            <div class="product-desc"><%= product.desc %></div>
+
+            <div class="product-footer">
+              <strong class="product-price">
+                Rp <%= Number(product.price).toLocaleString('id-ID') %>
+              </strong>
+
+              <div class="product-actions">
+                <a class="checkout-link detail-btn" href="/product/<%= product.slug %>">Detail</a>
+
+                <button
+                  class="iconbtn add-cart add-btn"
+                  type="button"
+                  data-id="<%= product.id %>"
+                  data-name="<%= product.name %>"
+                  data-price="<%= product.price %>"
+                  data-image="<%= product.image %>"
+                  <%= product.soldOut ? 'disabled' : '' %>
+                >
+                  <%= product.soldOut ? 'Sold Out' : 'Add' %>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </article>
-    <% }) %>
-  </section>
+        </article>
+      <% }) %>
+    </section>
+  <% } else { %>
+    <section class="empty-products">
+      <div class="empty-products-card">
+        <h3>Produk belum tersedia</h3>
+        <p class="muted">Saat ini belum ada produk aktif yang ditampilkan.</p>
+      </div>
+    </section>
+  <% } %>
 </main>
+
+<style>
+  .home-products-wrap{
+    padding:28px 18px 54px;
+  }
+
+  .collection-head{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    align-items:end;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+  }
+
+  .collection-label{
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.68);
+  }
+
+  .collection-title{
+    margin:6px 0 0;
+    font-size:18px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:#fff4d6;
+  }
+
+  .result-info{
+    font-size:12px;
+  }
+
+  .products-grid-home{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:18px;
+  }
+
+  @media (max-width: 1200px){
+    .products-grid-home{
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 860px){
+    .products-grid-home{
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 520px){
+    .products-grid-home{
+      grid-template-columns:1fr;
+      gap:16px;
+    }
+  }
+
+  .product-card-home{
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    overflow:hidden;
+    background:rgba(255,255,255,.04);
+    box-shadow:var(--lux-shadow2);
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    display:flex;
+    flex-direction:column;
+    min-height:100%;
+  }
+
+  .product-card-home:hover{
+    transform:translateY(-4px);
+    box-shadow:0 18px 34px rgba(0,0,0,.22);
+    border-color:rgba(231,192,107,.22);
+  }
+
+  .product-image-link{
+    display:block;
+  }
+
+  .product-image-wrap{
+    position:relative;
+    overflow:hidden;
+    background:rgba(255,255,255,.03);
+  }
+
+  .product-image{
+    width:100%;
+    aspect-ratio:3/4;
+    object-fit:cover;
+    display:block;
+    transition:transform .35s ease;
+  }
+
+  .product-card-home:hover .product-image{
+    transform:scale(1.04);
+  }
+
+  .product-body{
+    padding:16px;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+  }
+
+  .product-badges{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:10px;
+  }
+
+  .product-pill{
+    padding:5px 10px;
+    border-radius:999px;
+    border:1px solid rgba(231,192,107,.35);
+    color:#fff4d6;
+    font-size:11px;
+    line-height:1;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    background:rgba(255,255,255,.03);
+  }
+
+  .soldout-pill{
+    border-color:rgba(255,120,120,.35);
+    color:#ffd0d0;
+  }
+
+  .category-pill{
+    border-color:rgba(120,180,255,.20);
+    color:#dbe9ff;
+  }
+
+  .product-name{
+    margin:0 0 8px;
+    font-size:18px;
+    line-height:1.35;
+    letter-spacing:.06em;
+  }
+
+  .product-name a{
+    color:#fff;
+    text-decoration:none;
+  }
+
+  .product-name a:hover{
+    color:#fff4d6;
+  }
+
+  .product-desc{
+    font-size:14px;
+    line-height:1.7;
+    color:rgba(255,255,255,.72);
+    min-height:48px;
+  }
+
+  .product-footer{
+    margin-top:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding-top:16px;
+  }
+
+  .product-price{
+    color:#fff4d6;
+    font-size:18px;
+    line-height:1.2;
+  }
+
+  .product-actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
+  .detail-btn{
+    text-decoration:none;
+  }
+
+  .add-btn{
+    width:auto;
+    padding:0 14px;
+    min-width:78px;
+  }
+
+  .add-btn[disabled]{
+    opacity:.55;
+    cursor:not-allowed;
+  }
+
+  .empty-products{
+    padding:10px 0 0;
+  }
+
+  .empty-products-card{
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    background:rgba(255,255,255,.04);
+    padding:24px;
+    text-align:center;
+  }
+</style>
