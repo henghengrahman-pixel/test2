@@ -85,8 +85,8 @@
     position:sticky;
     top:0;
     z-index:1003;
-    background:rgba(12,12,16,.92);
-    border-bottom:1px solid rgba(255,255,255,.05);
+    background:rgba(255,255,255,.94);
+    border-bottom:1px solid #ece8e1;
     backdrop-filter:blur(12px);
     -webkit-backdrop-filter:blur(12px);
   }
@@ -101,7 +101,7 @@
   }
 
   .top-strip-clean .strip-left{
-    color:rgba(255,255,255,.60);
+    color:#7d7d7d;
     font-size:11px;
     letter-spacing:.14em;
     text-transform:uppercase;
@@ -120,19 +120,21 @@
     min-height:32px;
     padding:0 12px;
     border-radius:999px;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(255,255,255,.03);
-    color:#f5f1e8;
+    border:1px solid #ece8e1;
+    background:#fff;
+    color:#202020;
     cursor:pointer;
     font-size:11px;
+    font-weight:700;
     letter-spacing:.08em;
     text-transform:uppercase;
+    box-shadow:0 6px 18px rgba(0,0,0,.04);
     transition:.2s ease;
   }
 
   .top-strip-clean .cartlink:hover{
-    background:rgba(255,255,255,.05);
-    border-color:rgba(255,255,255,.14);
+    border-color:#ddd5c7;
+    background:#faf8f4;
   }
 
   .top-strip-clean .checkout-link{
@@ -142,19 +144,19 @@
     min-height:32px;
     padding:0 14px;
     border-radius:999px;
-    border:1px solid rgba(231,192,107,.26);
-    background:transparent;
-    color:#ffe2a3;
+    border:1px solid rgba(216,179,106,.42);
+    background:linear-gradient(180deg,#f5e7ca,#e7c98f);
+    color:#31210b;
     font-size:11px;
-    font-weight:700;
+    font-weight:800;
     letter-spacing:.08em;
     text-transform:uppercase;
+    box-shadow:0 8px 18px rgba(216,179,106,.16);
     transition:.2s ease;
   }
 
   .top-strip-clean .checkout-link:hover{
-    background:rgba(255,255,255,.04);
-    border-color:rgba(231,192,107,.40);
+    transform:translateY(-1px);
   }
 
   .header-clean{
@@ -162,9 +164,9 @@
     top:40px;
     z-index:1002;
     background:
-      radial-gradient(700px 180px at 50% 0%, rgba(231,192,107,.05), transparent 68%),
-      rgba(10,10,14,.94);
-    border-bottom:1px solid rgba(255,255,255,.05);
+      radial-gradient(700px 180px at 50% 0%, rgba(216,179,106,.10), transparent 68%),
+      rgba(255,255,255,.92);
+    border-bottom:1px solid #ece8e1;
     backdrop-filter:blur(14px);
     -webkit-backdrop-filter:blur(14px);
   }
@@ -183,13 +185,13 @@
   }
 
   .brand-link-clean{
-    color:#fff;
+    color:#1a1a1a;
     text-decoration:none;
   }
 
   .brand-text-clean{
     display:inline-block;
-    color:#fff4d6;
+    color:#1a1a1a;
     font-size:24px;
     font-weight:900;
     letter-spacing:.28em;
@@ -201,22 +203,23 @@
     width:40px;
     height:40px;
     border-radius:12px;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(255,255,255,.03);
-    color:#fff4d6;
+    border:1px solid #ece8e1;
+    background:#fff;
+    color:#1c1c1c;
     display:inline-flex;
     align-items:center;
     justify-content:center;
+    box-shadow:0 6px 18px rgba(0,0,0,.04);
     transition:.2s ease;
   }
 
   .iconbtn-clean:hover{
-    background:rgba(255,255,255,.06);
-    border-color:rgba(231,192,107,.18);
+    background:#faf8f4;
+    border-color:#ddd5c7;
   }
 
   .nav-clean{
-    border-top:1px solid rgba(255,255,255,.05);
+    border-top:1px solid #f1ede6;
   }
 
   .nav-clean ul{
@@ -234,22 +237,23 @@
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    min-height:34px;
+    min-height:36px;
     padding:0 14px;
     border-radius:999px;
-    color:rgba(255,255,255,.82);
+    color:#333;
     font-size:11px;
+    font-weight:700;
     letter-spacing:.10em;
     text-transform:uppercase;
-    border:1px solid rgba(255,255,255,.04);
-    background:rgba(255,255,255,.03);
+    border:1px solid #ece8e1;
+    background:#fff;
     transition:.2s ease;
   }
 
   .nav-clean a:hover{
-    color:#fff4d6;
-    border-color:rgba(231,192,107,.16);
-    background:rgba(255,255,255,.05);
+    color:#111;
+    border-color:rgba(216,179,106,.48);
+    background:#faf6ee;
   }
 
   .search-overlay-clean{
@@ -262,21 +266,21 @@
     padding-top:90px;
     padding-left:16px;
     padding-right:16px;
-    background:rgba(0,0,0,.6);
-    backdrop-filter:blur(8px);
+    background:rgba(255,255,255,.68);
+    backdrop-filter:blur(10px);
   }
 
   .searchbar-clean{
     width:min(720px,100%);
     padding:22px;
-    border-radius:20px;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(12,12,16,.96);
-    box-shadow:0 30px 80px rgba(0,0,0,.5);
+    border-radius:22px;
+    border:1px solid #ece8e1;
+    background:#fff;
+    box-shadow:0 24px 60px rgba(0,0,0,.08);
   }
 
   .searchhint{
-    color:rgba(255,255,255,.58);
+    color:#7a7a7a;
     font-size:11px;
     letter-spacing:.14em;
     text-transform:uppercase;
@@ -290,8 +294,8 @@
     min-height:58px;
     padding:0 16px;
     border-radius:16px;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(255,255,255,.03);
+    border:1px solid #ece8e1;
+    background:#faf8f4;
   }
 
   .searchrow-clean input{
@@ -299,12 +303,12 @@
     border:none;
     outline:none;
     background:transparent;
-    color:#fff;
+    color:#111;
     font-size:15px;
   }
 
   .searchrow-clean input::placeholder{
-    color:rgba(255,255,255,.4);
+    color:#9a9a9a;
   }
 
   .closebtn-clean{
@@ -312,16 +316,17 @@
     min-height:38px;
     padding:0 14px;
     border-radius:12px;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(255,255,255,.03);
-    color:#fff4d6;
+    border:1px solid #ece8e1;
+    background:#fff;
+    color:#333;
     cursor:pointer;
   }
 
   .cartDrawerClean .cart-backdrop{
     position:absolute;
     inset:0;
-    background:rgba(0,0,0,.55);
+    background:rgba(255,255,255,.56);
+    backdrop-filter:blur(6px);
   }
 
   .cartDrawerClean .cart-panel{
@@ -332,8 +337,9 @@
     height:100%;
     padding:20px;
     overflow:auto;
-    background:rgba(14,14,18,.98);
-    border-left:1px solid rgba(255,255,255,.08);
+    background:#fff;
+    border-left:1px solid #ece8e1;
+    box-shadow:-20px 0 50px rgba(0,0,0,.08);
   }
 
   .cart-panel-head{
@@ -346,10 +352,14 @@
 
   .cart-panel-head h3{
     margin:0;
-    color:#fff4d6;
+    color:#1b1b1b;
     font-size:22px;
     letter-spacing:.08em;
     text-transform:uppercase;
+  }
+
+  .cart-items-clean{
+    color:#666;
   }
 
   .cart-panel-actions{
