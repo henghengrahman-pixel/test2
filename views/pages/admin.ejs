@@ -1,292 +1,313 @@
-<div class="admin-layout">
-  <aside class="admin-sidebar">
-    <div class="admin-logo">MAWAR ADMIN</div>
+<% if (!isLoggedIn) { %>
+  <div class="admin-login-shell">
+    <div class="admin-login-card">
+      <div class="admin-login-brand">MAWAR ADMIN</div>
+      <h1>Admin Login</h1>
+      <p>Masuk untuk mengelola produk, order, dan pengaturan website.</p>
 
-    <nav class="admin-menu">
-      <a href="/admin" class="<%= currentTab === 'dashboard' ? 'active' : '' %>">Dashboard</a>
-      <a href="/admin/products" class="<%= currentTab === 'products' ? 'active' : '' %>">Products</a>
-      <a href="/admin/orders" class="<%= currentTab === 'orders' ? 'active' : '' %>">Orders</a>
-      <a href="/admin/settings" class="<%= currentTab === 'settings' ? 'active' : '' %>">Settings</a>
-      <a href="/" target="_blank" rel="noopener noreferrer">View Store</a>
+      <% if (loginError) { %>
+        <div class="admin-login-error"><%= loginError %></div>
+      <% } %>
 
-      <form method="post" action="/admin/logout">
+      <form method="post" action="/admin/login" class="admin-login-form">
+        <label for="id">Admin ID</label>
+        <input id="id" name="id" type="text" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required>
+
+        <button type="submit">Login</button>
+      </form>
+
+      <a href="/" class="admin-login-back">← Kembali ke website</a>
+    </div>
+  </div>
+<% } else { %>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-logo">MAWAR ADMIN</div>
+
+      <nav class="admin-menu">
+        <a href="/admin" class="<%= currentTab === 'dashboard' ? 'active' : '' %>">Dashboard</a>
+        <a href="/admin/products" class="<%= currentTab === 'products' ? 'active' : '' %>">Products</a>
+        <a href="/admin/orders" class="<%= currentTab === 'orders' ? 'active' : '' %>">Orders</a>
+        <a href="/admin/settings" class="<%= currentTab === 'settings' ? 'active' : '' %>">Settings</a>
+        <a href="/" target="_blank" rel="noopener noreferrer">View Store</a>
+      </nav>
+
+      <form method="post" action="/admin/logout" class="admin-logout-form">
         <button type="submit" class="logout-btn">Logout</button>
       </form>
-    </nav>
-  </aside>
+    </aside>
 
-  <main class="admin-content">
-    <% if (currentTab === 'dashboard') { %>
-      <h1>Dashboard</h1>
+    <main class="admin-content">
+      <% if (currentTab === 'dashboard') { %>
+        <h1>Dashboard</h1>
 
-      <div class="admin-stats">
-        <div class="stat-card">
-          <div>Total Products</div>
-          <strong><%= stats.totalProducts %></strong>
+        <div class="admin-stats">
+          <div class="stat-card">
+            <div>Total Products</div>
+            <strong><%= stats.totalProducts %></strong>
+          </div>
+
+          <div class="stat-card">
+            <div>Total Orders</div>
+            <strong><%= stats.totalOrders %></strong>
+          </div>
+
+          <div class="stat-card">
+            <div>Total Revenue</div>
+            <strong>Rp <%= Number(stats.totalRevenue || 0).toLocaleString('id-ID') %></strong>
+          </div>
         </div>
 
-        <div class="stat-card">
-          <div>Total Orders</div>
-          <strong><%= stats.totalOrders %></strong>
+        <div class="admin-table">
+          <h2>Recent Orders</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Order Code</th>
+                <th>Customer</th>
+                <th>Total</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (stats.recentOrders && stats.recentOrders.length) { %>
+                <% stats.recentOrders.forEach(function(order){ %>
+                  <tr>
+                    <td><%= order.orderCode %></td>
+                    <td><%= order.customer?.name || '-' %></td>
+                    <td>Rp <%= Number(order.totals?.grandTotal || 0).toLocaleString('id-ID') %></td>
+                    <td><%= order.createdAt ? new Date(order.createdAt).toLocaleString('id-ID') : '-' %></td>
+                  </tr>
+                <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="4">Belum ada order terbaru.</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
         </div>
+      <% } %>
 
-        <div class="stat-card">
-          <div>Total Revenue</div>
-          <strong>Rp <%= Number(stats.totalRevenue || 0).toLocaleString('id-ID') %></strong>
+      <% if (currentTab === 'products') { %>
+        <h1>Products</h1>
+
+        <form method="post" action="/admin/products/save" class="admin-form">
+          <input type="hidden" name="id" value="<%= editingProduct?.id || '' %>">
+
+          <label>Nama Produk</label>
+          <input name="name" value="<%= editingProduct?.name || '' %>" required>
+
+          <label>Slug</label>
+          <input name="slug" value="<%= editingProduct?.slug || '' %>">
+
+          <label>Harga</label>
+          <input name="price" value="<%= editingProduct?.price || '' %>" required>
+
+          <label>Image</label>
+          <input name="image" value="<%= editingProduct?.image || '' %>">
+
+          <label>Deskripsi Singkat</label>
+          <input name="desc" value="<%= editingProduct?.desc || '' %>">
+
+          <label>Deskripsi Lengkap</label>
+          <textarea name="description"><%= editingProduct?.description || '' %></textarea>
+
+          <label>Kategori</label>
+          <select name="category">
+            <% ['MEN', 'WOMEN', 'UNISEX', 'MIX'].forEach(function(cat){ %>
+              <option value="<%= cat %>" <%= editingProduct?.category === cat ? 'selected' : '' %>><%= cat %></option>
+            <% }) %>
+          </select>
+
+          <label>Badge</label>
+          <input name="badge" value="<%= editingProduct?.badge || '' %>">
+
+          <label>Top Notes</label>
+          <input name="topNotes" value="<%= editingProduct?.topNotes || '' %>">
+
+          <label>Mid Notes</label>
+          <input name="midNotes" value="<%= editingProduct?.midNotes || '' %>">
+
+          <label>Base Notes</label>
+          <input name="baseNotes" value="<%= editingProduct?.baseNotes || '' %>">
+
+          <label>Gallery (pisahkan dengan baris baru atau koma)</label>
+          <textarea name="gallery"><%= editingProduct?.gallery?.join('\n') || '' %></textarea>
+
+          <label>SEO Title</label>
+          <input name="seoTitle" value="<%= editingProduct?.seoTitle || '' %>">
+
+          <label>SEO Description</label>
+          <textarea name="seoDescription"><%= editingProduct?.seoDescription || '' %></textarea>
+
+          <label>Canonical</label>
+          <input name="canonical" value="<%= editingProduct?.canonical || '' %>">
+
+          <label>OG Image</label>
+          <input name="ogImage" value="<%= editingProduct?.ogImage || '' %>">
+
+          <label class="admin-check">
+            <input type="checkbox" name="active" <%= editingProduct ? (editingProduct.active ? 'checked' : '') : 'checked' %>>
+            Aktif
+          </label>
+
+          <label class="admin-check">
+            <input type="checkbox" name="soldOut" <%= editingProduct?.soldOut ? 'checked' : '' %>>
+            Sold Out
+          </label>
+
+          <label class="admin-check">
+            <input type="checkbox" name="topSeller" <%= editingProduct?.topSeller ? 'checked' : '' %>>
+            Top Seller
+          </label>
+
+          <button type="submit"><%= editingProduct ? 'Update Produk' : 'Simpan Produk' %></button>
+        </form>
+
+        <div class="admin-table">
+          <h2>Daftar Products</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Produk</th>
+                <th>Kategori</th>
+                <th>Harga</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (products && products.length) { %>
+                <% products.forEach(function(product){ %>
+                  <tr>
+                    <td>
+                      <strong><%= product.name %></strong><br>
+                      <small><%= product.slug %></small>
+                    </td>
+                    <td><%= product.category || '-' %></td>
+                    <td>Rp <%= Number(product.price || 0).toLocaleString('id-ID') %></td>
+                    <td><%= product.active ? 'Aktif' : 'Nonaktif' %> / <%= product.soldOut ? 'Sold Out' : 'Ready' %></td>
+                    <td>
+                      <a href="/admin/products?edit=<%= product.id %>">Edit</a>
+                      <form method="post" action="/admin/products/<%= product.id %>/delete" style="display:inline;" onsubmit="return confirm('Hapus produk ini?')">
+                        <button type="submit">Hapus</button>
+                      </form>
+                    </td>
+                  </tr>
+                <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="5">Belum ada produk.</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
         </div>
-      </div>
+      <% } %>
 
-      <div class="admin-table">
-        <h2>Recent Orders</h2>
+      <% if (currentTab === 'orders') { %>
+        <h1>Orders</h1>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Order Code</th>
-              <th>Customer</th>
-              <th>Total</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% if (stats.recentOrders && stats.recentOrders.length) { %>
-              <% stats.recentOrders.forEach(function(order){ %>
-                <tr>
-                  <td><%= order.orderCode %></td>
-                  <td><%= order.customer?.name || '-' %></td>
-                  <td>Rp <%= Number(order.totals?.grandTotal || 0).toLocaleString('id-ID') %></td>
-                  <td><%= order.createdAt ? new Date(order.createdAt).toLocaleString('id-ID') : '-' %></td>
-                </tr>
-              <% }) %>
-            <% } else { %>
+        <div class="admin-table">
+          <h2>Daftar Orders</h2>
+
+          <table>
+            <thead>
               <tr>
-                <td colspan="4">Belum ada order terbaru.</td>
+                <th>Kode</th>
+                <th>Customer</th>
+                <th>Item</th>
+                <th>Total</th>
+                <th>Tanggal</th>
+                <th>Aksi</th>
               </tr>
-            <% } %>
-          </tbody>
-        </table>
-      </div>
-    <% } %>
-
-    <% if (currentTab === 'products') { %>
-      <h1>Products</h1>
-
-      <form method="post" action="/admin/products/save" class="admin-form">
-        <input type="hidden" name="id" value="<%= editingProduct?.id || '' %>">
-
-        <label>Nama Produk</label>
-        <input name="name" value="<%= editingProduct?.name || '' %>" required>
-
-        <label>Slug</label>
-        <input name="slug" value="<%= editingProduct?.slug || '' %>">
-
-        <label>Harga</label>
-        <input name="price" value="<%= editingProduct?.price || '' %>" required>
-
-        <label>Image</label>
-        <input name="image" value="<%= editingProduct?.image || '' %>">
-
-        <label>Deskripsi Singkat</label>
-        <input name="desc" value="<%= editingProduct?.desc || '' %>">
-
-        <label>Deskripsi Lengkap</label>
-        <textarea name="description"><%= editingProduct?.description || '' %></textarea>
-
-        <label>Kategori</label>
-        <select name="category">
-          <% ['MEN', 'WOMEN', 'UNISEX', 'MIX'].forEach(function(cat){ %>
-            <option value="<%= cat %>" <%= editingProduct?.category === cat ? 'selected' : '' %>>
-              <%= cat %>
-            </option>
-          <% }) %>
-        </select>
-
-        <label>Badge</label>
-        <input name="badge" value="<%= editingProduct?.badge || '' %>">
-
-        <label>Top Notes</label>
-        <input name="topNotes" value="<%= editingProduct?.topNotes || '' %>">
-
-        <label>Mid Notes</label>
-        <input name="midNotes" value="<%= editingProduct?.midNotes || '' %>">
-
-        <label>Base Notes</label>
-        <input name="baseNotes" value="<%= editingProduct?.baseNotes || '' %>">
-
-        <label>Gallery (pisahkan dengan baris baru atau koma)</label>
-        <textarea name="gallery"><%= editingProduct?.gallery?.join('\n') || '' %></textarea>
-
-        <label>SEO Title</label>
-        <input name="seoTitle" value="<%= editingProduct?.seoTitle || '' %>">
-
-        <label>SEO Description</label>
-        <textarea name="seoDescription"><%= editingProduct?.seoDescription || '' %></textarea>
-
-        <label>Canonical</label>
-        <input name="canonical" value="<%= editingProduct?.canonical || '' %>">
-
-        <label>OG Image</label>
-        <input name="ogImage" value="<%= editingProduct?.ogImage || '' %>">
-
-        <label style="display:flex;gap:8px;align-items:center;">
-          <input type="checkbox" name="active" <%= editingProduct ? (editingProduct.active ? 'checked' : '') : 'checked' %>>
-          Aktif
-        </label>
-
-        <label style="display:flex;gap:8px;align-items:center;">
-          <input type="checkbox" name="soldOut" <%= editingProduct?.soldOut ? 'checked' : '' %>>
-          Sold Out
-        </label>
-
-        <label style="display:flex;gap:8px;align-items:center;">
-          <input type="checkbox" name="topSeller" <%= editingProduct?.topSeller ? 'checked' : '' %>>
-          Top Seller
-        </label>
-
-        <button type="submit"><%= editingProduct ? 'Update Produk' : 'Simpan Produk' %></button>
-      </form>
-
-      <div class="admin-table">
-        <h2>Daftar Products</h2>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Produk</th>
-              <th>Kategori</th>
-              <th>Harga</th>
-              <th>Status</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% if (products && products.length) { %>
-              <% products.forEach(function(product){ %>
+            </thead>
+            <tbody>
+              <% if (orders && orders.length) { %>
+                <% orders.forEach(function(order){ %>
+                  <tr>
+                    <td><%= order.orderCode %></td>
+                    <td>
+                      <strong><%= order.customer?.name || '-' %></strong><br>
+                      <small><%= order.customer?.phone || '-' %></small>
+                    </td>
+                    <td>
+                      <% if (order.items && order.items.length) { %>
+                        <% order.items.forEach(function(item){ %>
+                          <div><%= item.name %> x<%= item.qty %></div>
+                        <% }) %>
+                      <% } else { %>
+                        -
+                      <% } %>
+                    </td>
+                    <td>Rp <%= Number(order.totals?.grandTotal || 0).toLocaleString('id-ID') %></td>
+                    <td><%= order.createdAt ? new Date(order.createdAt).toLocaleString('id-ID') : '-' %></td>
+                    <td>
+                      <form method="post" action="/admin/orders/<%= order.orderCode %>/delete" onsubmit="return confirm('Hapus order ini?')">
+                        <button type="submit">Hapus</button>
+                      </form>
+                    </td>
+                  </tr>
+                <% }) %>
+              <% } else { %>
                 <tr>
-                  <td>
-                    <strong><%= product.name %></strong><br>
-                    <small><%= product.slug %></small>
-                  </td>
-                  <td><%= product.category || '-' %></td>
-                  <td>Rp <%= Number(product.price || 0).toLocaleString('id-ID') %></td>
-                  <td>
-                    <%= product.active ? 'Aktif' : 'Nonaktif' %> /
-                    <%= product.soldOut ? 'Sold Out' : 'Ready' %>
-                  </td>
-                  <td>
-                    <a href="/admin/products?edit=<%= product.id %>">Edit</a>
-                    <form method="post" action="/admin/products/<%= product.id %>/delete" style="display:inline;" onsubmit="return confirm('Hapus produk ini?')">
-                      <button type="submit">Hapus</button>
-                    </form>
-                  </td>
+                  <td colspan="6">Belum ada order.</td>
                 </tr>
-              <% }) %>
-            <% } else { %>
-              <tr>
-                <td colspan="5">Belum ada produk.</td>
-              </tr>
-            <% } %>
-          </tbody>
-        </table>
-      </div>
-    <% } %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
 
-    <% if (currentTab === 'orders') { %>
-      <h1>Orders</h1>
+      <% if (currentTab === 'settings') { %>
+        <h1>Settings</h1>
 
-      <div class="admin-table">
-        <h2>Daftar Orders</h2>
+        <form method="post" action="/admin/settings/save" class="admin-form">
+          <label>App Name</label>
+          <input name="appName" value="<%= settings.appName || '' %>">
 
-        <table>
-          <thead>
-            <tr>
-              <th>Kode</th>
-              <th>Customer</th>
-              <th>Item</th>
-              <th>Total</th>
-              <th>Tanggal</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% if (orders && orders.length) { %>
-              <% orders.forEach(function(order){ %>
-                <tr>
-                  <td><%= order.orderCode %></td>
-                  <td>
-                    <strong><%= order.customer?.name || '-' %></strong><br>
-                    <small><%= order.customer?.phone || '-' %></small>
-                  </td>
-                  <td>
-                    <% if (order.items && order.items.length) { %>
-                      <% order.items.forEach(function(item){ %>
-                        <div><%= item.name %> x<%= item.qty %></div>
-                      <% }) %>
-                    <% } else { %>
-                      -
-                    <% } %>
-                  </td>
-                  <td>Rp <%= Number(order.totals?.grandTotal || 0).toLocaleString('id-ID') %></td>
-                  <td><%= order.createdAt ? new Date(order.createdAt).toLocaleString('id-ID') : '-' %></td>
-                  <td>
-                    <form method="post" action="/admin/orders/<%= order.orderCode %>/delete" onsubmit="return confirm('Hapus order ini?')">
-                      <button type="submit">Hapus</button>
-                    </form>
-                  </td>
-                </tr>
-              <% }) %>
-            <% } else { %>
-              <tr>
-                <td colspan="6">Belum ada order.</td>
-              </tr>
-            <% } %>
-          </tbody>
-        </table>
-      </div>
-    <% } %>
+          <label>Footer Text</label>
+          <textarea name="footerText"><%= settings.footerText || '' %></textarea>
 
-    <% if (currentTab === 'settings') { %>
-      <h1>Settings</h1>
+          <label>WhatsApp Link</label>
+          <input name="whatsappLink" value="<%= settings.whatsappLink || '' %>">
 
-      <form method="post" action="/admin/settings/save" class="admin-form">
-        <label>App Name</label>
-        <input name="appName" value="<%= settings.appName || '' %>">
+          <label>Contact Phone</label>
+          <input name="contactPhone" value="<%= settings.contactPhone || '' %>">
 
-        <label>Footer Text</label>
-        <textarea name="footerText"><%= settings.footerText || '' %></textarea>
+          <label>Contact Email</label>
+          <input name="contactEmail" value="<%= settings.contactEmail || '' %>">
 
-        <label>WhatsApp Link</label>
-        <input name="whatsappLink" value="<%= settings.whatsappLink || '' %>">
+          <label>Organization Name</label>
+          <input name="organizationName" value="<%= settings.organizationName || '' %>">
 
-        <label>Contact Phone</label>
-        <input name="contactPhone" value="<%= settings.contactPhone || '' %>">
+          <label>Default SEO Title</label>
+          <input name="defaultSeoTitle" value="<%= settings.defaultSeoTitle || '' %>">
 
-        <label>Contact Email</label>
-        <input name="contactEmail" value="<%= settings.contactEmail || '' %>">
+          <label>Default SEO Description</label>
+          <textarea name="defaultSeoDescription"><%= settings.defaultSeoDescription || '' %></textarea>
 
-        <label>Organization Name</label>
-        <input name="organizationName" value="<%= settings.organizationName || '' %>">
+          <label>Default OG Image</label>
+          <input name="defaultOgImage" value="<%= settings.defaultOgImage || '' %>">
 
-        <label>Default SEO Title</label>
-        <input name="defaultSeoTitle" value="<%= settings.defaultSeoTitle || '' %>">
+          <label>Instagram URL</label>
+          <input name="instagramUrl" value="<%= settings.instagramUrl || '' %>">
 
-        <label>Default SEO Description</label>
-        <textarea name="defaultSeoDescription"><%= settings.defaultSeoDescription || '' %></textarea>
+          <label>TikTok URL</label>
+          <input name="tiktokUrl" value="<%= settings.tiktokUrl || '' %>">
 
-        <label>Default OG Image</label>
-        <input name="defaultOgImage" value="<%= settings.defaultOgImage || '' %>">
+          <label>Telegram URL</label>
+          <input name="telegramUrl" value="<%= settings.telegramUrl || '' %>">
 
-        <label>Instagram URL</label>
-        <input name="instagramUrl" value="<%= settings.instagramUrl || '' %>">
-
-        <label>TikTok URL</label>
-        <input name="tiktokUrl" value="<%= settings.tiktokUrl || '' %>">
-
-        <label>Telegram URL</label>
-        <input name="telegramUrl" value="<%= settings.telegramUrl || '' %>">
-
-        <button type="submit">Simpan Settings</button>
-      </form>
-    <% } %>
-  </main>
-</div>
+          <button type="submit">Simpan Settings</button>
+        </form>
+      <% } %>
+    </main>
+  </div>
+<% } %>
