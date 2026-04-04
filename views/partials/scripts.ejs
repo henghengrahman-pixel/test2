@@ -189,6 +189,54 @@
   const overlay = document.getElementById('searchOverlay');
   const input = document.getElementById('q');
   const cards = Array.from(document.querySelectorAll('.product-card-home, .product-card'));
+  const catLinks = Array.from(document.querySelectorAll('.cat-link'));
+  const resultInfo = document.getElementById('resultInfo');
+
+  function getCategoryFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return (params.get('category') || '').toUpperCase().trim();
+  }
+
+  function updateResultInfo(count) {
+    if (resultInfo) {
+      resultInfo.textContent = `${count} produk aktif`;
+    }
+  }
+
+  function applyFilters() {
+    if (!cards.length) return;
+
+    const keyword = (input?.value || '').toLowerCase().trim();
+    const activeCategory = getCategoryFromUrl();
+    let visible = 0;
+
+    cards.forEach((card) => {
+      const name = (card.dataset.name || '').toLowerCase();
+      const category = (card.dataset.category || '').toUpperCase().trim();
+
+      const matchKeyword =
+        !keyword ||
+        name.includes(keyword) ||
+        category.toLowerCase().includes(keyword);
+
+      const matchCategory = !activeCategory || category === activeCategory;
+      const match = matchKeyword && matchCategory;
+
+      card.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+
+    updateResultInfo(visible);
+
+    catLinks.forEach((link) => {
+      const linkCategory = (link.dataset.filter || '').toUpperCase().trim();
+      if (linkCategory && linkCategory === activeCategory) {
+        link.classList.add('active-cat');
+      } else {
+        link.classList.remove('active-cat');
+      }
+    });
+  }
 
   function openSearch() {
     if (!overlay) return;
@@ -203,25 +251,6 @@
     overlay.setAttribute('aria-hidden', 'true');
   }
 
-  function filterProducts() {
-    const keyword = (input?.value || '').toLowerCase().trim();
-    let visible = 0;
-
-    cards.forEach((card) => {
-      const name = (card.dataset.name || '').toLowerCase();
-      const category = (card.dataset.category || '').toLowerCase();
-      const match = !keyword || name.includes(keyword) || category.includes(keyword);
-
-      card.style.display = match ? '' : 'none';
-      if (match) visible++;
-    });
-
-    const resultInfo = document.getElementById('resultInfo');
-    if (resultInfo) {
-      resultInfo.textContent = `${visible} produk aktif`;
-    }
-  }
-
   openBtn && openBtn.addEventListener('click', openSearch);
   closeBtn && closeBtn.addEventListener('click', closeSearch);
 
@@ -229,11 +258,13 @@
     if (e.target === overlay) closeSearch();
   });
 
-  input && input.addEventListener('input', filterProducts);
+  input && input.addEventListener('input', applyFilters);
 
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeSearch();
   });
+
+  applyFilters();
 })();
 </script>
 
