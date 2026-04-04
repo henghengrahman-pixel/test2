@@ -2073,3 +2073,24 @@ body.admin{
   background:var(--surface-2);
   border-color:var(--line-strong);
 }
+.cart-checkout-btn{
+  min-height:40px;
+  padding:0 16px;
+  border-radius:12px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(216,179,106,.45);
+  background:linear-gradient(180deg, #f5e6c7, #e3c085);
+  color:#2c1d08;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  box-shadow:0 8px 18px rgba(216,179,106,.16);
+  transition:.2s ease;
+}
+
+.cart-checkout-btn:hover{
+  transform:translateY(-1px);
+}
