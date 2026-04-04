@@ -1,63 +1,613 @@
-
-<div class="top-strip">
+<div class="top-strip top-strip-lux">
   <div class="wrap">
     <div class="strip-row">
-      <div class="strip-left">• EXTRAIT DE PARFUME</div>
+      <div class="strip-left">
+        <span class="strip-bullet">✦</span>
+        <span class="strip-text">EXTRAIT DE PARFUME</span>
+      </div>
+
       <div class="strip-right">
         <span class="mwgtxt">MWG</span>
         <span class="dot">•</span>
-        <span class="cartlink" onclick="window.MawarCart.toggle()" role="button" tabindex="0">MY CART : <b id="cartCount">0</b></span>
+
+        <span
+          class="cartlink"
+          onclick="window.MawarCart.toggle()"
+          role="button"
+          tabindex="0"
+        >
+          MY CART : <b id="cartCount">0</b>
+        </span>
+
         <span class="dot">•</span>
-        <a href="/checkout" class="checkout-link" aria-label="Checkout"><span class="cicon">🛒</span><span class="ctext">Checkout</span></a>
+
+        <a href="/checkout" class="checkout-link" aria-label="Checkout">
+          <span class="cicon">🛒</span>
+          <span class="ctext">Checkout</span>
+        </a>
       </div>
     </div>
   </div>
 </div>
-<div class="header">
+
+<header class="header header-lux">
+  <div class="header-glow"></div>
+
   <div class="wrap">
-    <div class="row">
+    <div class="row row-lux">
       <div class="head-actions mobile-left">
-        <button class="iconbtn" id="mobileMenuBtn" type="button" aria-label="Open menu">☰</button>
+        <button class="iconbtn iconbtn-lux" id="mobileMenuBtn" type="button" aria-label="Open menu">
+          <span class="menu-ico">☰</span>
+        </button>
       </div>
+
       <h1 class="brand brand-wrap" style="margin:0">
-        <a href="/" class="brand-link" aria-label="Mawar Parfume Home"><span class="brand-text">MAWAR PARFUME</span></a>
+        <a href="/" class="brand-link brand-link-lux" aria-label="Mawar Parfume Home">
+          <span class="brand-mark">✦</span>
+          <span class="brand-text">MAWAR PARFUME</span>
+          <span class="brand-mark">✦</span>
+        </a>
       </h1>
+
       <div class="head-actions">
-        <button class="iconbtn" id="openSearchBtn" type="button" aria-label="Open search"><span class="icon">🔍</span></button>
+        <button class="iconbtn iconbtn-lux" id="openSearchBtn" type="button" aria-label="Open search">
+          <span class="icon">🔍</span>
+        </button>
       </div>
     </div>
   </div>
-  <div class="line"></div>
-  <div class="nav" id="mainNav">
+
+  <div class="line line-lux"></div>
+
+  <nav class="nav nav-lux" id="mainNav">
     <ul>
-      <li><a href="/">FRAGRANCE</a></li>
-      <li><a href="/" data-filter="MIX" class="cat-link">PARFUME MIX</a></li>
-      <li><a href="/" data-filter="MEN" class="cat-link">MEN</a></li>
-      <li><a href="/" data-filter="WOMEN" class="cat-link">WOMEN</a></li>
-      <li><a href="/" data-filter="UNISEX" class="cat-link">UNISEX</a></li>
-      <li><a href="/admin">ADMIN</a></li>
+      <li><a href="/" class="nav-link-lux">FRAGRANCE</a></li>
+      <li><a href="/" data-filter="MIX" class="cat-link nav-link-lux">PARFUME MIX</a></li>
+      <li><a href="/" data-filter="MEN" class="cat-link nav-link-lux">MEN</a></li>
+      <li><a href="/" data-filter="WOMEN" class="cat-link nav-link-lux">WOMEN</a></li>
+      <li><a href="/" data-filter="UNISEX" class="cat-link nav-link-lux">UNISEX</a></li>
+      <li><a href="/admin" class="nav-link-lux nav-admin">ADMIN</a></li>
     </ul>
-  </div>
-  <div class="line"></div>
-</div>
-<div class="search-overlay" id="searchOverlay" aria-hidden="true">
-  <div class="searchbar">
+  </nav>
+
+  <div class="line line-lux"></div>
+</header>
+
+<div class="search-overlay search-overlay-lux" id="searchOverlay" aria-hidden="true">
+  <div class="searchbar searchbar-lux">
     <div class="searchhint">I’m looking for…</div>
-    <div class="searchrow"><span class="sicon">🔍</span><input id="q" placeholder="Search perfume..." autocomplete="off" inputmode="search"></div>
-    <button class="closebtn" id="closeSearchBtn" type="button">✕ <span>Close</span></button>
+
+    <div class="searchrow searchrow-lux">
+      <span class="sicon">🔍</span>
+      <input id="q" placeholder="Search perfume..." autocomplete="off" inputmode="search">
+    </div>
+
+    <button class="closebtn closebtn-lux" id="closeSearchBtn" type="button">
+      ✕ <span>Close</span>
+    </button>
   </div>
 </div>
-<div id="cartDrawer" aria-hidden="true" style="position:fixed;inset:0;z-index:2000;display:none;">
-  <div onclick="window.MawarCart.toggle(false)" style="position:absolute;inset:0;background:rgba(0,0,0,.55)"></div>
-  <div style="position:absolute;top:0;right:0;width:min(420px,100%);height:100%;background:#111;padding:20px;overflow:auto;border-left:1px solid rgba(255,255,255,.12)">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;">
-      <h3 style="margin:0;color:#fff4d6;letter-spacing:.14em;text-transform:uppercase;">My Cart</h3>
-      <button class="iconbtn" type="button" onclick="window.MawarCart.toggle(false)">✕</button>
+
+<div id="cartDrawer" class="cartDrawerLux" aria-hidden="true" style="position:fixed;inset:0;z-index:2000;display:none;">
+  <div class="cart-backdrop" onclick="window.MawarCart.toggle(false)"></div>
+
+  <aside class="cart-panel">
+    <div class="cart-panel-head">
+      <div>
+        <div class="cart-mini-label">Luxury Cart</div>
+        <h3>My Cart</h3>
+      </div>
+
+      <button class="iconbtn iconbtn-lux" type="button" onclick="window.MawarCart.toggle(false)">✕</button>
     </div>
-    <div id="cartDrawerItems" class="muted"></div>
-    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
-      <a href="/checkout" class="checkout-link">🛒 Checkout</a>
-      <button class="iconbtn" style="width:auto;padding:0 14px;" type="button" onclick="window.MawarCart.clear()">Kosongkan</button>
+
+    <div id="cartDrawerItems" class="muted cart-items-lux"></div>
+
+    <div class="cart-panel-actions">
+      <a href="/checkout" class="checkout-link cart-checkout-btn">🛒 Checkout</a>
+      <button class="iconbtn clear-cart-btn" type="button" onclick="window.MawarCart.clear()">Kosongkan</button>
     </div>
-  </div>
+  </aside>
 </div>
+
+<style>
+  .top-strip-lux{
+    position:sticky;
+    top:0;
+    z-index:1003;
+    background:
+      linear-gradient(90deg, rgba(122,41,70,.96), rgba(231,192,107,.18), rgba(15,122,85,.88));
+    border-bottom:1px solid rgba(231,192,107,.18);
+    backdrop-filter:blur(14px) saturate(160%);
+    -webkit-backdrop-filter:blur(14px) saturate(160%);
+    box-shadow:0 8px 24px rgba(0,0,0,.18);
+  }
+
+  .top-strip-lux .strip-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    min-height:48px;
+    padding:10px 0;
+  }
+
+  .top-strip-lux .strip-left{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#fff0cb;
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    font-weight:900;
+  }
+
+  .top-strip-lux .strip-bullet{
+    color:#ffe2a3;
+    font-size:11px;
+  }
+
+  .top-strip-lux .strip-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+
+  .top-strip-lux .mwgtxt{
+    color:#fff4d6;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    text-shadow:0 1px 10px rgba(231,192,107,.22);
+  }
+
+  .top-strip-lux .dot{
+    opacity:.55;
+    color:#ffe2a3;
+  }
+
+  .top-strip-lux .cartlink{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:34px;
+    padding:0 12px;
+    border-radius:999px;
+    cursor:pointer;
+    border:1px solid rgba(255,226,163,.20);
+    background:rgba(255,255,255,.08);
+    color:#fff4d6;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+    transition:.2s ease;
+  }
+
+  .top-strip-lux .cartlink:hover{
+    border-color:rgba(255,226,163,.42);
+    background:rgba(255,255,255,.12);
+  }
+
+  .top-strip-lux .checkout-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    min-height:34px;
+    padding:0 14px;
+    border-radius:999px;
+    border:1px solid rgba(255,226,163,.42);
+    background:
+      linear-gradient(180deg, rgba(255,226,163,.92), rgba(231,192,107,.82));
+    color:#1b1208;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    box-shadow:0 10px 24px rgba(0,0,0,.20);
+    transition:.2s ease;
+  }
+
+  .top-strip-lux .checkout-link:hover{
+    transform:translateY(-1px);
+  }
+
+  .top-strip-lux .cicon{
+    font-size:14px;
+    line-height:1;
+  }
+
+  .header-lux{
+    position:sticky;
+    top:48px;
+    z-index:1002;
+    background:
+      radial-gradient(900px 280px at 50% -30%, rgba(231,192,107,.12), transparent 65%),
+      linear-gradient(180deg, rgba(10,10,14,.92), rgba(8,8,12,.94));
+    backdrop-filter:blur(16px) saturate(160%);
+    -webkit-backdrop-filter:blur(16px) saturate(160%);
+    border-bottom:1px solid rgba(255,255,255,.06);
+    box-shadow:0 14px 40px rgba(0,0,0,.22);
+    overflow:hidden;
+  }
+
+  .header-glow{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+      radial-gradient(700px 180px at 50% 0%, rgba(231,192,107,.08), transparent 60%);
+  }
+
+  .row-lux{
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    gap:12px;
+    padding:16px 0 14px;
+    position:relative;
+    z-index:2;
+  }
+
+  .brand-link-lux{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    color:#fff4d6;
+  }
+
+  .brand-link-lux:hover{
+    opacity:.98;
+  }
+
+  .brand-mark{
+    font-size:13px;
+    color:#e7c06b;
+    opacity:.85;
+  }
+
+  .header-lux .brand-text{
+    display:inline-block;
+    font-size:29px;
+    letter-spacing:.34em;
+    font-weight:900;
+    color:#fff4d6;
+    text-shadow:
+      0 2px 14px rgba(231,192,107,.15),
+      0 1px 0 rgba(0,0,0,.45);
+  }
+
+  .iconbtn-lux{
+    border:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.05);
+    color:#fff4d6;
+    border-radius:14px;
+    width:42px;
+    height:42px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    transition:.2s ease;
+    backdrop-filter:blur(10px);
+  }
+
+  .iconbtn-lux:hover{
+    border-color:rgba(231,192,107,.28);
+    background:rgba(255,255,255,.09);
+    transform:translateY(-1px);
+  }
+
+  .line-lux{
+    border-top:1px solid rgba(255,255,255,.06);
+    position:relative;
+    z-index:2;
+  }
+
+  .nav-lux{
+    position:relative;
+    z-index:2;
+    padding:10px 0;
+  }
+
+  .nav-lux ul{
+    list-style:none;
+    margin:0;
+    padding:0 18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  .nav-link-lux{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:38px;
+    padding:0 16px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.04);
+    color:rgba(255,244,214,.88);
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    transition:.22s ease;
+  }
+
+  .nav-link-lux:hover,
+  .nav-link-lux.active{
+    border-color:rgba(231,192,107,.28);
+    background:rgba(255,255,255,.08);
+    color:#fff4d6;
+    box-shadow:0 10px 24px rgba(0,0,0,.18);
+  }
+
+  .nav-admin{
+    border-color:rgba(231,192,107,.22);
+    color:#ffe2a3;
+  }
+
+  .search-overlay-lux{
+    position:fixed;
+    inset:0;
+    z-index:2100;
+    display:none;
+    align-items:flex-start;
+    justify-content:center;
+    padding:70px 16px 20px;
+    background:rgba(4,4,8,.72);
+    backdrop-filter:blur(10px);
+  }
+
+  .searchbar-lux{
+    width:min(760px, 100%);
+    padding:20px;
+    border-radius:24px;
+    border:1px solid rgba(255,255,255,.08);
+    background:
+      radial-gradient(500px 120px at 50% 0%, rgba(231,192,107,.08), transparent 70%),
+      linear-gradient(180deg, rgba(16,16,22,.96), rgba(10,10,14,.98));
+    box-shadow:0 28px 80px rgba(0,0,0,.40);
+  }
+
+  .searchbar-lux .searchhint{
+    font-size:11px;
+    color:rgba(255,226,163,.75);
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    margin-bottom:12px;
+  }
+
+  .searchrow-lux{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-height:56px;
+    padding:0 16px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.04);
+  }
+
+  .searchrow-lux .sicon{
+    font-size:18px;
+  }
+
+  .searchrow-lux input{
+    flex:1;
+    border:none;
+    outline:none;
+    background:transparent;
+    color:#fff;
+    font-size:15px;
+  }
+
+  .searchrow-lux input::placeholder{
+    color:rgba(255,255,255,.45);
+  }
+
+  .closebtn-lux{
+    margin-top:14px;
+    min-height:40px;
+    padding:0 14px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.04);
+    color:#fff4d6;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+    cursor:pointer;
+  }
+
+  .cartDrawerLux .cart-backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.58);
+    backdrop-filter:blur(4px);
+  }
+
+  .cartDrawerLux .cart-panel{
+    position:absolute;
+    top:0;
+    right:0;
+    width:min(430px, 100%);
+    height:100%;
+    padding:22px;
+    overflow:auto;
+    background:
+      radial-gradient(460px 160px at 50% 0%, rgba(231,192,107,.08), transparent 70%),
+      linear-gradient(180deg, rgba(15,15,20,.98), rgba(10,10,14,.98));
+    border-left:1px solid rgba(255,255,255,.08);
+    box-shadow:-20px 0 60px rgba(0,0,0,.28);
+  }
+
+  .cart-panel-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+    margin-bottom:16px;
+  }
+
+  .cart-mini-label{
+    font-size:11px;
+    color:rgba(255,226,163,.72);
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+
+  .cart-panel-head h3{
+    margin:0;
+    color:#fff4d6;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-size:24px;
+  }
+
+  .cart-items-lux{
+    color:rgba(255,255,255,.70);
+  }
+
+  .cart-panel-actions{
+    margin-top:18px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  .cart-checkout-btn{
+    min-height:42px;
+    padding:0 16px;
+  }
+
+  .clear-cart-btn{
+    width:auto;
+    padding:0 16px;
+    min-height:42px;
+  }
+
+  @media (max-width:900px){
+    .header-lux .brand-text{
+      font-size:22px;
+      letter-spacing:.24em;
+    }
+
+    .nav-lux ul{
+      gap:8px;
+    }
+
+    .nav-link-lux{
+      min-height:36px;
+      padding:0 12px;
+      font-size:10px;
+    }
+  }
+
+  @media (max-width:600px){
+    .top-strip-lux .strip-row{
+      min-height:auto;
+      padding:8px 0;
+      justify-content:center;
+    }
+
+    .top-strip-lux .strip-left{
+      width:100%;
+      justify-content:center;
+      font-size:10px;
+    }
+
+    .top-strip-lux .strip-right{
+      justify-content:center;
+      gap:6px;
+    }
+
+    .top-strip-lux .cartlink,
+    .top-strip-lux .checkout-link{
+      font-size:10px;
+      min-height:32px;
+      padding:0 10px;
+    }
+
+    .header-lux{
+      top:74px;
+    }
+
+    .row-lux{
+      padding:14px 0 12px;
+    }
+
+    .header-lux .brand-text{
+      font-size:16px;
+      letter-spacing:.18em;
+    }
+
+    .brand-mark{
+      font-size:10px;
+    }
+
+    .iconbtn-lux{
+      width:38px;
+      height:38px;
+      border-radius:12px;
+    }
+
+    .nav-lux{
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
+    }
+
+    .nav-lux::-webkit-scrollbar{
+      display:none;
+    }
+
+    .nav-lux ul{
+      width:max-content;
+      min-width:100%;
+      flex-wrap:nowrap;
+      justify-content:flex-start;
+      padding:0 14px;
+    }
+
+    .nav-link-lux{
+      white-space:nowrap;
+      font-size:9px;
+      min-height:34px;
+      padding:0 11px;
+      letter-spacing:.10em;
+    }
+
+    .search-overlay-lux{
+      padding:54px 12px 16px;
+    }
+
+    .searchbar-lux{
+      padding:16px;
+      border-radius:20px;
+    }
+
+    .searchrow-lux{
+      min-height:50px;
+      padding:0 14px;
+    }
+
+    .cartDrawerLux .cart-panel{
+      width:100%;
+      padding:18px 16px;
+    }
+
+    .cart-panel-head h3{
+      font-size:20px;
+    }
+  }
+</style>
