@@ -1,4 +1,4 @@
-<section class="hero hero-premium reveal reveal-zoom">
+<section class="hero hero-premium reveal reveal-zoom" id="homeHero">
   <div class="wrap hero-premium-inner">
     <div class="hero-premium-copy">
       <div class="hero-mini">Luxury Extrait de Parfum</div>
@@ -15,7 +15,7 @@
   </div>
 </section>
 
-<section class="brand-note reveal">
+<section class="brand-note reveal" id="brandNoteSection">
   <div class="wrap brand-note-row">
     <div class="brand-note-item">Premium Aroma</div>
     <div class="brand-note-line"></div>
@@ -30,7 +30,7 @@
 <% const featuredProducts = products.filter(product => product.topSeller && !product.soldOut).slice(0, 4); %>
 
 <% if (featuredProducts.length) { %>
-<section class="wrap featured-section reveal">
+<section class="wrap featured-section reveal" id="featuredSection">
   <div class="section-head-clean">
     <div>
       <div class="section-mini">Featured</div>
@@ -61,7 +61,7 @@
 </section>
 <% } %>
 
-<section class="wrap about-home-section reveal reveal-left">
+<section class="wrap about-home-section reveal reveal-left" id="aboutHomeSection">
   <div class="about-home-card">
     <div class="section-mini">About Mawar Parfume</div>
     <h2>Simple. Elegant. Memorable.</h2>
@@ -76,8 +76,8 @@
 <main class="wrap home-products-wrap reveal reveal-right" id="productsSection">
   <div class="collection-head">
     <div>
-      <div class="collection-label">Collection</div>
-      <h2 class="collection-title">All Fragrance</h2>
+      <div class="collection-label" id="collectionLabel">Collection</div>
+      <h2 class="collection-title" id="collectionTitle">All Fragrance</h2>
     </div>
     <div class="muted result-info" id="resultInfo"><%= products.length %> produk aktif</div>
   </div>
@@ -148,7 +148,7 @@
   <% } %>
 </main>
 
-<section class="wrap closing-section reveal reveal-zoom">
+<section class="wrap closing-section reveal reveal-zoom" id="closingSection">
   <div class="closing-card">
     <div class="section-mini">Mawar Parfume</div>
     <h2>Luxury Scent for Daily Confidence</h2>
