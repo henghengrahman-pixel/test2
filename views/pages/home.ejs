@@ -1,4 +1,4 @@
-<section class="hero hero-premium">
+<section class="hero hero-premium reveal reveal-zoom">
   <div class="wrap hero-premium-inner">
     <div class="hero-premium-copy">
       <div class="hero-mini">Luxury Extrait de Parfum</div>
@@ -9,13 +9,13 @@
       </p>
 
       <div class="hero-actions">
-        <a href="#productsSection" class="btn-premium btn-gold">Shop Collection</a>
+        <a href="#productsSection" class="btn-premium btn-gold magnetic">Shop Collection</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="brand-note">
+<section class="brand-note reveal">
   <div class="wrap brand-note-row">
     <div class="brand-note-item">Premium Aroma</div>
     <div class="brand-note-line"></div>
@@ -30,7 +30,7 @@
 <% const featuredProducts = products.filter(product => product.topSeller && !product.soldOut).slice(0, 4); %>
 
 <% if (featuredProducts.length) { %>
-<section class="wrap featured-section">
+<section class="wrap featured-section reveal">
   <div class="section-head-clean">
     <div>
       <div class="section-mini">Featured</div>
@@ -39,8 +39,8 @@
   </div>
 
   <div class="featured-grid">
-    <% featuredProducts.forEach(function(product){ %>
-      <article class="featured-card">
+    <% featuredProducts.forEach(function(product, index){ %>
+      <article class="featured-card reveal delay-<%= (index % 4) + 1 %>">
         <a href="/product/<%= product.slug %>" class="featured-image-link">
           <img src="<%= product.image %>" alt="<%= product.name %>" class="featured-image">
         </a>
@@ -61,7 +61,7 @@
 </section>
 <% } %>
 
-<section class="wrap about-home-section">
+<section class="wrap about-home-section reveal reveal-left">
   <div class="about-home-card">
     <div class="section-mini">About Mawar Parfume</div>
     <h2>Simple. Elegant. Memorable.</h2>
@@ -73,7 +73,7 @@
   </div>
 </section>
 
-<main class="wrap home-products-wrap" id="productsSection">
+<main class="wrap home-products-wrap reveal reveal-right" id="productsSection">
   <div class="collection-head">
     <div>
       <div class="collection-label">Collection</div>
@@ -84,9 +84,9 @@
 
   <% if (products && products.length) { %>
     <section class="products-grid-home" id="productsGrid">
-      <% products.forEach(function(product){ %>
+      <% products.forEach(function(product, index){ %>
         <article
-          class="product-card-home"
+          class="product-card-home reveal delay-<%= (index % 5) + 1 %>"
           data-name="<%= product.name %>"
           data-category="<%= product.category %>"
         >
@@ -121,10 +121,10 @@
               </strong>
 
               <div class="product-actions">
-                <a class="detail-btn" href="/product/<%= product.slug %>">Detail</a>
+                <a class="detail-btn magnetic" href="/product/<%= product.slug %>">Detail</a>
 
                 <button
-                  class="add-btn add-cart"
+                  class="add-btn add-cart magnetic"
                   type="button"
                   data-id="<%= product.id %>"
                   data-name="<%= product.name %>"
@@ -139,7 +139,7 @@
       <% }) %>
     </section>
   <% } else { %>
-    <section class="empty-products">
+    <section class="empty-products reveal">
       <div class="empty-products-card">
         <h3>Produk belum tersedia</h3>
         <p class="muted">Saat ini belum ada produk aktif yang ditampilkan.</p>
@@ -148,7 +148,7 @@
   <% } %>
 </main>
 
-<section class="wrap closing-section">
+<section class="wrap closing-section reveal reveal-zoom">
   <div class="closing-card">
     <div class="section-mini">Mawar Parfume</div>
     <h2>Luxury Scent for Daily Confidence</h2>
@@ -314,7 +314,7 @@
     border:1px solid #ece8e1;
     background:#fff;
     box-shadow:0 12px 28px rgba(0,0,0,.05);
-    transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease;
   }
 
   .featured-card:hover{
@@ -625,6 +625,57 @@
     box-shadow:0 12px 28px rgba(0,0,0,.04);
   }
 
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .8s ease, transform .8s ease;
+    will-change:opacity, transform;
+  }
+
+  .reveal.is-visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .reveal-left{
+    opacity:0;
+    transform:translateX(-30px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+
+  .reveal-left.is-visible{
+    opacity:1;
+    transform:translateX(0);
+  }
+
+  .reveal-right{
+    opacity:0;
+    transform:translateX(30px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+
+  .reveal-right.is-visible{
+    opacity:1;
+    transform:translateX(0);
+  }
+
+  .reveal-zoom{
+    opacity:0;
+    transform:scale(.96);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+
+  .reveal-zoom.is-visible{
+    opacity:1;
+    transform:scale(1);
+  }
+
+  .delay-1{transition-delay:.08s}
+  .delay-2{transition-delay:.16s}
+  .delay-3{transition-delay:.24s}
+  .delay-4{transition-delay:.32s}
+  .delay-5{transition-delay:.40s}
+
   @media (max-width:1200px){
     .products-grid-home{
       grid-template-columns:repeat(4, minmax(0, 1fr));
@@ -720,13 +771,24 @@
       gap:12px;
     }
 
+    .featured-card{
+      border-radius:16px;
+    }
+
     .featured-body{
       padding:10px;
     }
 
+    .featured-badge{
+      min-height:24px;
+      padding:0 8px;
+      font-size:8px;
+      margin-bottom:8px;
+    }
+
     .featured-body h3{
       font-size:12px;
-      margin-bottom:6px;
+      margin-bottom:5px;
       line-height:1.35;
     }
 
@@ -812,6 +874,23 @@
       font-size:10px;
       border-radius:10px;
       padding:0 8px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-zoom,
+    .btn-premium,
+    .featured-card,
+    .product-card-home,
+    .product-image,
+    .detail-btn,
+    .add-btn{
+      opacity:1 !important;
+      transform:none !important;
+      transition:none !important;
     }
   }
 </style>
