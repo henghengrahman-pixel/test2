@@ -1409,3 +1409,127 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 @media (prefers-reduced-motion: reduce){
   *{scroll-behavior:auto!important;transition:none!important}
 }
+/* ===== FIX TEXT AGAR KELIHATAN DI THEME PUTIH ===== */
+
+body.site{
+  color:#1a1a1a;
+}
+
+.muted,
+.product-desc,
+.featured-body p,
+.best-body p,
+.about-home-card p,
+.about-brand-content p,
+.closing-card p,
+.testimonial-card p,
+.footer-desc,
+.pdp-desc{
+  color:#666 !important;
+}
+
+/* section label kecil */
+.section-mini,
+.collection-label,
+.hero-mini,
+.footer-mini,
+.footer-kicker,
+.footer-mini-title{
+  color:#9a7440 !important;
+}
+
+/* heading */
+.section-head-clean h2,
+.about-home-card h2,
+.closing-card h2,
+.collection-title,
+.related h2,
+.featured-body h3,
+.best-body h3,
+.product-name,
+.product-name a,
+.card-body h3,
+.card-body h3 a,
+.pdp-title,
+.footer-brand-name,
+.footer-brand-text,
+.brand-text-clean{
+  color:#181818 !important;
+}
+
+/* featured area */
+.featured-card,
+.best-card,
+.product-card,
+.product-card-home,
+.pcard,
+.about-home-card,
+.about-brand-card,
+.why-card,
+.testimonial-card,
+.note-card{
+  background:#ffffff !important;
+}
+
+.featured-badge,
+.best-badge,
+.product-pill,
+.pill,
+.badge{
+  color:#8a6631 !important;
+  background:#f8efdf !important;
+  border-color:rgba(216,179,106,.35) !important;
+}
+
+/* price */
+.product-price,
+.featured-footer strong,
+.best-footer strong,
+.pdp-price,
+.meta .price{
+  color:#7a2946 !important;
+}
+
+/* links kecil */
+.featured-footer a,
+.best-link,
+.footer-links-row a,
+.footer-links-grid a{
+  color:#7d5a28 !important;
+}
+
+/* nav */
+.nav-clean a{
+  color:#333 !important;
+}
+.nav-clean a:hover{
+  color:#111 !important;
+}
+
+/* top strip */
+.top-strip-clean .strip-left{
+  color:#666 !important;
+}
+.top-strip-clean .cartlink{
+  color:#222 !important;
+}
+
+/* hero */
+.hero h1,
+.hero-premium h1{
+  color:#181818 !important;
+}
+.hero p,
+.hero-premium p{
+  color:#666 !important;
+}
+
+/* footer bottom */
+.footer-bottom,
+.footer-bottom-row{
+  color:#777 !important;
+}
+.footer-bottom-tag,
+.footer-bottom-right{
+  color:#9a7440 !important;
+}
