@@ -191,6 +191,14 @@
   const cards = Array.from(document.querySelectorAll('.product-card-home, .product-card'));
   const catLinks = Array.from(document.querySelectorAll('.cat-link'));
   const resultInfo = document.getElementById('resultInfo');
+  const collectionLabel = document.getElementById('collectionLabel');
+  const collectionTitle = document.getElementById('collectionTitle');
+
+  const homeHero = document.getElementById('homeHero');
+  const brandNoteSection = document.getElementById('brandNoteSection');
+  const featuredSection = document.getElementById('featuredSection');
+  const aboutHomeSection = document.getElementById('aboutHomeSection');
+  const closingSection = document.getElementById('closingSection');
 
   function getCategoryFromUrl() {
     const params = new URLSearchParams(window.location.search);
@@ -203,12 +211,48 @@
     }
   }
 
+  function getCategoryLabel(category) {
+    if (category === 'MEN') return 'Men';
+    if (category === 'WOMEN') return 'Women';
+    if (category === 'UNISEX') return 'Unisex';
+    if (category === 'MIX') return 'Parfume Mix';
+    return category || 'All Fragrance';
+  }
+
+  function toggleHomeSections(activeCategory) {
+    const shouldHide = !!activeCategory;
+    const sections = [
+      homeHero,
+      brandNoteSection,
+      featuredSection,
+      aboutHomeSection,
+      closingSection
+    ];
+
+    sections.forEach((section) => {
+      if (!section) return;
+      section.style.display = shouldHide ? 'none' : '';
+    });
+
+    if (collectionLabel) {
+      collectionLabel.textContent = shouldHide ? 'Category' : 'Collection';
+    }
+
+    if (collectionTitle) {
+      collectionTitle.textContent = shouldHide
+        ? getCategoryLabel(activeCategory)
+        : 'All Fragrance';
+    }
+  }
+
   function applyFilters() {
     if (!cards.length) return;
 
     const keyword = (input?.value || '').toLowerCase().trim();
     const activeCategory = getCategoryFromUrl();
     let visible = 0;
+
+    toggleHomeSections(activeCategory);
 
     cards.forEach((card) => {
       const name = (card.dataset.name || '').toLowerCase();
