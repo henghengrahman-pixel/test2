@@ -1,4 +1,4 @@
-<div class="crumbrow reveal">
+<div class="crumbrow">
   <div class="wrap">
     <div class="crumbtxt">
       <a href="/">Home</a>
@@ -19,24 +19,28 @@
         <% if (product.soldOut) { %><span class="pill soldout-pill">Sold Out</span><% } %>
       </div>
 
-      <div class="pdp-image image-float">
+      <div class="pdp-image">
         <img id="pImage" src="<%= product.image %>" alt="<%= product.name %>">
       </div>
 
+      <% if (product.gallery && product.gallery.length) { %>
       <div class="pdp-thumbs" id="thumbs">
         <% product.gallery.forEach(function(image, index){ %>
-          <button class="thumb <%= index === 0 ? 'active' : '' %> magnetic" data-image="<%= image %>" type="button">
+          <button class="thumb <%= index === 0 ? 'active' : '' %>" data-image="<%= image %>" type="button">
             <img src="<%= image %>" alt="<%= product.name %>">
           </button>
         <% }) %>
       </div>
+      <% } %>
     </section>
 
     <section class="pdp-right reveal reveal-right">
-      <h1 class="pdp-title"><%= product.name %></h1>
+      <div class="pdp-meta-top">
+        <h1 class="pdp-title"><%= product.name %></h1>
 
-      <div class="pdp-price">
-        Rp <%= Number(product.price).toLocaleString('id-ID') %>
+        <div class="pdp-price">
+          Rp <%= Number(product.price).toLocaleString('id-ID') %>
+        </div>
       </div>
 
       <div class="pdp-desc">
@@ -44,15 +48,15 @@
       </div>
 
       <div class="notes-grid">
-        <div class="note-card reveal delay-1">
+        <div class="note-card">
           <strong>Top Notes</strong>
           <div><%= product.topNotes || '-' %></div>
         </div>
-        <div class="note-card reveal delay-2">
+        <div class="note-card">
           <strong>Mid Notes</strong>
           <div><%= product.midNotes || '-' %></div>
         </div>
-        <div class="note-card reveal delay-3">
+        <div class="note-card">
           <strong>Base Notes</strong>
           <div><%= product.baseNotes || '-' %></div>
         </div>
@@ -60,40 +64,41 @@
 
       <div class="pdp-cta">
         <div class="qty">
-          <button type="button" id="minus" class="magnetic">−</button>
+          <button type="button" id="minus">−</button>
           <input id="qty" type="number" min="1" value="1">
-          <button type="button" id="plus" class="magnetic">+</button>
+          <button type="button" id="plus">+</button>
         </div>
 
         <button
-          class="btn-cart magnetic"
+          class="btn-cart"
           id="addProductCart"
           data-id="<%= product.id %>"
           data-name="<%= product.name %>"
           data-price="<%= product.price %>"
           <%= product.soldOut ? 'disabled' : '' %>>
-          Add to Cart
+          <%= product.soldOut ? 'Sold Out' : 'Add to Cart' %>
         </button>
 
-        <a class="btn-checkout magnetic" href="/checkout">Checkout</a>
+        <a class="btn-checkout" href="/checkout">Checkout</a>
       </div>
     </section>
   </div>
 
-  <% if (relatedProducts.length) { %>
+  <% if (relatedProducts && relatedProducts.length) { %>
   <section class="related reveal">
     <h2>Produk Lainnya</h2>
 
     <div class="related-grid">
       <% relatedProducts.forEach(function(item, index){ %>
-      <article class="product-card related-card reveal delay-<%= (index % 5) + 1 %>">
+      <article class="product-card related-card reveal delay-<%= (index % 4) + 1 %>">
         <a href="/product/<%= item.slug %>" class="related-image-link">
           <img src="<%= item.image %>" alt="<%= item.name %>">
         </a>
 
         <div class="card-body">
           <h3><a href="/product/<%= item.slug %>"><%= item.name %></a></h3>
-          <div class="muted"><%= item.desc %></div>
+          <div class="muted related-desc"><%= item.desc %></div>
+          <div class="related-price">Rp <%= Number(item.price).toLocaleString('id-ID') %></div>
         </div>
       </article>
       <% }) %>
@@ -104,13 +109,39 @@
 
 <style>
   .pdp-wrap{
-    padding:24px 0 64px;
+    padding:22px 0 56px;
+  }
+
+  .crumbrow{
+    border-bottom:1px solid #ece8e1;
+    background:#fff;
+  }
+
+  .crumbrow .wrap{
+    padding-top:10px;
+    padding-bottom:10px;
+  }
+
+  .crumbtxt{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+    color:#777;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+
+  .crumbtxt .pname{
+    color:#181818;
+    font-weight:700;
   }
 
   .pdp{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:38px;
+    grid-template-columns:minmax(0, 1.02fr) minmax(320px, .98fr);
+    gap:30px;
     align-items:start;
   }
 
@@ -127,32 +158,29 @@
   }
 
   .pdp-image{
-    border-radius:26px;
-    overflow:hidden;
-    background:linear-gradient(180deg, #ffffff, #faf8f4);
     border:1px solid #ece8e1;
-    box-shadow:0 16px 40px rgba(0,0,0,.06);
+    border-radius:24px;
+    background:linear-gradient(180deg,#ffffff,#faf8f4);
+    box-shadow:0 12px 28px rgba(0,0,0,.05);
+    overflow:hidden;
+    aspect-ratio:1/1.08;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
   }
 
   .pdp-image img{
     width:100%;
-    border-radius:26px;
-    aspect-ratio:3/4;
-    object-fit:cover;
-    transition:transform .45s ease;
+    height:100%;
+    object-fit:contain;
+    max-width:520px;
+    max-height:620px;
+    transition:transform .35s ease;
   }
 
   .pdp-image:hover img{
-    transform:scale(1.03);
-  }
-
-  .image-float{
-    animation:floatImage 4.8s ease-in-out infinite;
-  }
-
-  @keyframes floatImage{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-5px)}
+    transform:scale(1.02);
   }
 
   .pdp-thumbs{
@@ -163,35 +191,49 @@
   }
 
   .thumb{
+    width:74px;
+    height:74px;
     border:1px solid #ece8e1;
     background:#fff;
     border-radius:14px;
     padding:4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     box-shadow:0 8px 18px rgba(0,0,0,.04);
-    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease, background .25s ease;
+    transition:transform .22s ease, border-color .22s ease, background .22s ease;
   }
 
   .thumb:hover{
     transform:translateY(-2px);
-    border-color:rgba(216,179,106,.45);
+    border-color:rgba(216,179,106,.5);
     background:#faf8f4;
-    box-shadow:0 14px 28px rgba(0,0,0,.08);
   }
 
   .thumb.active{
-    border-color:rgba(216,179,106,.58);
+    border-color:rgba(216,179,106,.62);
     background:#faf6ee;
   }
 
   .thumb img{
-    width:72px;
-    height:72px;
+    width:100%;
+    height:100%;
     object-fit:cover;
     border-radius:10px;
   }
 
+  .pdp-right{
+    padding-top:8px;
+  }
+
+  .pdp-meta-top{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
   .pdp-title{
-    margin:0 0 10px;
+    margin:0;
     font-size:34px;
     line-height:1.2;
     letter-spacing:.04em;
@@ -206,7 +248,7 @@
   }
 
   .pdp-desc{
-    margin-top:12px;
+    margin-top:14px;
     line-height:1.9;
     color:#666;
     font-size:15px;
@@ -214,7 +256,7 @@
 
   .notes-grid{
     display:grid;
-    grid-template-columns:1fr 1fr 1fr;
+    grid-template-columns:repeat(3, minmax(0,1fr));
     gap:12px;
     margin-top:22px;
   }
@@ -224,14 +266,7 @@
     border-radius:16px;
     padding:14px;
     background:#fff;
-    box-shadow:0 10px 24px rgba(0,0,0,.04);
-    transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease;
-  }
-
-  .note-card:hover{
-    transform:translateY(-3px);
-    border-color:rgba(216,179,106,.42);
-    box-shadow:0 16px 30px rgba(0,0,0,.07);
+    box-shadow:0 8px 20px rgba(0,0,0,.04);
   }
 
   .note-card strong{
@@ -239,13 +274,12 @@
     margin-bottom:6px;
     color:#1c1c1c;
     font-size:13px;
-    letter-spacing:.04em;
   }
 
   .note-card div{
     color:#666;
-    line-height:1.7;
     font-size:14px;
+    line-height:1.7;
   }
 
   .pdp-cta{
@@ -275,7 +309,7 @@
     border-radius:12px;
     color:#1b1b1b;
     font-size:18px;
-    transition:transform .25s ease, background .25s ease, border-color .25s ease;
+    transition:background .22s ease, border-color .22s ease, transform .22s ease;
   }
 
   .qty button:hover{
@@ -308,12 +342,12 @@
     font-weight:800;
     letter-spacing:.10em;
     text-transform:uppercase;
-    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease;
+    transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
   }
 
   .btn-cart{
     border:1px solid rgba(216,179,106,.45);
-    background:linear-gradient(180deg, #f5e6c7, #e3c085);
+    background:linear-gradient(180deg,#f5e6c7,#e3c085);
     color:#2c1d08;
     box-shadow:0 10px 22px rgba(216,179,106,.16);
   }
@@ -336,7 +370,7 @@
   }
 
   .related{
-    margin-top:46px;
+    margin-top:44px;
   }
 
   .related h2{
@@ -349,7 +383,7 @@
 
   .related-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:repeat(4, minmax(0,1fr));
     gap:18px;
   }
 
@@ -372,11 +406,12 @@
     display:block;
     overflow:hidden;
     background:#faf8f4;
+    aspect-ratio:3/4;
   }
 
   .related-card img{
     width:100%;
-    aspect-ratio:3/4;
+    height:100%;
     object-fit:cover;
     transition:transform .35s ease;
   }
@@ -391,7 +426,7 @@
 
   .related-card h3{
     margin:0 0 8px;
-    font-size:16px;
+    font-size:15px;
     line-height:1.4;
   }
 
@@ -399,13 +434,19 @@
     color:#181818;
   }
 
-  .related-card .muted{
-    color:#666;
+  .related-desc{
     font-size:13px;
     line-height:1.7;
+    min-height:38px;
   }
 
-  /* reveal support */
+  .related-price{
+    margin-top:10px;
+    color:#7a2946;
+    font-weight:800;
+    font-size:14px;
+  }
+
   .reveal{
     opacity:0;
     transform:translateY(28px);
@@ -440,22 +481,17 @@
     transform:translateX(0);
   }
 
-  .reveal-zoom{
-    opacity:0;
-    transform:scale(.96);
-    transition:opacity .8s ease, transform .8s ease;
-  }
-
-  .reveal-zoom.is-visible{
-    opacity:1;
-    transform:scale(1);
-  }
-
   .delay-1{transition-delay:.08s}
   .delay-2{transition-delay:.16s}
   .delay-3{transition-delay:.24s}
   .delay-4{transition-delay:.32s}
   .delay-5{transition-delay:.40s}
+
+  @media (max-width:1100px){
+    .related-grid{
+      grid-template-columns:repeat(3, minmax(0,1fr));
+    }
+  }
 
   @media (max-width:900px){
     .pdp{
@@ -465,6 +501,14 @@
 
     .notes-grid{
       grid-template-columns:1fr;
+    }
+
+    .related-grid{
+      grid-template-columns:repeat(2, minmax(0,1fr));
+    }
+
+    .pdp-image{
+      aspect-ratio:1/1;
     }
   }
 
@@ -486,7 +530,7 @@
       line-height:1.8;
     }
 
-    .thumb img{
+    .thumb{
       width:64px;
       height:64px;
     }
@@ -514,23 +558,51 @@
     }
 
     .related{
-      margin-top:38px;
+      margin-top:36px;
     }
 
     .related h2{
       font-size:20px;
       letter-spacing:.06em;
     }
+
+    .related-grid{
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .related-card .card-body{
+      padding:10px;
+    }
+
+    .related-card h3{
+      font-size:12px;
+      margin-bottom:6px;
+    }
+
+    .related-desc{
+      font-size:11px;
+      min-height:auto;
+    }
+
+    .related-price{
+      font-size:12px;
+      margin-top:8px;
+    }
+  }
+
+  @media (max-width:420px){
+    .related-grid{
+      grid-template-columns:1fr;
+    }
   }
 
   @media (prefers-reduced-motion: reduce){
-    .image-float,
     .thumb,
     .related-card,
-    .note-card,
     .btn-cart,
-    .btn-checkout{
-      animation:none !important;
+    .btn-checkout,
+    .pdp-image img{
       transition:none !important;
       transform:none !important;
     }
