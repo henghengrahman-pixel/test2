@@ -1950,3 +1950,126 @@ body.admin{
   font-weight:700;
   color:#24385f;
 }
+/* ===== CART DRAWER FIX ===== */
+.cart-empty-state{
+  padding:16px 0;
+  color:#666;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.cart-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.cart-item-row{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+  box-shadow:var(--shadow-sm);
+}
+
+.cart-item-main{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.cart-item-name{
+  color:#181818;
+  font-size:14px;
+  font-weight:800;
+  line-height:1.5;
+  text-transform:uppercase;
+}
+
+.cart-item-price{
+  color:#666;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.cart-item-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.cart-qty-btn,
+.cart-remove-btn{
+  min-height:34px;
+  padding:0 12px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:#222;
+  font-size:12px;
+  font-weight:700;
+  transition:.2s ease;
+}
+
+.cart-qty-btn:hover,
+.cart-remove-btn:hover{
+  background:var(--surface-2);
+  border-color:var(--line-strong);
+}
+
+.cart-qty-num{
+  min-width:20px;
+  text-align:center;
+  font-size:13px;
+  font-weight:800;
+  color:#181818;
+}
+
+.cart-summary-box{
+  margin-top:14px;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:var(--surface-2);
+}
+
+.cart-summary-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  font-size:13px;
+  color:#444;
+}
+
+.cart-summary-row + .cart-summary-row{
+  margin-top:8px;
+}
+
+.cart-panel-actions{
+  margin-top:16px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.clear-cart-btn{
+  width:auto;
+  min-height:40px;
+  padding:0 14px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:#222;
+  font-size:12px;
+  font-weight:700;
+}
+
+.clear-cart-btn:hover{
+  background:var(--surface-2);
+  border-color:var(--line-strong);
+}
