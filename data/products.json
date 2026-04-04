@@ -1,0 +1,58 @@
+[
+  {
+    "id": "3b07fe7b-dd1e-4250-b363-7f24536a41f9",
+    "name": "ROSE OUD",
+    "slug": "rose-oud",
+    "price": 150000,
+    "desc": "Spicy • Warm • Luxury",
+    "description": "Rose Oud menghadirkan karakter wangi mewah dengan perpaduan mawar, oud, dan sentuhan hangat yang tahan lama.",
+    "image": "https://via.placeholder.com/900x1200.png?text=ROSE+OUD",
+    "gallery": [
+      "https://via.placeholder.com/900x1200.png?text=ROSE+OUD",
+      "https://via.placeholder.com/900x1200.png?text=ROSE+OUD+2",
+      "https://via.placeholder.com/900x1200.png?text=ROSE+OUD+3"
+    ],
+    "badge": "BESTSELLER",
+    "category": "UNISEX",
+    "soldOut": false,
+    "active": true,
+    "topSeller": true,
+    "seoTitle": "Rose Oud - Mawar Parfume Poipet",
+    "seoDescription": "Rose Oud Mawar Parfume Poipet, extrait de parfum unisex, mewah, tahan lama, dan elegan.",
+    "canonical": "",
+    "ogImage": "https://via.placeholder.com/900x1200.png?text=ROSE+OUD",
+    "topNotes": "Rose, Saffron",
+    "midNotes": "Oud, Amber",
+    "baseNotes": "Musk, Vanilla",
+    "createdAt": "2026-04-04T03:04:36.149Z",
+    "updatedAt": "2026-04-04T03:04:58.904Z"
+  },
+  {
+    "id": "3d7a0f93-7f46-4638-b3d6-2c0a386f7886",
+    "name": "ROSE VANILLA",
+    "slug": "rose-vanilla",
+    "price": 175000,
+    "desc": "Sweet • Cozy • Elegant",
+    "description": "Rose Vanilla cocok untuk pencinta aroma manis lembut, feminin, dan berkesan premium.",
+    "image": "https://via.placeholder.com/900x1200.png?text=ROSE+VANILLA",
+    "gallery": [
+      "https://via.placeholder.com/900x1200.png?text=ROSE+VANILLA",
+      "https://via.placeholder.com/900x1200.png?text=ROSE+VANILLA+2",
+      "https://via.placeholder.com/900x1200.png?text=ROSE+VANILLA+3"
+    ],
+    "badge": "REFILLABLE",
+    "category": "WOMEN",
+    "soldOut": false,
+    "active": true,
+    "topSeller": false,
+    "seoTitle": "Rose Vanilla - Mawar Parfume Poipet",
+    "seoDescription": "Rose Vanilla Mawar Parfume Poipet dengan aroma manis, cozy, elegan, dan tahan lama.",
+    "canonical": "",
+    "ogImage": "https://via.placeholder.com/900x1200.png?text=ROSE+VANILLA",
+    "topNotes": "Pear, Rose",
+    "midNotes": "Vanilla, Floral",
+    "baseNotes": "Musk, Tonka",
+    "createdAt": "2026-04-04T03:04:36.150Z",
+    "updatedAt": "2026-04-04T03:04:58.904Z"
+  }
+]

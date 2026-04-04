@@ -1,0 +1,35 @@
+
+<main class="checkout-shell" style="max-width:1180px;margin:0 auto;padding:20px 14px 24px;">
+  <div class="checkout-top" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 0;">
+    <div class="brandmini" style="font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:#fff4d6;">MAWAR <span class="dot" style="opacity:.5">•</span> CHECKOUT</div>
+    <a class="pilllink" href="/">← Kembali ke Home</a>
+  </div>
+  <div class="line-soft" style="height:1px;background:linear-gradient(90deg, transparent, rgba(231,192,107,.35), transparent);margin:14px 0;"></div>
+  <div class="checkout-grid" style="display:grid;grid-template-columns:1.05fr .95fr;gap:16px;">
+    <section class="card" aria-label="Keranjang">
+      <div class="card-head"><h3>Keranjang</h3></div>
+      <div class="card-body">
+        <div id="cartWrap" class="muted" style="font-size:12px;">Loading...</div>
+        <div class="summary" aria-label="Ringkasan" style="margin-top:14px;border:1px solid rgba(231,192,107,.28);border-radius:16px;padding:12px;">
+          <div class="summary-row" style="display:flex;justify-content:space-between;font-size:13px;font-weight:900;color:#fff4d6;"><span>Total (IDR)</span><b id="grandTotal">Rp 0</b></div>
+        </div>
+      </div>
+    </section>
+    <section class="card" aria-label="Data Pesanan">
+      <div class="card-head"><h3>Data Pesanan</h3><div class="muted" style="font-size:12px;">* wajib diisi</div></div>
+      <div class="card-body">
+        <form id="checkoutForm" novalidate>
+          <div class="field"><div class="sectionTitle">Nama *</div><input id="name" name="name" required placeholder="Nama pemesan"></div>
+          <div class="field"><div class="sectionTitle">No WhatsApp *</div><input id="phone" name="phone" inputmode="tel" required placeholder="08xxxxxxxxxx"></div>
+          <div class="field"><div class="sectionTitle">Alamat *</div><textarea id="address" name="address" required placeholder="Alamat lengkap pengiriman"></textarea></div>
+          <div class="field"><div class="sectionTitle">Catatan</div><textarea id="notes" name="notes" placeholder="Catatan tambahan untuk admin"></textarea></div>
+          <div class="btn-row" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;">
+            <button class="checkout-link" id="btnCheckout" type="submit">Buat Pesanan</button>
+            <button class="iconbtn" style="width:auto;padding:0 14px;" type="button" id="clearCartBtn">Kosongkan Cart</button>
+          </div>
+          <div id="checkoutMessage" class="muted" style="margin-top:10px;font-size:12px;"></div>
+        </form>
+      </div>
+    </section>
+  </div>
+</main>

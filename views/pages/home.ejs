@@ -1,0 +1,39 @@
+
+<section class="hero">
+  <h1>MAWAR PARFUME</h1>
+  <p>Extrait de parfum halal, wangi mewah, dan tahan lama.</p>
+</section>
+<main class="wrap" style="padding:28px 18px 54px;">
+  <div style="display:flex;justify-content:space-between;gap:12px;align-items:end;flex-wrap:wrap;margin-bottom:16px;">
+    <div>
+      <div class="muted" style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;">Collection</div>
+      <h2 style="margin:6px 0 0;font-size:18px;letter-spacing:.18em;text-transform:uppercase;">Signature Fragrance</h2>
+    </div>
+    <div class="muted" id="resultInfo" style="font-size:12px;"><%= products.length %> produk aktif</div>
+  </div>
+  <section class="products-grid" id="productsGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;">
+    <% products.forEach(function(product){ %>
+      <article class="product-card" data-name="<%= product.name %>" data-category="<%= product.category %>" data-badge="<%= product.badge %>" style="border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;background:rgba(255,255,255,.04);box-shadow:var(--lux-shadow2)">
+        <a href="/product/<%= product.slug %>" style="display:block;">
+          <img src="<%= product.image %>" alt="<%= product.name %>" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;">
+        </a>
+        <div style="padding:16px;">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+            <% if (product.badge) { %><span class="pill" style="padding:5px 10px;border-radius:999px;border:1px solid rgba(231,192,107,.35);color:#fff4d6;"><%= product.badge %></span><% } %>
+            <% if (product.topSeller) { %><span class="pill" style="padding:5px 10px;border-radius:999px;border:1px solid rgba(231,192,107,.35);color:#fff4d6;">TOP SELLER</span><% } %>
+            <% if (product.soldOut) { %><span class="pill" style="padding:5px 10px;border-radius:999px;border:1px solid rgba(255,120,120,.35);color:#ffd0d0;">SOLD OUT</span><% } %>
+          </div>
+          <h3 style="margin:0 0 8px;font-size:18px;letter-spacing:.08em;"><a href="/product/<%= product.slug %>"><%= product.name %></a></h3>
+          <div class="muted" style="font-size:14px;line-height:1.6;"><%= product.desc %></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px;">
+            <strong style="color:#fff4d6;font-size:18px;">Rp <%= Number(product.price).toLocaleString('id-ID') %></strong>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;">
+              <a class="checkout-link" href="/product/<%= product.slug %>">Detail</a>
+              <button class="iconbtn add-cart" type="button" data-id="<%= product.id %>" data-name="<%= product.name %>" data-price="<%= product.price %>" style="width:auto;padding:0 14px;" <%= product.soldOut ? 'disabled' : '' %>>Add</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    <% }) %>
+  </section>
+</main>

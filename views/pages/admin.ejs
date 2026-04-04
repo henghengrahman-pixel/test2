@@ -1,0 +1,137 @@
+
+<div class="container" style="padding:24px 14px;max-width:1280px;margin:0 auto;">
+  <div class="glass">
+    <div class="topbarA">
+      <div class="brandA">ADMIN MAWAR PARFUM</div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <% if (isLoggedIn) { %>
+        <span class="pillA">Logged in</span>
+        <form method="post" action="/admin/logout"><button class="btnA ghost" type="submit">Logout</button></form>
+        <% } else { %>
+        <span class="pillA">Please login</span>
+        <% } %>
+        <a class="btnA ghost" href="/">Kembali ke Web</a>
+      </div>
+    </div>
+    <div class="hrA"></div>
+
+    <% if (!isLoggedIn) { %>
+      <div id="loginView" style="padding:18px;">
+        <div class="gridA two">
+          <div class="cardA">
+            <h1 class="h1A" style="margin:0;font-size:28px;letter-spacing:.06em;">Welcome back, Admin.</h1>
+            <div class="subA" style="margin-top:8px;line-height:1.6;">Silahkan login owner Mawar Parfume.</div>
+          </div>
+          <div class="cardA">
+            <h2 style="margin:0 0 6px;">Admin Login</h2>
+            <% if (loginError) { %><div style="color:#ffb3b3;margin-bottom:10px;"><%= loginError %></div><% } %>
+            <form method="post" action="/admin/login">
+              <label class="A">Admin ID</label>
+              <input class="A" name="id" required>
+              <label class="A">Password</label>
+              <input class="A" name="password" type="password" required>
+              <div class="actionsA" style="margin-top:14px;"><button class="btnA primary" type="submit">LOGIN</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    <% } else { %>
+      <div id="panelView" style="padding:18px;display:grid;gap:18px;">
+        <div class="gridA two">
+          <div class="cardA">
+            <h2 style="margin:0;">Kelola Produk</h2>
+            <form method="post" action="/admin/products/save" style="margin-top:12px;display:grid;gap:10px;">
+              <input type="hidden" name="id" value="<%= editingProduct?.id || '' %>">
+              <label class="A">Nama Produk</label><input class="A" name="name" required value="<%= editingProduct?.name || '' %>">
+              <label class="A">Slug SEO</label><input class="A" name="slug" value="<%= editingProduct?.slug || '' %>">
+              <div class="rowA" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div><label class="A">Harga</label><input class="A" name="price" inputmode="numeric" required value="<%= editingProduct?.price || '' %>"></div>
+                <div><label class="A">Kategori</label><select class="A" name="category"><% ['MEN','WOMEN','UNISEX','MIX'].forEach(function(cat){ %><option value="<%= cat %>" <%= editingProduct?.category===cat?'selected':'' %>><%= cat %></option><% }) %></select></div>
+              </div>
+              <label class="A">Deskripsi Singkat</label><input class="A" name="desc" value="<%= editingProduct?.desc || '' %>">
+              <label class="A">Deskripsi Lengkap</label><textarea class="A" name="description"><%= editingProduct?.description || '' %></textarea>
+              <label class="A">Image Cover</label><input class="A" name="image" value="<%= editingProduct?.image || '' %>">
+              <label class="A">Gallery (pisahkan dengan baris baru / koma)</label><textarea class="A" name="gallery"><%= editingProduct?.gallery?.join('\n') || '' %></textarea>
+              <div class="rowA" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div><label class="A">Badge</label><input class="A" name="badge" value="<%= editingProduct?.badge || '' %>"></div>
+                <div style="display:flex;gap:14px;align-items:center;padding-top:28px;flex-wrap:wrap;">
+                  <label><input type="checkbox" name="active" <%= editingProduct ? (editingProduct.active ? 'checked' : '') : 'checked' %>> Aktif</label>
+                  <label><input type="checkbox" name="soldOut" <%= editingProduct?.soldOut ? 'checked' : '' %>> Sold out</label>
+                  <label><input type="checkbox" name="topSeller" <%= editingProduct?.topSeller ? 'checked' : '' %>> Top seller</label>
+                </div>
+              </div>
+              <label class="A">Top Notes</label><input class="A" name="topNotes" value="<%= editingProduct?.topNotes || '' %>">
+              <label class="A">Mid Notes</label><input class="A" name="midNotes" value="<%= editingProduct?.midNotes || '' %>">
+              <label class="A">Base Notes</label><input class="A" name="baseNotes" value="<%= editingProduct?.baseNotes || '' %>">
+              <label class="A">SEO Title</label><input class="A" name="seoTitle" value="<%= editingProduct?.seoTitle || '' %>">
+              <label class="A">SEO Description</label><textarea class="A" name="seoDescription"><%= editingProduct?.seoDescription || '' %></textarea>
+              <label class="A">Canonical</label><input class="A" name="canonical" value="<%= editingProduct?.canonical || '' %>">
+              <label class="A">OG Image</label><input class="A" name="ogImage" value="<%= editingProduct?.ogImage || '' %>">
+              <div class="actionsA"><button class="btnA primary" type="submit">Simpan Produk</button> <a class="btnA ghost" href="/admin">Reset</a></div>
+            </form>
+          </div>
+          <div class="cardA">
+            <h2 style="margin:0;">Setting Website</h2>
+            <form method="post" action="/admin/settings/save" style="margin-top:12px;display:grid;gap:10px;">
+              <label class="A">App Name</label><input class="A" name="appName" value="<%= settings.appName %>">
+              <label class="A">Footer Text</label><textarea class="A" name="footerText"><%= settings.footerText %></textarea>
+              <label class="A">WhatsApp Link</label><input class="A" name="whatsappLink" value="<%= settings.whatsappLink %>">
+              <label class="A">Contact Phone</label><input class="A" name="contactPhone" value="<%= settings.contactPhone %>">
+              <label class="A">Contact Email</label><input class="A" name="contactEmail" value="<%= settings.contactEmail %>">
+              <label class="A">Organization Name</label><input class="A" name="organizationName" value="<%= settings.organizationName %>">
+              <label class="A">Default SEO Title</label><input class="A" name="defaultSeoTitle" value="<%= settings.defaultSeoTitle %>">
+              <label class="A">Default SEO Description</label><textarea class="A" name="defaultSeoDescription"><%= settings.defaultSeoDescription %></textarea>
+              <label class="A">Default OG Image</label><input class="A" name="defaultOgImage" value="<%= settings.defaultOgImage %>">
+              <label class="A">Instagram URL</label><input class="A" name="instagramUrl" value="<%= settings.instagramUrl %>">
+              <label class="A">TikTok URL</label><input class="A" name="tiktokUrl" value="<%= settings.tiktokUrl %>">
+              <label class="A">Telegram URL</label><input class="A" name="telegramUrl" value="<%= settings.telegramUrl %>">
+              <div class="actionsA"><button class="btnA primary" type="submit">Simpan Setting</button></div>
+            </form>
+          </div>
+        </div>
+
+        <div class="cardA">
+          <h2 style="margin:0 0 12px;">Daftar Produk</h2>
+          <div style="overflow:auto;">
+            <table style="width:100%;border-collapse:collapse;">
+              <thead><tr><th style="text-align:left;padding:10px;">Produk</th><th style="text-align:left;padding:10px;">Kategori</th><th style="text-align:left;padding:10px;">Status</th><th style="text-align:left;padding:10px;">Aksi</th></tr></thead>
+              <tbody>
+                <% products.forEach(function(product){ %>
+                <tr style="border-top:1px solid rgba(255,255,255,.08);">
+                  <td style="padding:10px;"><strong><%= product.name %></strong><div class="subA"><%= product.slug %></div></td>
+                  <td style="padding:10px;"><%= product.category %></td>
+                  <td style="padding:10px;"><%= product.active ? 'Aktif' : 'Nonaktif' %> / <%= product.soldOut ? 'Sold Out' : 'Ready' %></td>
+                  <td style="padding:10px;display:flex;gap:8px;flex-wrap:wrap;">
+                    <a class="btnA ghost" href="/admin?edit=<%= product.id %>">Edit</a>
+                    <form method="post" action="/admin/products/<%= product.id %>/delete" onsubmit="return confirm('Hapus produk?')"><button class="btnA ghost" type="submit">Hapus</button></form>
+                  </td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="cardA">
+          <h2 style="margin:0 0 12px;">Daftar Order</h2>
+          <div style="overflow:auto;">
+            <table style="width:100%;border-collapse:collapse;">
+              <thead><tr><th style="text-align:left;padding:10px;">Kode</th><th style="text-align:left;padding:10px;">Customer</th><th style="text-align:left;padding:10px;">Item</th><th style="text-align:left;padding:10px;">Total</th><th style="text-align:left;padding:10px;">Aksi</th></tr></thead>
+              <tbody>
+                <% orders.forEach(function(order){ %>
+                <tr style="border-top:1px solid rgba(255,255,255,.08);vertical-align:top;">
+                  <td style="padding:10px;"><strong><%= order.orderCode %></strong><div class="subA"><%= new Date(order.createdAt).toLocaleString('id-ID') %></div></td>
+                  <td style="padding:10px;"><%= order.customer.name %><div class="subA"><%= order.customer.phone %></div><div class="subA"><%= order.customer.address %></div></td>
+                  <td style="padding:10px;"><% order.items.forEach(function(item){ %><div><%= item.name %> x<%= item.qty %></div><% }) %></td>
+                  <td style="padding:10px;">Rp <%= Number(order.totals.grandTotal).toLocaleString('id-ID') %></td>
+                  <td style="padding:10px;"><form method="post" action="/admin/orders/<%= order.orderCode %>/delete" onsubmit="return confirm('Hapus order?')"><button class="btnA ghost" type="submit">Hapus</button></form></td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+
+<div class="top-strip">
+  <div class="wrap">
+    <div class="strip-row">
+      <div class="strip-left">• EXTRAIT DE PARFUME</div>
+      <div class="strip-right">
+        <span class="mwgtxt">MWG</span>
+        <span class="dot">•</span>
+        <span class="cartlink" onclick="window.MawarCart.toggle()" role="button" tabindex="0">MY CART : <b id="cartCount">0</b></span>
+        <span class="dot">•</span>
+        <a href="/checkout" class="checkout-link" aria-label="Checkout"><span class="cicon">🛒</span><span class="ctext">Checkout</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="header">
+  <div class="wrap">
+    <div class="row">
+      <div class="head-actions mobile-left">
+        <button class="iconbtn" id="mobileMenuBtn" type="button" aria-label="Open menu">☰</button>
+      </div>
+      <h1 class="brand brand-wrap" style="margin:0">
+        <a href="/" class="brand-link" aria-label="Mawar Parfume Home"><span class="brand-text">MAWAR PARFUME</span></a>
+      </h1>
+      <div class="head-actions">
+        <button class="iconbtn" id="openSearchBtn" type="button" aria-label="Open search"><span class="icon">🔍</span></button>
+      </div>
+    </div>
+  </div>
+  <div class="line"></div>
+  <div class="nav" id="mainNav">
+    <ul>
+      <li><a href="/">FRAGRANCE</a></li>
+      <li><a href="/" data-filter="MIX" class="cat-link">PARFUME MIX</a></li>
+      <li><a href="/" data-filter="MEN" class="cat-link">MEN</a></li>
+      <li><a href="/" data-filter="WOMEN" class="cat-link">WOMEN</a></li>
+      <li><a href="/" data-filter="UNISEX" class="cat-link">UNISEX</a></li>
+      <li><a href="/admin">ADMIN</a></li>
+    </ul>
+  </div>
+  <div class="line"></div>
+</div>
+<div class="search-overlay" id="searchOverlay" aria-hidden="true">
+  <div class="searchbar">
+    <div class="searchhint">I’m looking for…</div>
+    <div class="searchrow"><span class="sicon">🔍</span><input id="q" placeholder="Search perfume..." autocomplete="off" inputmode="search"></div>
+    <button class="closebtn" id="closeSearchBtn" type="button">✕ <span>Close</span></button>
+  </div>
+</div>
+<div id="cartDrawer" aria-hidden="true" style="position:fixed;inset:0;z-index:2000;display:none;">
+  <div onclick="window.MawarCart.toggle(false)" style="position:absolute;inset:0;background:rgba(0,0,0,.55)"></div>
+  <div style="position:absolute;top:0;right:0;width:min(420px,100%);height:100%;background:#111;padding:20px;overflow:auto;border-left:1px solid rgba(255,255,255,.12)">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;">
+      <h3 style="margin:0;color:#fff4d6;letter-spacing:.14em;text-transform:uppercase;">My Cart</h3>
+      <button class="iconbtn" type="button" onclick="window.MawarCart.toggle(false)">✕</button>
+    </div>
+    <div id="cartDrawerItems" class="muted"></div>
+    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="/checkout" class="checkout-link">🛒 Checkout</a>
+      <button class="iconbtn" style="width:auto;padding:0 14px;" type="button" onclick="window.MawarCart.clear()">Kosongkan</button>
+    </div>
+  </div>
+</div>

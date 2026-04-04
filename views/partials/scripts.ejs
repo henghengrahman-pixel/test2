@@ -1,0 +1,7 @@
+
+<script>window.__PRODUCTS__ = <%- JSON.stringify(typeof products !== 'undefined' ? products : []) %>;</script>
+<script src="/js/anti-zoom.js"></script>
+<script src="/js/site.js"></script>
+<% if (currentPath.startsWith('/checkout')) { %><script src="/js/checkout.js"></script><% } %>
+<% if (currentPath.startsWith('/product/')) { %><script src="/js/product.js"></script><% } %>
+<% if (currentPath.startsWith('/admin')) { %><script src="/js/admin.js"></script><% } %>
