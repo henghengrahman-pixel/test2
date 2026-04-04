@@ -1,7 +1,54 @@
+<script>
+(function () {
+  const openBtn = document.getElementById('openSearchBtn');
+  const closeBtn = document.getElementById('closeSearchBtn');
+  const overlay = document.getElementById('searchOverlay');
+  const input = document.getElementById('q');
+  const cards = Array.from(document.querySelectorAll('.product-card'));
 
-<script>window.__PRODUCTS__ = <%- JSON.stringify(typeof products !== 'undefined' ? products : []) %>;</script>
-<script src="/js/anti-zoom.js"></script>
-<script src="/js/site.js"></script>
-<% if (currentPath.startsWith('/checkout')) { %><script src="/js/checkout.js"></script><% } %>
-<% if (currentPath.startsWith('/product/')) { %><script src="/js/product.js"></script><% } %>
-<% if (currentPath.startsWith('/admin')) { %><script src="/js/admin.js"></script><% } %>
+  function openSearch() {
+    if (!overlay) return;
+    overlay.style.display = 'flex';
+    overlay.setAttribute('aria-hidden', 'false');
+    setTimeout(() => input && input.focus(), 50);
+  }
+
+  function closeSearch() {
+    if (!overlay) return;
+    overlay.style.display = 'none';
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+
+  function filterProducts() {
+    const keyword = (input?.value || '').toLowerCase().trim();
+    let visible = 0;
+
+    cards.forEach(card => {
+      const name = (card.dataset.name || '').toLowerCase();
+      const category = (card.dataset.category || '').toLowerCase();
+      const match = !keyword || name.includes(keyword) || category.includes(keyword);
+
+      card.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+
+    const resultInfo = document.getElementById('resultInfo');
+    if (resultInfo) {
+      resultInfo.textContent = `${visible} produk aktif`;
+    }
+  }
+
+  openBtn && openBtn.addEventListener('click', openSearch);
+  closeBtn && closeBtn.addEventListener('click', closeSearch);
+
+  overlay && overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closeSearch();
+  });
+
+  input && input.addEventListener('input', filterProducts);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeSearch();
+  });
+})();
+</script>
