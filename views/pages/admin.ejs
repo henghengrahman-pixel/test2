@@ -1,6 +1,4 @@
 <div class="admin-layout">
-
-  <!-- Sidebar -->
   <aside class="admin-sidebar">
     <div class="admin-logo">MAWAR ADMIN</div>
 
@@ -9,7 +7,7 @@
       <a href="/admin/products" class="<%= currentTab === 'products' ? 'active' : '' %>">Products</a>
       <a href="/admin/orders" class="<%= currentTab === 'orders' ? 'active' : '' %>">Orders</a>
       <a href="/admin/settings" class="<%= currentTab === 'settings' ? 'active' : '' %>">Settings</a>
-      <a href="/" target="_blank">View Store</a>
+      <a href="/" target="_blank" rel="noopener noreferrer">View Store</a>
 
       <form method="post" action="/admin/logout">
         <button type="submit" class="logout-btn">Logout</button>
@@ -17,9 +15,7 @@
     </nav>
   </aside>
 
-  <!-- Content -->
   <main class="admin-content">
-
     <% if (currentTab === 'dashboard') { %>
       <h1>Dashboard</h1>
 
@@ -36,12 +32,13 @@
 
         <div class="stat-card">
           <div>Total Revenue</div>
-          <strong>Rp <%= Number(stats.totalRevenue).toLocaleString('id-ID') %></strong>
+          <strong>Rp <%= Number(stats.totalRevenue || 0).toLocaleString('id-ID') %></strong>
         </div>
       </div>
 
       <div class="admin-table">
         <h2>Recent Orders</h2>
+
         <table>
           <thead>
             <tr>
@@ -52,19 +49,24 @@
             </tr>
           </thead>
           <tbody>
-            <% stats.recentOrders.forEach(function(order){ %>
+            <% if (stats.recentOrders && stats.recentOrders.length) { %>
+              <% stats.recentOrders.forEach(function(order){ %>
+                <tr>
+                  <td><%= order.orderCode %></td>
+                  <td><%= order.customer?.name || '-' %></td>
+                  <td>Rp <%= Number(order.totals?.grandTotal || 0).toLocaleString('id-ID') %></td>
+                  <td><%= order.createdAt ? new Date(order.createdAt).toLocaleString('id-ID') : '-' %></td>
+                </tr>
+              <% }) %>
+            <% } else { %>
               <tr>
-                <td><%= order.orderCode %></td>
-                <td><%= order.customer.name %></td>
-                <td>Rp <%= Number(order.totals.grandTotal).toLocaleString('id-ID') %></td>
-                <td><%= new Date(order.createdAt).toLocaleString('id-ID') %></td>
+                <td colspan="4">Belum ada order terbaru.</td>
               </tr>
-            <% }) %>
+            <% } %>
           </tbody>
         </table>
       </div>
     <% } %>
-
 
     <% if (currentTab === 'products') { %>
       <h1>Products</h1>
@@ -75,87 +77,216 @@
         <label>Nama Produk</label>
         <input name="name" value="<%= editingProduct?.name || '' %>" required>
 
+        <label>Slug</label>
+        <input name="slug" value="<%= editingProduct?.slug || '' %>">
+
         <label>Harga</label>
         <input name="price" value="<%= editingProduct?.price || '' %>" required>
 
         <label>Image</label>
         <input name="image" value="<%= editingProduct?.image || '' %>">
 
-        <button type="submit">Simpan Produk</button>
+        <label>Deskripsi Singkat</label>
+        <input name="desc" value="<%= editingProduct?.desc || '' %>">
+
+        <label>Deskripsi Lengkap</label>
+        <textarea name="description"><%= editingProduct?.description || '' %></textarea>
+
+        <label>Kategori</label>
+        <select name="category">
+          <% ['MEN', 'WOMEN', 'UNISEX', 'MIX'].forEach(function(cat){ %>
+            <option value="<%= cat %>" <%= editingProduct?.category === cat ? 'selected' : '' %>>
+              <%= cat %>
+            </option>
+          <% }) %>
+        </select>
+
+        <label>Badge</label>
+        <input name="badge" value="<%= editingProduct?.badge || '' %>">
+
+        <label>Top Notes</label>
+        <input name="topNotes" value="<%= editingProduct?.topNotes || '' %>">
+
+        <label>Mid Notes</label>
+        <input name="midNotes" value="<%= editingProduct?.midNotes || '' %>">
+
+        <label>Base Notes</label>
+        <input name="baseNotes" value="<%= editingProduct?.baseNotes || '' %>">
+
+        <label>Gallery (pisahkan dengan baris baru atau koma)</label>
+        <textarea name="gallery"><%= editingProduct?.gallery?.join('\n') || '' %></textarea>
+
+        <label>SEO Title</label>
+        <input name="seoTitle" value="<%= editingProduct?.seoTitle || '' %>">
+
+        <label>SEO Description</label>
+        <textarea name="seoDescription"><%= editingProduct?.seoDescription || '' %></textarea>
+
+        <label>Canonical</label>
+        <input name="canonical" value="<%= editingProduct?.canonical || '' %>">
+
+        <label>OG Image</label>
+        <input name="ogImage" value="<%= editingProduct?.ogImage || '' %>">
+
+        <label style="display:flex;gap:8px;align-items:center;">
+          <input type="checkbox" name="active" <%= editingProduct ? (editingProduct.active ? 'checked' : '') : 'checked' %>>
+          Aktif
+        </label>
+
+        <label style="display:flex;gap:8px;align-items:center;">
+          <input type="checkbox" name="soldOut" <%= editingProduct?.soldOut ? 'checked' : '' %>>
+          Sold Out
+        </label>
+
+        <label style="display:flex;gap:8px;align-items:center;">
+          <input type="checkbox" name="topSeller" <%= editingProduct?.topSeller ? 'checked' : '' %>>
+          Top Seller
+        </label>
+
+        <button type="submit"><%= editingProduct ? 'Update Produk' : 'Simpan Produk' %></button>
       </form>
 
-      <table class="admin-table">
-        <thead>
-          <tr>
-            <th>Produk</th>
-            <th>Harga</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% products.forEach(function(product){ %>
-          <tr>
-            <td><%= product.name %></td>
-            <td>Rp <%= Number(product.price).toLocaleString('id-ID') %></td>
-            <td>
-              <a href="/admin/products?edit=<%= product.id %>">Edit</a>
-              <form method="post" action="/admin/products/<%= product.id %>/delete" style="display:inline;">
-                <button type="submit">Hapus</button>
-              </form>
-            </td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
-    <% } %>
+      <div class="admin-table">
+        <h2>Daftar Products</h2>
 
+        <table>
+          <thead>
+            <tr>
+              <th>Produk</th>
+              <th>Kategori</th>
+              <th>Harga</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (products && products.length) { %>
+              <% products.forEach(function(product){ %>
+                <tr>
+                  <td>
+                    <strong><%= product.name %></strong><br>
+                    <small><%= product.slug %></small>
+                  </td>
+                  <td><%= product.category || '-' %></td>
+                  <td>Rp <%= Number(product.price || 0).toLocaleString('id-ID') %></td>
+                  <td>
+                    <%= product.active ? 'Aktif' : 'Nonaktif' %> /
+                    <%= product.soldOut ? 'Sold Out' : 'Ready' %>
+                  </td>
+                  <td>
+                    <a href="/admin/products?edit=<%= product.id %>">Edit</a>
+                    <form method="post" action="/admin/products/<%= product.id %>/delete" style="display:inline;" onsubmit="return confirm('Hapus produk ini?')">
+                      <button type="submit">Hapus</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <tr>
+                <td colspan="5">Belum ada produk.</td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
 
     <% if (currentTab === 'orders') { %>
       <h1>Orders</h1>
 
-      <table class="admin-table">
-        <thead>
-          <tr>
-            <th>Kode</th>
-            <th>Customer</th>
-            <th>Total</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% orders.forEach(function(order){ %>
-          <tr>
-            <td><%= order.orderCode %></td>
-            <td><%= order.customer.name %></td>
-            <td>Rp <%= Number(order.totals.grandTotal).toLocaleString('id-ID') %></td>
-            <td>
-              <form method="post" action="/admin/orders/<%= order.orderCode %>/delete">
-                <button type="submit">Hapus</button>
-              </form>
-            </td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
-    <% } %>
+      <div class="admin-table">
+        <h2>Daftar Orders</h2>
 
+        <table>
+          <thead>
+            <tr>
+              <th>Kode</th>
+              <th>Customer</th>
+              <th>Item</th>
+              <th>Total</th>
+              <th>Tanggal</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (orders && orders.length) { %>
+              <% orders.forEach(function(order){ %>
+                <tr>
+                  <td><%= order.orderCode %></td>
+                  <td>
+                    <strong><%= order.customer?.name || '-' %></strong><br>
+                    <small><%= order.customer?.phone || '-' %></small>
+                  </td>
+                  <td>
+                    <% if (order.items && order.items.length) { %>
+                      <% order.items.forEach(function(item){ %>
+                        <div><%= item.name %> x<%= item.qty %></div>
+                      <% }) %>
+                    <% } else { %>
+                      -
+                    <% } %>
+                  </td>
+                  <td>Rp <%= Number(order.totals?.grandTotal || 0).toLocaleString('id-ID') %></td>
+                  <td><%= order.createdAt ? new Date(order.createdAt).toLocaleString('id-ID') : '-' %></td>
+                  <td>
+                    <form method="post" action="/admin/orders/<%= order.orderCode %>/delete" onsubmit="return confirm('Hapus order ini?')">
+                      <button type="submit">Hapus</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <tr>
+                <td colspan="6">Belum ada order.</td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
 
     <% if (currentTab === 'settings') { %>
       <h1>Settings</h1>
 
       <form method="post" action="/admin/settings/save" class="admin-form">
         <label>App Name</label>
-        <input name="appName" value="<%= settings.appName %>">
+        <input name="appName" value="<%= settings.appName || '' %>">
 
-        <label>WhatsApp</label>
-        <input name="whatsappLink" value="<%= settings.whatsappLink %>">
+        <label>Footer Text</label>
+        <textarea name="footerText"><%= settings.footerText || '' %></textarea>
 
-        <label>Email</label>
-        <input name="contactEmail" value="<%= settings.contactEmail %>">
+        <label>WhatsApp Link</label>
+        <input name="whatsappLink" value="<%= settings.whatsappLink || '' %>">
+
+        <label>Contact Phone</label>
+        <input name="contactPhone" value="<%= settings.contactPhone || '' %>">
+
+        <label>Contact Email</label>
+        <input name="contactEmail" value="<%= settings.contactEmail || '' %>">
+
+        <label>Organization Name</label>
+        <input name="organizationName" value="<%= settings.organizationName || '' %>">
+
+        <label>Default SEO Title</label>
+        <input name="defaultSeoTitle" value="<%= settings.defaultSeoTitle || '' %>">
+
+        <label>Default SEO Description</label>
+        <textarea name="defaultSeoDescription"><%= settings.defaultSeoDescription || '' %></textarea>
+
+        <label>Default OG Image</label>
+        <input name="defaultOgImage" value="<%= settings.defaultOgImage || '' %>">
+
+        <label>Instagram URL</label>
+        <input name="instagramUrl" value="<%= settings.instagramUrl || '' %>">
+
+        <label>TikTok URL</label>
+        <input name="tiktokUrl" value="<%= settings.tiktokUrl || '' %>">
+
+        <label>Telegram URL</label>
+        <input name="telegramUrl" value="<%= settings.telegramUrl || '' %>">
 
         <button type="submit">Simpan Settings</button>
       </form>
     <% } %>
-
   </main>
 </div>
