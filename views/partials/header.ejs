@@ -36,11 +36,26 @@
 
   <div class="nav nav-clean" id="mainNav">
     <ul>
-      <li><a href="/" class="nav-item-fx">Fragrance</a></li>
-      <li><a href="/" data-filter="MIX" class="cat-link nav-item-fx">Parfume Mix</a></li>
-      <li><a href="/" data-filter="MEN" class="cat-link nav-item-fx">Men</a></li>
-      <li><a href="/" data-filter="WOMEN" class="cat-link nav-item-fx">Women</a></li>
-      <li><a href="/" data-filter="UNISEX" class="cat-link nav-item-fx">Unisex</a></li>
+      <li>
+        <a
+          href="/"
+          class="nav-item-fx <%= !currentPath.includes('?category=') ? '' : '' %>"
+        >
+          Fragrance
+        </a>
+      </li>
+      <li>
+        <a href="/?category=MIX" data-filter="MIX" class="cat-link nav-item-fx">Parfume Mix</a>
+      </li>
+      <li>
+        <a href="/?category=MEN" data-filter="MEN" class="cat-link nav-item-fx">Men</a>
+      </li>
+      <li>
+        <a href="/?category=WOMEN" data-filter="WOMEN" class="cat-link nav-item-fx">Women</a>
+      </li>
+      <li>
+        <a href="/?category=UNISEX" data-filter="UNISEX" class="cat-link nav-item-fx">Unisex</a>
+      </li>
     </ul>
   </div>
 </header>
@@ -69,10 +84,10 @@
 
     <div id="cartDrawerItems" class="muted cart-items-clean"></div>
 
-<div class="cart-panel-actions">
-  <a class="cart-checkout-btn magnetic" href="/checkout">Checkout</a>
-  <button class="iconbtn-clean clear-cart-btn magnetic" type="button" onclick="window.MawarCart.clear()">Kosongkan</button>
-</div>
+    <div class="cart-panel-actions">
+      <a class="cart-checkout-btn magnetic" href="/checkout">Checkout</a>
+      <button class="iconbtn-clean clear-cart-btn magnetic" type="button" onclick="window.MawarCart.clear()">Kosongkan</button>
+    </div>
   </aside>
 </div>
 
@@ -246,7 +261,8 @@
     transition:transform .25s ease, color .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
   }
 
-  .nav-clean a:hover{
+  .nav-clean a:hover,
+  .nav-clean a.active-cat{
     color:#111;
     border-color:rgba(216,179,106,.48);
     background:#faf6ee;
@@ -373,6 +389,29 @@
     width:auto;
     min-height:40px;
     padding:0 14px;
+  }
+
+  .cart-checkout-btn{
+    min-height:40px;
+    padding:0 16px;
+    border-radius:12px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(216,179,106,.45);
+    background:linear-gradient(180deg,#f5e6c7,#e3c085);
+    color:#2c1d08;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    box-shadow:0 8px 18px rgba(216,179,106,.16);
+    transition:.2s ease;
+    text-decoration:none;
+  }
+
+  .cart-checkout-btn:hover{
+    transform:translateY(-1px);
   }
 
   .magnetic{
