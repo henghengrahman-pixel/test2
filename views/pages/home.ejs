@@ -1,4 +1,4 @@
-<section class="hero hero-premium reveal reveal-zoom">
+<section class="hero hero-premium">
   <div class="wrap hero-premium-inner">
     <div class="hero-premium-copy">
       <div class="hero-mini">Luxury Extrait de Parfum</div>
@@ -10,13 +10,12 @@
 
       <div class="hero-actions">
         <a href="#productsSection" class="btn-premium btn-gold">Shop Collection</a>
-        <a href="<%= siteSettings.whatsappLink %>" target="_blank" rel="noopener" class="btn-premium btn-outline">WhatsApp</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="brand-note reveal">
+<section class="brand-note">
   <div class="wrap brand-note-row">
     <div class="brand-note-item">Premium Aroma</div>
     <div class="brand-note-line"></div>
@@ -28,10 +27,10 @@
   </div>
 </section>
 
-<% const featuredProducts = products.filter(product => product.topSeller && !product.soldOut).slice(0, 3); %>
+<% const featuredProducts = products.filter(product => product.topSeller && !product.soldOut).slice(0, 4); %>
 
 <% if (featuredProducts.length) { %>
-<section class="wrap featured-section reveal">
+<section class="wrap featured-section">
   <div class="section-head-clean">
     <div>
       <div class="section-mini">Featured</div>
@@ -40,8 +39,8 @@
   </div>
 
   <div class="featured-grid">
-    <% featuredProducts.forEach(function(product, index){ %>
-      <article class="featured-card reveal delay-<%= (index % 3) + 1 %>">
+    <% featuredProducts.forEach(function(product){ %>
+      <article class="featured-card">
         <a href="/product/<%= product.slug %>" class="featured-image-link">
           <img src="<%= product.image %>" alt="<%= product.name %>" class="featured-image">
         </a>
@@ -62,7 +61,7 @@
 </section>
 <% } %>
 
-<section class="wrap about-home-section reveal reveal-left">
+<section class="wrap about-home-section">
   <div class="about-home-card">
     <div class="section-mini">About Mawar Parfume</div>
     <h2>Simple. Elegant. Memorable.</h2>
@@ -74,7 +73,7 @@
   </div>
 </section>
 
-<main class="wrap home-products-wrap reveal reveal-right" id="productsSection">
+<main class="wrap home-products-wrap" id="productsSection">
   <div class="collection-head">
     <div>
       <div class="collection-label">Collection</div>
@@ -84,10 +83,10 @@
   </div>
 
   <% if (products && products.length) { %>
-    <section class="products-grid products-grid-home" id="productsGrid">
-      <% products.forEach(function(product, index){ %>
+    <section class="products-grid-home" id="productsGrid">
+      <% products.forEach(function(product){ %>
         <article
-          class="product-card product-card-home reveal delay-<%= (index % 5) + 1 %>"
+          class="product-card-home"
           data-name="<%= product.name %>"
           data-category="<%= product.category %>"
         >
@@ -140,7 +139,7 @@
       <% }) %>
     </section>
   <% } else { %>
-    <section class="empty-products reveal">
+    <section class="empty-products">
       <div class="empty-products-card">
         <h3>Produk belum tersedia</h3>
         <p class="muted">Saat ini belum ada produk aktif yang ditampilkan.</p>
@@ -149,7 +148,7 @@
   <% } %>
 </main>
 
-<section class="wrap closing-section reveal reveal-zoom">
+<section class="wrap closing-section">
   <div class="closing-card">
     <div class="section-mini">Mawar Parfume</div>
     <h2>Luxury Scent for Daily Confidence</h2>
@@ -219,8 +218,8 @@
   }
 
   .btn-premium{
-    min-height:44px;
-    padding:0 18px;
+    min-height:46px;
+    padding:0 24px;
     border-radius:999px;
     display:inline-flex;
     align-items:center;
@@ -239,14 +238,7 @@
     box-shadow:0 10px 24px rgba(216,179,106,.16);
   }
 
-  .btn-outline{
-    border:1px solid #ece8e1;
-    background:#fff;
-    color:#222;
-  }
-
-  .btn-gold:hover,
-  .btn-outline:hover{
+  .btn-gold:hover{
     transform:translateY(-1px);
   }
 
@@ -322,6 +314,13 @@
     border:1px solid #ece8e1;
     background:#fff;
     box-shadow:0 12px 28px rgba(0,0,0,.05);
+    transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  }
+
+  .featured-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(216,179,106,.42);
+    box-shadow:0 18px 36px rgba(0,0,0,.08);
   }
 
   .featured-image-link{
@@ -391,7 +390,7 @@
   }
 
   .about-home-section{
-    padding:52px 18px 8px;
+    padding:36px 18px 8px;
   }
 
   .about-home-card{
@@ -626,58 +625,6 @@
     box-shadow:0 12px 28px rgba(0,0,0,.04);
   }
 
-  /* scroll reveal */
-  .reveal{
-    opacity:0;
-    transform:translateY(28px);
-    transition:opacity .8s ease, transform .8s ease;
-    will-change:opacity, transform;
-  }
-
-  .reveal.is-visible{
-    opacity:1;
-    transform:translateY(0);
-  }
-
-  .reveal-left{
-    opacity:0;
-    transform:translateX(-30px);
-    transition:opacity .8s ease, transform .8s ease;
-  }
-
-  .reveal-left.is-visible{
-    opacity:1;
-    transform:translateX(0);
-  }
-
-  .reveal-right{
-    opacity:0;
-    transform:translateX(30px);
-    transition:opacity .8s ease, transform .8s ease;
-  }
-
-  .reveal-right.is-visible{
-    opacity:1;
-    transform:translateX(0);
-  }
-
-  .reveal-zoom{
-    opacity:0;
-    transform:scale(.96);
-    transition:opacity .8s ease, transform .8s ease;
-  }
-
-  .reveal-zoom.is-visible{
-    opacity:1;
-    transform:scale(1);
-  }
-
-  .delay-1{transition-delay:.08s}
-  .delay-2{transition-delay:.16s}
-  .delay-3{transition-delay:.24s}
-  .delay-4{transition-delay:.32s}
-  .delay-5{transition-delay:.40s}
-
   @media (max-width:1200px){
     .products-grid-home{
       grid-template-columns:repeat(4, minmax(0, 1fr));
@@ -769,8 +716,37 @@
     }
 
     .featured-grid{
-      grid-template-columns:1fr;
-      gap:14px;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:12px;
+    }
+
+    .featured-body{
+      padding:10px;
+    }
+
+    .featured-body h3{
+      font-size:12px;
+      margin-bottom:6px;
+      line-height:1.35;
+    }
+
+    .featured-body p{
+      display:none;
+    }
+
+    .featured-footer{
+      margin-top:8px;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:4px;
+    }
+
+    .featured-footer strong{
+      font-size:12px;
+    }
+
+    .featured-footer a{
+      font-size:10px;
     }
 
     .about-home-card{
@@ -836,17 +812,6 @@
       font-size:10px;
       border-radius:10px;
       padding:0 8px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .reveal,
-    .reveal-left,
-    .reveal-right,
-    .reveal-zoom{
-      opacity:1 !important;
-      transform:none !important;
-      transition:none !important;
     }
   }
 </style>
