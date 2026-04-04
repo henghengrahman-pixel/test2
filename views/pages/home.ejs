@@ -1,9 +1,133 @@
-<section class="hero">
-  <h1>MAWAR PARFUME</h1>
-  <p>Extrait de parfum halal, wangi mewah, dan tahan lama.</p>
+<section class="hero hero-lux">
+  <div class="hero-lux-bg"></div>
+  <div class="hero-lux-overlay"></div>
+
+  <div class="wrap hero-lux-inner">
+    <div class="hero-kicker">Luxury Extrait de Parfum</div>
+    <h1>MAWAR PARFUME</h1>
+    <p>
+      Extrait de parfum halal, wangi mewah, elegan, dan tahan lama
+      untuk pria maupun wanita.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#productsSection" class="btn-lux btn-lux-gold">Shop Collection</a>
+      <a href="#aboutBrand" class="btn-lux btn-lux-dark">About Brand</a>
+    </div>
+
+    <div class="hero-features">
+      <span>Halal</span>
+      <span>Long Lasting</span>
+      <span>Premium Quality</span>
+      <span>Refill Available</span>
+    </div>
+  </div>
 </section>
 
-<main class="wrap home-products-wrap">
+<section class="brand-strip">
+  <div class="wrap brand-strip-row">
+    <div class="brand-item">Luxury Scent</div>
+    <div class="brand-dot"></div>
+    <div class="brand-item">Elegant Aroma</div>
+    <div class="brand-dot"></div>
+    <div class="brand-item">Premium Collection</div>
+    <div class="brand-dot"></div>
+    <div class="brand-item">Mawar Parfume</div>
+  </div>
+</section>
+
+<% const bestSellerProducts = products.filter(product => product.topSeller && !product.soldOut).slice(0, 4); %>
+
+<% if (bestSellerProducts.length) { %>
+<section class="wrap best-section">
+  <div class="section-head luxury-head">
+    <div>
+      <div class="section-kicker">Best Seller</div>
+      <h2>Most Loved Fragrance</h2>
+    </div>
+    <p class="section-subtext">Pilihan aroma favorit pelanggan Mawar Parfume.</p>
+  </div>
+
+  <div class="best-grid">
+    <% bestSellerProducts.forEach(function(product){ %>
+      <article class="best-card">
+        <a href="/product/<%= product.slug %>" class="best-image-link">
+          <img src="<%= product.image %>" alt="<%= product.name %>" class="best-image">
+        </a>
+
+        <div class="best-body">
+          <div class="best-badge">TOP SELLER</div>
+          <h3><a href="/product/<%= product.slug %>"><%= product.name %></a></h3>
+          <p><%= product.desc %></p>
+
+          <div class="best-footer">
+            <strong>Rp <%= Number(product.price).toLocaleString('id-ID') %></strong>
+            <a href="/product/<%= product.slug %>" class="best-link">Lihat Detail</a>
+          </div>
+        </div>
+      </article>
+    <% }) %>
+  </div>
+</section>
+<% } %>
+
+<section class="wrap about-brand-section" id="aboutBrand">
+  <div class="about-brand-card">
+    <div class="about-brand-content">
+      <div class="section-kicker">About Brand</div>
+      <h2>Mawar Parfume, Aroma Mewah untuk Penampilan Berkelas</h2>
+      <p>
+        Mawar Parfume menghadirkan extrait de parfum halal dengan karakter aroma
+        yang elegan, premium, dan tahan lama. Dirancang untuk kamu yang ingin tampil
+        lebih percaya diri dengan wangi yang berkesan mewah setiap hari.
+      </p>
+
+      <div class="about-points">
+        <span>Extrait de Parfum</span>
+        <span>Halal Formula</span>
+        <span>Elegant Scent</span>
+        <span>Daily Luxury</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap why-section">
+  <div class="section-head luxury-head center">
+    <div>
+      <div class="section-kicker">Why Choose Us</div>
+      <h2>Luxury in Every Spray</h2>
+    </div>
+  </div>
+
+  <div class="why-grid">
+    <article class="why-card">
+      <div class="why-icon">✦</div>
+      <h3>Premium Aroma</h3>
+      <p>Wangi elegan dengan karakter mewah dan berkelas.</p>
+    </article>
+
+    <article class="why-card">
+      <div class="why-icon">✦</div>
+      <h3>Long Lasting</h3>
+      <p>Aroma tahan lama untuk aktivitas harian hingga acara spesial.</p>
+    </article>
+
+    <article class="why-card">
+      <div class="why-icon">✦</div>
+      <h3>Halal Formula</h3>
+      <p>Dipilih untuk kenyamanan penggunaan sehari-hari.</p>
+    </article>
+
+    <article class="why-card">
+      <div class="why-icon">✦</div>
+      <h3>Luxury Experience</h3>
+      <p>Tampilan produk dan branding dibuat premium dan eksklusif.</p>
+    </article>
+  </div>
+</section>
+
+<main class="wrap home-products-wrap" id="productsSection">
   <div class="collection-head">
     <div>
       <div class="collection-label">Collection</div>
@@ -64,142 +188,783 @@
         </article>
       <% }) %>
     </section>
+  <% } else { %>
+    <section class="empty-products">
+      <div class="empty-products-card">
+        <h3>Produk belum tersedia</h3>
+        <p class="muted">Saat ini belum ada produk aktif yang ditampilkan.</p>
+      </div>
+    </section>
   <% } %>
 </main>
 
+<section class="wrap testimonial-section">
+  <div class="section-head luxury-head center">
+    <div>
+      <div class="section-kicker">Testimonial</div>
+      <h2>What They Say</h2>
+    </div>
+  </div>
+
+  <div class="testimonial-grid">
+    <article class="testimonial-card">
+      <p>"Wanginya elegan banget, awet dipakai seharian dan terasa premium."</p>
+      <strong>— Customer Mawar</strong>
+    </article>
+
+    <article class="testimonial-card">
+      <p>"Packaging dan aroma sama-sama mewah. Cocok buat dipakai harian."</p>
+      <strong>— Happy Buyer</strong>
+    </article>
+
+    <article class="testimonial-card">
+      <p>"Favorit saya karena wanginya soft tapi tetap berkelas dan tahan lama."</p>
+      <strong>— Loyal Customer</strong>
+    </article>
+  </div>
+</section>
+
 <style>
-.home-products-wrap{
-  padding:28px 18px 54px;
-}
-
-.collection-head{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:end;
-  flex-wrap:wrap;
-  margin-bottom:18px;
-}
-
-.collection-label{
-  font-size:12px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:rgba(255,255,255,.68);
-}
-
-.collection-title{
-  margin:6px 0 0;
-  font-size:18px;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:#fff4d6;
-}
-
-/* GRID */
-.products-grid-home{
-  display:grid;
-  grid-template-columns:repeat(5, minmax(0, 1fr));
-  gap:16px;
-}
-
-/* Laptop */
-@media (max-width:1200px){
-  .products-grid-home{
-    grid-template-columns:repeat(4, minmax(0, 1fr));
+  .hero-lux{
+    position:relative;
+    overflow:hidden;
+    min-height:78vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:110px 0 90px;
+    background:
+      radial-gradient(900px 420px at 50% 0%, rgba(231,192,107,.18), transparent 60%),
+      radial-gradient(900px 500px at 10% 100%, rgba(122,41,70,.22), transparent 65%),
+      radial-gradient(900px 500px at 90% 100%, rgba(15,122,85,.16), transparent 65%),
+      linear-gradient(180deg, #09090c 0%, #0b0b10 55%, #09090c 100%);
   }
-}
 
-/* Tablet */
-@media (max-width:900px){
-  .products-grid-home{
-    grid-template-columns:repeat(3, minmax(0, 1fr));
+  .hero-lux-bg{
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,.04) 0, transparent 18%),
+      radial-gradient(circle at 80% 30%, rgba(231,192,107,.07) 0, transparent 20%),
+      radial-gradient(circle at 50% 70%, rgba(255,255,255,.03) 0, transparent 24%);
+    pointer-events:none;
   }
-}
 
-/* Mobile */
-@media (max-width:600px){
-  .products-grid-home{
-    grid-template-columns:repeat(2, minmax(0, 1fr));
+  .hero-lux-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.35));
+    pointer-events:none;
+  }
+
+  .hero-lux-inner{
+    position:relative;
+    z-index:2;
+    max-width:900px;
+  }
+
+  .hero-kicker{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:36px;
+    padding:0 16px;
+    border-radius:999px;
+    border:1px solid rgba(231,192,107,.35);
+    background:rgba(255,255,255,.04);
+    color:#ffe2a3;
+    font-size:11px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+
+  .hero-lux h1{
+    margin:0;
+    font-size:56px;
+    line-height:1.1;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:#fff4d6;
+    text-shadow:0 8px 40px rgba(231,192,107,.18);
+  }
+
+  .hero-lux p{
+    max-width:740px;
+    margin:18px auto 0;
+    font-size:17px;
+    line-height:1.8;
+    color:rgba(255,244,214,.82);
+  }
+
+  .hero-actions{
+    display:flex;
+    justify-content:center;
     gap:12px;
+    flex-wrap:wrap;
+    margin-top:28px;
   }
-}
 
-/* CARD */
-.product-card-home{
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:16px;
-  overflow:hidden;
-  background:rgba(255,255,255,.04);
-  box-shadow:var(--lux-shadow2);
-  display:flex;
-  flex-direction:column;
-}
+  .btn-lux{
+    min-width:180px;
+    min-height:46px;
+    padding:0 20px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    transition:.25s ease;
+  }
 
-.product-image{
-  width:100%;
-  aspect-ratio:3/4;
-  object-fit:cover;
-}
+  .btn-lux-gold{
+    color:#1b1508;
+    border:1px solid rgba(231,192,107,.48);
+    background:linear-gradient(180deg, rgba(255,226,163,.95), rgba(231,192,107,.82));
+    box-shadow:0 16px 36px rgba(0,0,0,.22);
+  }
 
-.product-body{
-  padding:14px;
-  display:flex;
-  flex-direction:column;
-}
+  .btn-lux-gold:hover{
+    transform:translateY(-2px);
+  }
 
-.product-badges{
-  display:flex;
-  gap:6px;
-  flex-wrap:wrap;
-  margin-bottom:8px;
-}
+  .btn-lux-dark{
+    color:#fff4d6;
+    border:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(12px);
+  }
 
-.product-pill{
-  padding:4px 8px;
-  border-radius:999px;
-  border:1px solid rgba(231,192,107,.35);
-  color:#fff4d6;
-  font-size:10px;
-}
+  .btn-lux-dark:hover{
+    border-color:rgba(231,192,107,.28);
+  }
 
-.soldout-pill{
-  border-color:rgba(255,120,120,.35);
-  color:#ffd0d0;
-}
+  .hero-features{
+    margin-top:26px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
 
-.product-name{
-  margin:0 0 6px;
-  font-size:15px;
-}
+  .hero-features span{
+    padding:7px 12px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.04);
+    color:rgba(255,244,214,.78);
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
 
-.product-desc{
-  font-size:13px;
-  color:rgba(255,255,255,.72);
-}
+  .brand-strip{
+    border-top:1px solid rgba(255,255,255,.06);
+    border-bottom:1px solid rgba(255,255,255,.06);
+    background:rgba(255,255,255,.03);
+    backdrop-filter:blur(12px);
+  }
 
-.product-footer{
-  margin-top:auto;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
+  .brand-strip-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    padding:16px 0;
+  }
 
-.product-price{
-  color:#fff4d6;
-  font-size:16px;
-}
+  .brand-item{
+    font-size:11px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:rgba(255,244,214,.72);
+  }
 
-.product-actions{
-  display:flex;
-  gap:6px;
-  flex-direction:column;
-}
+  .brand-dot{
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:rgba(231,192,107,.52);
+  }
 
-.detail-btn,
-.add-btn{
-  width:100%;
-  font-size:11px;
-  min-height:32px;
-}
+  .section-head{
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+  }
+
+  .luxury-head.center{
+    justify-content:center;
+    text-align:center;
+  }
+
+  .section-kicker{
+    font-size:11px;
+    letter-spacing:.20em;
+    text-transform:uppercase;
+    color:rgba(255,226,163,.72);
+    margin-bottom:8px;
+  }
+
+  .section-head h2{
+    margin:0;
+    color:#fff4d6;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-size:26px;
+  }
+
+  .section-subtext{
+    margin:0;
+    color:rgba(255,255,255,.65);
+    font-size:14px;
+  }
+
+  .best-section{
+    padding:54px 18px 12px;
+  }
+
+  .best-grid{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:18px;
+  }
+
+  .best-card{
+    overflow:hidden;
+    border-radius:22px;
+    border:1px solid rgba(255,255,255,.07);
+    background:rgba(255,255,255,.04);
+    box-shadow:var(--lux-shadow2);
+  }
+
+  .best-image-link{
+    display:block;
+  }
+
+  .best-image{
+    display:block;
+    width:100%;
+    aspect-ratio:4/5;
+    object-fit:cover;
+  }
+
+  .best-body{
+    padding:16px;
+  }
+
+  .best-badge{
+    display:inline-flex;
+    min-height:28px;
+    align-items:center;
+    padding:0 10px;
+    border-radius:999px;
+    border:1px solid rgba(231,192,107,.35);
+    color:#fff4d6;
+    font-size:10px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+
+  .best-body h3{
+    margin:0 0 8px;
+    font-size:18px;
+  }
+
+  .best-body h3 a{
+    color:#fff;
+  }
+
+  .best-body p{
+    margin:0;
+    font-size:13px;
+    color:rgba(255,255,255,.70);
+    line-height:1.7;
+  }
+
+  .best-footer{
+    margin-top:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+  }
+
+  .best-footer strong{
+    color:#fff4d6;
+  }
+
+  .best-link{
+    font-size:12px;
+    color:#ffe2a3;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+
+  .about-brand-section{
+    padding:54px 18px 12px;
+  }
+
+  .about-brand-card{
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:28px;
+    overflow:hidden;
+    background:
+      radial-gradient(700px 240px at 0% 0%, rgba(231,192,107,.10), transparent 60%),
+      linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.03));
+    box-shadow:var(--lux-shadow2);
+  }
+
+  .about-brand-content{
+    padding:34px;
+    max-width:860px;
+  }
+
+  .about-brand-content h2{
+    margin:0 0 14px;
+    font-size:30px;
+    line-height:1.3;
+    color:#fff4d6;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+
+  .about-brand-content p{
+    margin:0;
+    color:rgba(255,255,255,.74);
+    line-height:1.9;
+    font-size:15px;
+  }
+
+  .about-points{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:20px;
+  }
+
+  .about-points span{
+    padding:8px 12px;
+    border-radius:999px;
+    border:1px solid rgba(231,192,107,.20);
+    color:#ffe2a3;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    background:rgba(255,255,255,.03);
+  }
+
+  .why-section{
+    padding:54px 18px 8px;
+  }
+
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:18px;
+  }
+
+  .why-card{
+    padding:22px 18px;
+    border-radius:22px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.04);
+    box-shadow:var(--lux-shadow2);
+  }
+
+  .why-icon{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    margin-bottom:12px;
+    background:linear-gradient(180deg, rgba(255,226,163,.22), rgba(231,192,107,.10));
+    border:1px solid rgba(231,192,107,.25);
+    color:#fff4d6;
+    font-size:16px;
+  }
+
+  .why-card h3{
+    margin:0 0 10px;
+    color:#fff4d6;
+    font-size:16px;
+    letter-spacing:.04em;
+  }
+
+  .why-card p{
+    margin:0;
+    color:rgba(255,255,255,.68);
+    font-size:14px;
+    line-height:1.7;
+  }
+
+  .home-products-wrap{
+    padding:54px 18px 20px;
+  }
+
+  .collection-head{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    align-items:end;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+  }
+
+  .collection-label{
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.68);
+  }
+
+  .collection-title{
+    margin:6px 0 0;
+    font-size:22px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:#fff4d6;
+  }
+
+  .result-info{
+    font-size:12px;
+  }
+
+  .products-grid-home{
+    display:grid;
+    grid-template-columns:repeat(5, minmax(0, 1fr));
+    gap:16px;
+  }
+
+  .product-card-home{
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    overflow:hidden;
+    background:rgba(255,255,255,.04);
+    box-shadow:var(--lux-shadow2);
+    display:flex;
+    flex-direction:column;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+
+  .product-card-home:hover{
+    transform:translateY(-4px);
+    border-color:rgba(231,192,107,.24);
+    box-shadow:0 20px 40px rgba(0,0,0,.25);
+  }
+
+  .product-image-link{
+    display:block;
+  }
+
+  .product-image-wrap{
+    overflow:hidden;
+  }
+
+  .product-image{
+    width:100%;
+    aspect-ratio:3/4;
+    object-fit:cover;
+    display:block;
+    transition:transform .35s ease;
+  }
+
+  .product-card-home:hover .product-image{
+    transform:scale(1.04);
+  }
+
+  .product-body{
+    padding:14px;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+  }
+
+  .product-badges{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-bottom:8px;
+  }
+
+  .product-pill{
+    padding:4px 8px;
+    border-radius:999px;
+    border:1px solid rgba(231,192,107,.35);
+    color:#fff4d6;
+    font-size:10px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+
+  .soldout-pill{
+    border-color:rgba(255,120,120,.35);
+    color:#ffd0d0;
+  }
+
+  .product-name{
+    margin:0 0 6px;
+    font-size:15px;
+    line-height:1.45;
+  }
+
+  .product-name a{
+    color:#fff;
+  }
+
+  .product-desc{
+    font-size:13px;
+    line-height:1.7;
+    color:rgba(255,255,255,.72);
+  }
+
+  .product-footer{
+    margin-top:auto;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    padding-top:12px;
+  }
+
+  .product-price{
+    color:#fff4d6;
+    font-size:16px;
+  }
+
+  .product-actions{
+    display:flex;
+    gap:6px;
+    flex-direction:column;
+  }
+
+  .detail-btn,
+  .add-btn{
+    width:100%;
+    font-size:11px;
+    min-height:34px;
+  }
+
+  .empty-products{
+    padding:10px 0 0;
+  }
+
+  .empty-products-card{
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    background:rgba(255,255,255,.04);
+    padding:24px;
+    text-align:center;
+  }
+
+  .testimonial-section{
+    padding:54px 18px 70px;
+  }
+
+  .testimonial-grid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:18px;
+  }
+
+  .testimonial-card{
+    padding:22px 18px;
+    border-radius:22px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.04);
+    box-shadow:var(--lux-shadow2);
+  }
+
+  .testimonial-card p{
+    margin:0 0 14px;
+    color:rgba(255,255,255,.72);
+    line-height:1.8;
+    font-size:14px;
+  }
+
+  .testimonial-card strong{
+    color:#fff4d6;
+    font-size:13px;
+    letter-spacing:.05em;
+  }
+
+  @media (max-width:1200px){
+    .products-grid-home{
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width:900px){
+    .best-grid,
+    .why-grid,
+    .testimonial-grid{
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+    }
+
+    .products-grid-home{
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+    }
+
+    .hero-lux h1{
+      font-size:42px;
+    }
+
+    .about-brand-content h2{
+      font-size:24px;
+    }
+  }
+
+  @media (max-width:600px){
+    .hero-lux{
+      min-height:auto;
+      padding:86px 0 66px;
+    }
+
+    .hero-kicker{
+      font-size:10px;
+      letter-spacing:.14em;
+      margin-bottom:14px;
+    }
+
+    .hero-lux h1{
+      font-size:28px;
+      letter-spacing:.18em;
+    }
+
+    .hero-lux p{
+      font-size:13px;
+      line-height:1.8;
+      margin-top:14px;
+    }
+
+    .hero-actions{
+      gap:10px;
+      margin-top:22px;
+    }
+
+    .btn-lux{
+      width:100%;
+      min-width:0;
+      font-size:11px;
+    }
+
+    .hero-features{
+      margin-top:18px;
+      gap:8px;
+    }
+
+    .hero-features span{
+      font-size:9px;
+      padding:6px 10px;
+    }
+
+    .brand-strip-row{
+      gap:10px;
+      padding:12px 0;
+    }
+
+    .brand-item{
+      font-size:9px;
+      letter-spacing:.12em;
+    }
+
+    .section-head h2{
+      font-size:20px;
+    }
+
+    .section-subtext{
+      font-size:12px;
+    }
+
+    .best-section,
+    .about-brand-section,
+    .why-section,
+    .home-products-wrap,
+    .testimonial-section{
+      padding-left:14px;
+      padding-right:14px;
+    }
+
+    .best-grid,
+    .why-grid,
+    .testimonial-grid{
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+
+    .about-brand-content{
+      padding:22px 18px;
+    }
+
+    .about-brand-content h2{
+      font-size:20px;
+    }
+
+    .about-brand-content p{
+      font-size:13px;
+    }
+
+    .products-grid-home{
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:12px;
+    }
+
+    .collection-title{
+      font-size:16px;
+      letter-spacing:.12em;
+    }
+
+    .product-card-home{
+      border-radius:14px;
+    }
+
+    .product-body{
+      padding:8px;
+    }
+
+    .product-badges{
+      gap:4px;
+      margin-bottom:6px;
+    }
+
+    .product-pill{
+      font-size:8px;
+      padding:3px 6px;
+    }
+
+    .product-name{
+      font-size:11px;
+      margin-bottom:4px;
+    }
+
+    .product-desc{
+      display:none;
+    }
+
+    .product-price{
+      font-size:11px;
+    }
+
+    .product-footer{
+      gap:6px;
+      padding-top:8px;
+    }
+
+    .detail-btn,
+    .add-btn{
+      min-height:32px;
+      font-size:10px;
+      padding:0 8px;
+      border-radius:10px;
+    }
+  }
 </style>
