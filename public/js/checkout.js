@@ -94,14 +94,12 @@
 
   function changeCheckoutQty(index, delta) {
     if (!window.MawarCart || typeof window.MawarCart.changeQty !== 'function') return;
-
     window.MawarCart.changeQty(index, delta);
     renderCheckoutCart();
   }
 
   function removeCheckoutItem(index) {
     if (!window.MawarCart || typeof window.MawarCart.remove !== 'function') return;
-
     window.MawarCart.remove(index);
     renderCheckoutCart();
   }
@@ -130,7 +128,11 @@
       return;
     }
 
-    if (btn) btn.disabled = true;
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Memproses...';
+    }
+
     if (message) message.textContent = 'Memproses pesanan...';
 
     try {
@@ -171,8 +173,10 @@
         message.textContent = error.message || 'Terjadi kesalahan saat checkout.';
       }
 
-      if (btn) btn.disabled = false;
-      return;
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = 'Buat Pesanan';
+      }
     }
   }
 
