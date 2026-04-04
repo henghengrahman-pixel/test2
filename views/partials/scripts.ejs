@@ -72,3 +72,35 @@
   items.forEach((item) => observer.observe(item));
 })();
 </script>
+<script>
+(function () {
+  const header = document.querySelector('.header-clean');
+  const magneticItems = document.querySelectorAll('.magnetic');
+
+  function handleHeaderShadow() {
+    if (!header) return;
+    if (window.scrollY > 10) header.classList.add('is-scrolled');
+    else header.classList.remove('is-scrolled');
+  }
+
+  handleHeaderShadow();
+  window.addEventListener('scroll', handleHeaderShadow, { passive: true });
+
+  magneticItems.forEach((item) => {
+    item.addEventListener('mousemove', (e) => {
+      const rect = item.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const moveX = (x - rect.width / 2) * 0.08;
+      const moveY = (y - rect.height / 2) * 0.08;
+
+      item.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
+
+    item.addEventListener('mouseleave', () => {
+      item.style.transform = 'translate(0, 0)';
+    });
+  });
+})();
+</script>
