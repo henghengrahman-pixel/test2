@@ -8,7 +8,7 @@
     <div class="line-soft"></div>
 
     <div class="checkout-grid">
-      <section class="card" aria-label="Keranjang">
+      <section class="card" aria-label="Keranjang Pesanan">
         <div class="card-head">
           <h3>Keranjang</h3>
         </div>
@@ -16,7 +16,7 @@
         <div class="card-body">
           <div id="cartWrap" class="muted checkout-cart-wrap">Loading...</div>
 
-          <div class="summary" aria-label="Ringkasan">
+          <div class="summary" aria-label="Ringkasan Belanja">
             <div class="summary-row">
               <span>Total (IDR)</span>
               <b id="grandTotal">Rp 0</b>
@@ -35,30 +35,64 @@
           <form id="checkoutForm" novalidate>
             <div class="field">
               <label class="sectionTitle" for="name">Nama *</label>
-              <input id="name" name="name" type="text" required placeholder="Nama pemesan">
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                placeholder="Nama pemesan"
+                autocomplete="name"
+              >
             </div>
 
             <div class="field">
               <label class="sectionTitle" for="phone">No WhatsApp *</label>
-              <input id="phone" name="phone" type="tel" inputmode="tel" required placeholder="08xxxxxxxxxx">
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                inputmode="tel"
+                required
+                placeholder="08xxxxxxxxxx"
+                autocomplete="tel"
+              >
             </div>
 
             <div class="field">
               <label class="sectionTitle" for="address">Alamat *</label>
-              <textarea id="address" name="address" required placeholder="Alamat lengkap pengiriman"></textarea>
+              <textarea
+                id="address"
+                name="address"
+                required
+                placeholder="Alamat lengkap pengiriman"
+                autocomplete="street-address"
+              ></textarea>
             </div>
 
             <div class="field">
               <label class="sectionTitle" for="notes">Catatan</label>
-              <textarea id="notes" name="notes" placeholder="Catatan tambahan untuk admin"></textarea>
+              <textarea
+                id="notes"
+                name="notes"
+                placeholder="Catatan tambahan untuk admin"
+              ></textarea>
             </div>
 
             <div class="btn-row">
-              <button class="checkout-link" id="btnCheckout" type="submit">Buat Pesanan</button>
-              <button class="iconbtn clear-cart-inline-btn" type="button" id="clearCartBtn">Kosongkan Cart</button>
+              <button class="checkout-link" id="btnCheckout" type="submit">
+                Buat Pesanan
+              </button>
+
+              <button
+                class="iconbtn clear-cart-inline-btn"
+                type="button"
+                id="clearCartBtn"
+              >
+                Kosongkan Cart
+              </button>
             </div>
 
-            <div id="checkoutMessage" class="muted checkout-message"></div>
+            <div id="checkoutMessage" class="muted checkout-message" aria-live="polite"></div>
           </form>
         </div>
       </section>
