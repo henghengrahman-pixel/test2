@@ -1,49 +1,95 @@
+<div class="crumbrow">
+  <div class="wrap">
+    <div class="crumbtxt">
+      <a href="/">Home</a>
+      <span class="sep">›</span>
+      <a href="/">Fragrance</a>
+      <span class="sep">›</span>
+      <span class="pname"><%= product.name %></span>
+    </div>
+  </div>
+</div>
 
-<div class="crumbrow"><div class="wrap" style="padding-top:10px;padding-bottom:10px;"><div class="crumbtxt"><a href="/">HOME</a><span class="sep">›</span><a href="/">FRAGRANCE</a><span class="sep">›</span><span class="pname"><%= product.name %></span></div></div></div>
-<main class="wrap" style="padding:18px 0 54px;">
-  <div class="pdp" style="display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start;">
+<main class="wrap pdp-wrap">
+  <div class="pdp">
     <section class="pdp-left">
-      <div class="pdp-badges" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+      <div class="pdp-badges">
         <% if (product.badge) { %><span class="pill"><%= product.badge %></span><% } %>
-        <% if (product.topSeller) { %><span class="pill">TOP SELLER</span><% } %>
-        <% if (product.soldOut) { %><span class="pill">SOLD OUT</span><% } %>
+        <% if (product.topSeller) { %><span class="pill">Top Seller</span><% } %>
+        <% if (product.soldOut) { %><span class="pill soldout-pill">Sold Out</span><% } %>
       </div>
-      <div class="pdp-image"><img id="pImage" src="<%= product.image %>" alt="<%= product.name %>" style="width:100%;border-radius:24px;aspect-ratio:3/4;object-fit:cover;"></div>
-      <div class="pdp-thumbs" id="thumbs" style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
+
+      <div class="pdp-image">
+        <img id="pImage" src="<%= product.image %>" alt="<%= product.name %>">
+      </div>
+
+      <div class="pdp-thumbs" id="thumbs">
         <% product.gallery.forEach(function(image, index){ %>
-          <button class="thumb <%= index === 0 ? 'active' : '' %>" data-image="<%= image %>" type="button" style="border:1px solid rgba(255,255,255,.12);background:transparent;border-radius:14px;padding:4px;"><img src="<%= image %>" alt="<%= product.name %>" style="width:82px;height:82px;object-fit:cover;border-radius:10px;"></button>
+          <button class="thumb <%= index === 0 ? 'active' : '' %>" data-image="<%= image %>" type="button">
+            <img src="<%= image %>" alt="<%= product.name %>">
+          </button>
         <% }) %>
       </div>
     </section>
+
     <section class="pdp-right">
-      <h1 class="pdp-title" id="pName"><%= product.name %></h1>
-      <div class="pdp-price" id="pPrice" style="font-size:30px;font-weight:900;color:#fff4d6;">Rp <%= Number(product.price).toLocaleString('id-ID') %></div>
-      <div class="pdp-desc" style="margin-top:8px;line-height:1.8;color:rgba(255,255,255,.78)"><%= product.description || product.desc %></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:18px;">
-        <div class="cardA"><strong>Top Notes</strong><div class="subA"><%= product.topNotes || '-' %></div></div>
-        <div class="cardA"><strong>Mid Notes</strong><div class="subA"><%= product.midNotes || '-' %></div></div>
-        <div class="cardA"><strong>Base Notes</strong><div class="subA"><%= product.baseNotes || '-' %></div></div>
+      <h1 class="pdp-title"><%= product.name %></h1>
+
+      <div class="pdp-price">
+        Rp <%= Number(product.price).toLocaleString('id-ID') %>
       </div>
-      <div class="pdp-cta" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:20px;">
-        <div class="qty" style="display:flex;align-items:center;gap:8px;">
-          <button type="button" id="minus" class="iconbtn">−</button>
-          <input id="qty" type="number" min="1" value="1" style="width:82px;text-align:center;">
-          <button type="button" id="plus" class="iconbtn">+</button>
+
+      <div class="pdp-desc">
+        <%= product.description || product.desc %>
+      </div>
+
+      <div class="notes-grid">
+        <div class="note-card">
+          <strong>Top Notes</strong>
+          <div><%= product.topNotes || '-' %></div>
         </div>
-        <button class="checkout-link" id="addProductCart" type="button" data-id="<%= product.id %>" data-name="<%= product.name %>" data-price="<%= product.price %>" <%= product.soldOut ? 'disabled' : '' %>>Tambah ke Cart</button>
-        <a class="checkout-link" href="/checkout">Checkout</a>
+        <div class="note-card">
+          <strong>Mid Notes</strong>
+          <div><%= product.midNotes || '-' %></div>
+        </div>
+        <div class="note-card">
+          <strong>Base Notes</strong>
+          <div><%= product.baseNotes || '-' %></div>
+        </div>
+      </div>
+
+      <div class="pdp-cta">
+        <div class="qty">
+          <button type="button" id="minus">−</button>
+          <input id="qty" type="number" min="1" value="1">
+          <button type="button" id="plus">+</button>
+        </div>
+
+        <button class="btn-cart" id="addProductCart"
+          data-id="<%= product.id %>"
+          data-name="<%= product.name %>"
+          data-price="<%= product.price %>"
+          <%= product.soldOut ? 'disabled' : '' %>>
+          Add to Cart
+        </button>
+
+        <a class="btn-checkout" href="/checkout">Checkout</a>
       </div>
     </section>
   </div>
+
   <% if (relatedProducts.length) { %>
-  <section style="margin-top:30px;">
-    <div class="reco-head"><h2>Produk Lainnya</h2></div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:16px;">
+  <section class="related">
+    <h2>Produk Lainnya</h2>
+
+    <div class="related-grid">
       <% relatedProducts.forEach(function(item){ %>
-      <article class="product-card" style="border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;background:rgba(255,255,255,.04);">
-        <a href="/product/<%= item.slug %>"><img src="<%= item.image %>" alt="<%= item.name %>" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;"></a>
-        <div style="padding:14px;">
-          <h3 style="margin:0 0 8px;"><a href="/product/<%= item.slug %>"><%= item.name %></a></h3>
+      <article class="product-card">
+        <a href="/product/<%= item.slug %>">
+          <img src="<%= item.image %>" alt="<%= item.name %>">
+        </a>
+        <div class="card-body">
+          <h3><a href="/product/<%= item.slug %>"><%= item.name %></a></h3>
           <div class="muted"><%= item.desc %></div>
         </div>
       </article>
@@ -52,3 +98,122 @@
   </section>
   <% } %>
 </main>
+
+<style>
+.pdp-wrap{
+  padding:20px 0 60px;
+}
+
+.pdp{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:34px;
+  align-items:start;
+}
+
+.pdp-image img{
+  width:100%;
+  border-radius:24px;
+  aspect-ratio:3/4;
+  object-fit:cover;
+}
+
+.pdp-thumbs{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+}
+
+.thumb{
+  border:1px solid rgba(255,255,255,.12);
+  background:transparent;
+  border-radius:12px;
+  padding:4px;
+}
+
+.thumb img{
+  width:70px;
+  height:70px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+.pdp-title{
+  font-size:32px;
+  margin-bottom:8px;
+}
+
+.pdp-price{
+  font-size:28px;
+  font-weight:900;
+  color:#fff4d6;
+}
+
+.pdp-desc{
+  margin-top:10px;
+  line-height:1.9;
+  color:rgba(255,255,255,.75);
+}
+
+.notes-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:12px;
+  margin-top:20px;
+}
+
+.note-card{
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  padding:12px;
+  background:rgba(255,255,255,.03);
+}
+
+.pdp-cta{
+  display:flex;
+  gap:12px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+
+.qty{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.qty input{
+  width:70px;
+  text-align:center;
+}
+
+.btn-cart,
+.btn-checkout{
+  padding:12px 18px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.05);
+  color:#fff;
+}
+
+.related{
+  margin-top:40px;
+}
+
+.related-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+  margin-top:16px;
+}
+
+@media (max-width:900px){
+  .pdp{
+    grid-template-columns:1fr;
+  }
+
+  .notes-grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
