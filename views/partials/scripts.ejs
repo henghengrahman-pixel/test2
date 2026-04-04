@@ -1,10 +1,194 @@
 <script>
 (function () {
+  const STORAGE_KEY = 'mawar_cart_v1';
+
+  function safeParse(value, fallback) {
+    try {
+      return JSON.parse(value) || fallback;
+    } catch (err) {
+      return fallback;
+    }
+  }
+
+  function formatRupiah(value) {
+    return `Rp ${Number(value || 0).toLocaleString('id-ID')}`;
+  }
+
+  const MawarCart = {
+    items: [],
+
+    load() {
+      this.items = safeParse(localStorage.getItem(STORAGE_KEY), []);
+      this.render();
+    },
+
+    save() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.items));
+    },
+
+    count() {
+      return this.items.reduce((total, item) => total + Number(item.qty || 0), 0);
+    },
+
+    total() {
+      return this.items.reduce((total, item) => {
+        return total + (Number(item.price || 0) * Number(item.qty || 0));
+      }, 0);
+    },
+
+    updateCount() {
+      const countEl = document.getElementById('cartCount');
+      if (countEl) countEl.textContent = this.count();
+    },
+
+    render() {
+      const itemsWrap = document.getElementById('cartDrawerItems');
+      const drawer = document.getElementById('cartDrawer');
+
+      this.updateCount();
+
+      if (!itemsWrap) return;
+
+      if (!this.items.length) {
+        itemsWrap.innerHTML = `
+          <div class="cart-empty-state">
+            Keranjang masih kosong.
+          </div>
+        `;
+        if (drawer) drawer.setAttribute('aria-hidden', 'true');
+        return;
+      }
+
+      const rows = this.items.map((item, index) => `
+        <div class="cart-item-row">
+          <div class="cart-item-main">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-price">${formatRupiah(item.price)} × ${item.qty}</div>
+          </div>
+
+          <div class="cart-item-actions">
+            <button type="button" class="cart-qty-btn" data-action="minus" data-index="${index}">−</button>
+            <span class="cart-qty-num">${item.qty}</span>
+            <button type="button" class="cart-qty-btn" data-action="plus" data-index="${index}">+</button>
+            <button type="button" class="cart-remove-btn" data-action="remove" data-index="${index}">Hapus</button>
+          </div>
+        </div>
+      `).join('');
+
+      itemsWrap.innerHTML = `
+        <div class="cart-list">
+          ${rows}
+        </div>
+
+        <div class="cart-summary-box">
+          <div class="cart-summary-row">
+            <span>Total Item</span>
+            <strong>${this.count()}</strong>
+          </div>
+          <div class="cart-summary-row">
+            <span>Total</span>
+            <strong>${formatRupiah(this.total())}</strong>
+          </div>
+        </div>
+      `;
+
+      itemsWrap.querySelectorAll('[data-action]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const index = Number(btn.dataset.index);
+          const action = btn.dataset.action;
+
+          if (action === 'plus') this.changeQty(index, 1);
+          if (action === 'minus') this.changeQty(index, -1);
+          if (action === 'remove') this.remove(index);
+        });
+      });
+    },
+
+    add(product, qty = 1) {
+      if (!product || !product.id) return;
+
+      const quantity = Math.max(1, Number(qty || 1));
+      const found = this.items.find((item) => String(item.id) === String(product.id));
+
+      if (found) {
+        found.qty += quantity;
+      } else {
+        this.items.push({
+          id: product.id,
+          name: product.name || 'Produk',
+          price: Number(product.price || 0),
+          qty: quantity
+        });
+      }
+
+      this.save();
+      this.render();
+    },
+
+    changeQty(index, delta) {
+      if (!this.items[index]) return;
+
+      this.items[index].qty = Math.max(1, Number(this.items[index].qty || 1) + Number(delta || 0));
+      this.save();
+      this.render();
+    },
+
+    remove(index) {
+      if (index < 0 || index >= this.items.length) return;
+      this.items.splice(index, 1);
+      this.save();
+      this.render();
+    },
+
+    clear() {
+      this.items = [];
+      this.save();
+      this.render();
+    },
+
+    toggle(force) {
+      const drawer = document.getElementById('cartDrawer');
+      if (!drawer) return;
+
+      const isOpen = drawer.style.display === 'block';
+
+      let nextState;
+      if (typeof force === 'boolean') nextState = force;
+      else nextState = !isOpen;
+
+      drawer.style.display = nextState ? 'block' : 'none';
+      drawer.setAttribute('aria-hidden', nextState ? 'false' : 'true');
+
+      if (nextState) this.render();
+    }
+  };
+
+  window.MawarCart = MawarCart;
+  MawarCart.load();
+
+  document.querySelectorAll('.add-cart').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.disabled) return;
+
+      window.MawarCart.add({
+        id: button.dataset.id,
+        name: button.dataset.name,
+        price: button.dataset.price
+      }, 1);
+
+      window.MawarCart.toggle(true);
+    });
+  });
+})();
+</script>
+
+<script>
+(function () {
   const openBtn = document.getElementById('openSearchBtn');
   const closeBtn = document.getElementById('closeSearchBtn');
   const overlay = document.getElementById('searchOverlay');
   const input = document.getElementById('q');
-  const cards = Array.from(document.querySelectorAll('.product-card'));
+  const cards = Array.from(document.querySelectorAll('.product-card-home, .product-card'));
 
   function openSearch() {
     if (!overlay) return;
@@ -23,7 +207,7 @@
     const keyword = (input?.value || '').toLowerCase().trim();
     let visible = 0;
 
-    cards.forEach(card => {
+    cards.forEach((card) => {
       const name = (card.dataset.name || '').toLowerCase();
       const category = (card.dataset.category || '').toLowerCase();
       const match = !keyword || name.includes(keyword) || category.includes(keyword);
@@ -52,6 +236,7 @@
   });
 })();
 </script>
+
 <script>
 (function () {
   const items = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-zoom');
@@ -72,6 +257,7 @@
   items.forEach((item) => observer.observe(item));
 })();
 </script>
+
 <script>
 (function () {
   const header = document.querySelector('.header-clean');
@@ -104,3 +290,5 @@
   });
 })();
 </script>
+
+<script src="/js/product.js"></script>
