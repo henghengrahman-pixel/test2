@@ -2170,3 +2170,262 @@ body.admin{
   font-size:12px;
   font-weight:700;
 }
+/* =========================
+   CHECKOUT PAGE
+========================= */
+.checkout-shell{
+  padding:20px 0 28px;
+}
+
+.checkout-wrap{
+  max-width:1180px;
+}
+
+.checkout-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  padding:14px 0;
+}
+
+.brandmini{
+  font-weight:900;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#181818;
+}
+
+.brandmini .dot{
+  opacity:.45;
+}
+
+.pilllink{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:38px;
+  padding:0 14px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:#222;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  box-shadow:var(--shadow-sm);
+  transition:.2s ease;
+}
+
+.pilllink:hover{
+  transform:translateY(-1px);
+  border-color:var(--line-strong);
+  background:var(--surface-2);
+}
+
+.line-soft{
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(216,179,106,.35), transparent);
+  margin:14px 0;
+}
+
+.checkout-grid{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:16px;
+}
+
+.checkout-note{
+  font-size:12px;
+}
+
+.checkout-cart-wrap{
+  font-size:13px;
+}
+
+.summary{
+  margin-top:14px;
+  border:1px solid rgba(216,179,106,.28);
+  border-radius:16px;
+  padding:12px;
+  background:#fffdf9;
+}
+
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  font-size:13px;
+  font-weight:900;
+  color:#181818;
+}
+
+.field + .field{
+  margin-top:14px;
+}
+
+.sectionTitle{
+  display:block;
+  margin-bottom:8px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#181818;
+}
+
+.checkout-shell .card{
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:#fff;
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+}
+
+.checkout-shell .card-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:18px 18px 0;
+}
+
+.checkout-shell .card-head h3{
+  margin:0;
+  color:#171717;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-size:18px;
+}
+
+.checkout-shell .card-body{
+  padding:18px;
+}
+
+.checkout-shell input,
+.checkout-shell textarea{
+  width:100%;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+  color:#111;
+  outline:none;
+  font-size:14px;
+  transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.checkout-shell textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+.checkout-shell input:focus,
+.checkout-shell textarea:focus{
+  border-color:rgba(216,179,106,.52);
+  box-shadow:0 0 0 4px rgba(216,179,106,.10);
+  background:#fffdf9;
+}
+
+.btn-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+.clear-cart-inline-btn{
+  width:auto;
+  padding:0 14px;
+}
+
+.checkout-message{
+  margin-top:10px;
+  font-size:12px;
+}
+
+/* checkout table */
+.cartTable{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.cartTable th{
+  text-align:left;
+  padding:12px 8px;
+  font-size:12px;
+  color:#666;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  border-bottom:1px solid var(--line);
+}
+
+.cartTable td{
+  padding:12px 8px;
+  font-size:14px;
+  color:#222;
+  border-bottom:1px solid var(--line);
+  vertical-align:middle;
+}
+
+.cartTable .iconbtn{
+  width:auto;
+  min-height:34px;
+  padding:0 10px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:#222;
+  font-size:12px;
+  font-weight:700;
+}
+
+.cartTable .iconbtn:hover{
+  background:var(--surface-2);
+  border-color:var(--line-strong);
+}
+
+@media (max-width:900px){
+  .checkout-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width:600px){
+  .checkout-shell{
+    padding:16px 0 24px;
+  }
+
+  .checkout-top{
+    padding:10px 0;
+  }
+
+  .brandmini{
+    font-size:12px;
+    letter-spacing:.14em;
+  }
+
+  .pilllink{
+    min-height:34px;
+    font-size:10px;
+    padding:0 12px;
+  }
+
+  .btn-row{
+    flex-direction:column;
+  }
+
+  .btn-row .checkout-link,
+  .btn-row .iconbtn{
+    width:100%;
+  }
+
+  .cartTable{
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+}
