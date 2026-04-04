@@ -1,789 +1,433 @@
-<section class="hero hero-premium">
-  <div class="hero-premium-bg"></div>
+<div class="top-strip top-strip-clean">
+  <div class="wrap">
+    <div class="strip-row">
+      <div class="strip-left">Extrait de Parfum</div>
+      <div class="strip-right">
+        <span
+          class="cartlink"
+          onclick="window.MawarCart.toggle()"
+          role="button"
+          tabindex="0"
+        >
+          Cart <b id="cartCount">0</b>
+        </span>
 
-  <div class="wrap hero-premium-inner">
-    <div class="hero-premium-copy">
-      <div class="hero-mini">Luxury Extrait de Parfum</div>
-      <h1>MAWAR PARFUME</h1>
-      <p>
-        Parfum halal dengan aroma mewah, elegan, dan tahan lama
-        untuk melengkapi penampilan yang lebih berkelas.
-      </p>
-
-      <div class="hero-actions">
-        <a href="#productsSection" class="btn-premium btn-gold">Shop Collection</a>
-        <a href="<%= siteSettings.whatsappLink %>" target="_blank" rel="noopener" class="btn-premium btn-outline">WhatsApp</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="brand-note">
-  <div class="wrap brand-note-row">
-    <div class="brand-note-item">Premium Aroma</div>
-    <div class="brand-note-line"></div>
-    <div class="brand-note-item">Elegant Character</div>
-    <div class="brand-note-line"></div>
-    <div class="brand-note-item">Long Lasting</div>
-    <div class="brand-note-line"></div>
-    <div class="brand-note-item">Mawar Parfume</div>
-  </div>
-</section>
-
-<% const featuredProducts = products.filter(product => product.topSeller && !product.soldOut).slice(0, 3); %>
-
-<% if (featuredProducts.length) { %>
-<section class="wrap featured-section">
-  <div class="section-head-clean">
-    <div>
-      <div class="section-mini">Featured</div>
-      <h2>Signature Picks</h2>
-    </div>
-  </div>
-
-  <div class="featured-grid">
-    <% featuredProducts.forEach(function(product){ %>
-      <article class="featured-card">
-        <a href="/product/<%= product.slug %>" class="featured-image-link">
-          <img src="<%= product.image %>" alt="<%= product.name %>" class="featured-image">
+        <a href="/checkout" class="checkout-link" aria-label="Checkout">
+          Checkout
         </a>
-
-        <div class="featured-body">
-          <div class="featured-badge">Top Seller</div>
-          <h3><a href="/product/<%= product.slug %>"><%= product.name %></a></h3>
-          <p><%= product.desc %></p>
-          <div class="featured-footer">
-            <strong>Rp <%= Number(product.price).toLocaleString('id-ID') %></strong>
-            <a href="/product/<%= product.slug %>">View</a>
-          </div>
-        </div>
-      </article>
-    <% }) %>
-  </div>
-</section>
-<% } %>
-
-<section class="wrap about-home-section">
-  <div class="about-home-card">
-    <div class="section-mini">About Mawar Parfume</div>
-    <h2>Simple. Elegant. Memorable.</h2>
-    <p>
-      Mawar Parfume menghadirkan pilihan extrait de parfum halal dengan karakter aroma
-      yang mewah, lembut, dan berkelas. Dirancang untuk kamu yang ingin tampil lebih
-      percaya diri dengan wangi yang berkesan premium setiap hari.
-    </p>
-  </div>
-</section>
-
-<main class="wrap home-products-wrap" id="productsSection">
-  <div class="collection-head">
-    <div>
-      <div class="collection-label">Collection</div>
-      <h2 class="collection-title">All Fragrance</h2>
-    </div>
-    <div class="muted result-info" id="resultInfo"><%= products.length %> produk aktif</div>
-  </div>
-
-  <% if (products && products.length) { %>
-    <section class="products-grid products-grid-home" id="productsGrid">
-      <% products.forEach(function(product){ %>
-        <article class="product-card product-card-home">
-          <a href="/product/<%= product.slug %>" class="product-image-link">
-            <div class="product-image-wrap">
-              <img src="<%= product.image %>" alt="<%= product.name %>" class="product-image">
-            </div>
-          </a>
-
-          <div class="product-body">
-            <div class="product-badges">
-              <% if (product.badge) { %>
-                <span class="product-pill"><%= product.badge %></span>
-              <% } %>
-              <% if (product.topSeller) { %>
-                <span class="product-pill">Top Seller</span>
-              <% } %>
-              <% if (product.soldOut) { %>
-                <span class="product-pill soldout-pill">Sold Out</span>
-              <% } %>
-            </div>
-
-            <h3 class="product-name">
-              <a href="/product/<%= product.slug %>"><%= product.name %></a>
-            </h3>
-
-            <div class="product-desc"><%= product.desc %></div>
-
-            <div class="product-footer">
-              <strong class="product-price">
-                Rp <%= Number(product.price).toLocaleString('id-ID') %>
-              </strong>
-
-              <div class="product-actions">
-                <a class="detail-btn" href="/product/<%= product.slug %>">Detail</a>
-
-                <button
-                  class="add-btn add-cart"
-                  type="button"
-                  data-id="<%= product.id %>"
-                  data-name="<%= product.name %>"
-                  data-price="<%= product.price %>"
-                  <%= product.soldOut ? 'disabled' : '' %>>
-                  <%= product.soldOut ? 'Sold Out' : 'Add to Cart' %>
-                </button>
-              </div>
-            </div>
-          </div>
-        </article>
-      <% }) %>
-    </section>
-  <% } else { %>
-    <section class="empty-products">
-      <div class="empty-products-card">
-        <h3>Produk belum tersedia</h3>
-        <p class="muted">Saat ini belum ada produk aktif yang ditampilkan.</p>
       </div>
-    </section>
-  <% } %>
-</main>
-
-<section class="wrap closing-section">
-  <div class="closing-card">
-    <div class="section-mini">Mawar Parfume</div>
-    <h2>Luxury Scent for Daily Confidence</h2>
-    <p>
-      Temukan aroma favoritmu dan rasakan kesan premium dalam setiap semprotan.
-    </p>
+    </div>
   </div>
-</section>
+</div>
+
+<header class="header header-clean">
+  <div class="wrap">
+    <div class="row row-clean">
+      <h1 class="brand brand-wrap" style="margin:0">
+        <a href="/" class="brand-link brand-link-clean" aria-label="Mawar Parfume Home">
+          <span class="brand-text-clean">MAWAR PARFUME</span>
+        </a>
+      </h1>
+
+      <div class="head-actions">
+        <button class="iconbtn iconbtn-clean" id="openSearchBtn" type="button" aria-label="Open search">⌕</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav nav-clean" id="mainNav">
+    <ul>
+      <li><a href="/">Fragrance</a></li>
+      <li><a href="/" data-filter="MIX" class="cat-link">Parfume Mix</a></li>
+      <li><a href="/" data-filter="MEN" class="cat-link">Men</a></li>
+      <li><a href="/" data-filter="WOMEN" class="cat-link">Women</a></li>
+      <li><a href="/" data-filter="UNISEX" class="cat-link">Unisex</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="search-overlay search-overlay-clean" id="searchOverlay" aria-hidden="true">
+  <div class="searchbar searchbar-clean">
+    <div class="searchhint">Search fragrance</div>
+
+    <div class="searchrow searchrow-clean">
+      <span class="sicon">⌕</span>
+      <input id="q" placeholder="Search perfume..." autocomplete="off" inputmode="search">
+    </div>
+
+    <button class="closebtn closebtn-clean" id="closeSearchBtn" type="button">Close</button>
+  </div>
+</div>
+
+<div id="cartDrawer" class="cartDrawerClean" aria-hidden="true" style="position:fixed;inset:0;z-index:2000;display:none;">
+  <div class="cart-backdrop" onclick="window.MawarCart.toggle(false)"></div>
+
+  <aside class="cart-panel">
+    <div class="cart-panel-head">
+      <h3>My Cart</h3>
+      <button class="iconbtn iconbtn-clean" type="button" onclick="window.MawarCart.toggle(false)">✕</button>
+    </div>
+
+    <div id="cartDrawerItems" class="muted cart-items-clean"></div>
+
+    <div class="cart-panel-actions">
+      <a href="/checkout" class="checkout-link cart-checkout-btn">Checkout</a>
+      <button class="iconbtn clear-cart-btn" type="button" onclick="window.MawarCart.clear()">Kosongkan</button>
+    </div>
+  </aside>
+</div>
 
 <style>
-  .hero-premium{
-    position:relative;
-    overflow:hidden;
-    min-height:76vh;
-    display:flex;
-    align-items:center;
-    background:
-      radial-gradient(900px 380px at 50% 0%, rgba(231,192,107,.14), transparent 62%),
-      radial-gradient(700px 420px at 0% 100%, rgba(122,41,70,.18), transparent 60%),
-      linear-gradient(180deg, #09090c 0%, #0b0b10 60%, #09090c 100%);
+  .top-strip-clean{
+    position:sticky;
+    top:0;
+    z-index:1003;
+    background:rgba(12,12,16,.92);
+    border-bottom:1px solid rgba(255,255,255,.06);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
   }
 
-  .hero-premium-bg{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    background:
-      linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.34)),
-      radial-gradient(circle at 20% 24%, rgba(255,255,255,.035) 0, transparent 16%),
-      radial-gradient(circle at 80% 30%, rgba(231,192,107,.05) 0, transparent 18%);
-  }
-
-  .hero-premium-inner{
-    position:relative;
-    z-index:2;
-    width:100%;
-    padding-top:72px;
-    padding-bottom:72px;
-  }
-
-  .hero-premium-copy{
-    max-width:760px;
-    margin:0 auto;
-    text-align:center;
-  }
-
-  .hero-mini{
-    display:inline-block;
-    margin-bottom:16px;
-    color:rgba(255,226,163,.72);
-    font-size:11px;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-  }
-
-  .hero-premium h1{
-    margin:0;
-    color:#fff4d6;
-    font-size:54px;
-    line-height:1.08;
-    letter-spacing:.26em;
-    text-transform:uppercase;
-    text-shadow:0 10px 34px rgba(0,0,0,.28);
-  }
-
-  .hero-premium p{
-    max-width:680px;
-    margin:18px auto 0;
-    color:rgba(255,255,255,.76);
-    font-size:16px;
-    line-height:1.9;
-  }
-
-  .hero-actions{
-    display:flex;
-    justify-content:center;
-    gap:12px;
-    flex-wrap:wrap;
-    margin-top:28px;
-  }
-
-  .btn-premium{
-    min-height:44px;
-    padding:0 18px;
-    border-radius:999px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    font-size:11px;
-    font-weight:800;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    transition:.22s ease;
-  }
-
-  .btn-gold{
-    background:linear-gradient(180deg, rgba(255,226,163,.96), rgba(231,192,107,.85));
-    color:#1b1208;
-    border:1px solid rgba(231,192,107,.42);
-    box-shadow:0 12px 28px rgba(0,0,0,.16);
-  }
-
-  .btn-outline{
-    border:1px solid rgba(255,255,255,.10);
-    background:rgba(255,255,255,.04);
-    color:#fff4d6;
-  }
-
-  .btn-gold:hover,
-  .btn-outline:hover{
-    transform:translateY(-1px);
-  }
-
-  .brand-note{
-    border-top:1px solid rgba(255,255,255,.05);
-    border-bottom:1px solid rgba(255,255,255,.05);
-    background:rgba(255,255,255,.02);
-  }
-
-  .brand-note-row{
-    min-height:58px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:14px;
-    flex-wrap:wrap;
-  }
-
-  .brand-note-item{
-    color:rgba(255,255,255,.62);
-    font-size:11px;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-  }
-
-  .brand-note-line{
-    width:18px;
-    height:1px;
-    background:rgba(231,192,107,.34);
-  }
-
-  .featured-section{
-    padding:54px 18px 10px;
-  }
-
-  .section-head-clean{
-    display:flex;
-    justify-content:space-between;
-    align-items:end;
-    gap:12px;
-    flex-wrap:wrap;
-    margin-bottom:18px;
-  }
-
-  .section-mini{
-    color:rgba(255,226,163,.72);
-    font-size:11px;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    margin-bottom:8px;
-  }
-
-  .section-head-clean h2,
-  .about-home-card h2,
-  .closing-card h2{
-    margin:0;
-    color:#fff4d6;
-    font-size:28px;
-    letter-spacing:.10em;
-    text-transform:uppercase;
-    line-height:1.3;
-  }
-
-  .featured-grid{
-    display:grid;
-    grid-template-columns:repeat(3, minmax(0, 1fr));
-    gap:18px;
-  }
-
-  .featured-card{
-    overflow:hidden;
-    border-radius:20px;
-    border:1px solid rgba(255,255,255,.07);
-    background:rgba(255,255,255,.04);
-    box-shadow:var(--lux-shadow2);
-  }
-
-  .featured-image-link{
-    display:block;
-  }
-
-  .featured-image{
-    width:100%;
-    aspect-ratio:4/5;
-    object-fit:cover;
-    display:block;
-  }
-
-  .featured-body{
-    padding:16px;
-  }
-
-  .featured-badge{
-    display:inline-flex;
-    align-items:center;
-    min-height:28px;
-    padding:0 10px;
-    border-radius:999px;
-    border:1px solid rgba(231,192,107,.22);
-    color:#ffe2a3;
-    font-size:10px;
-    letter-spacing:.10em;
-    text-transform:uppercase;
-    margin-bottom:10px;
-  }
-
-  .featured-body h3{
-    margin:0 0 8px;
-    font-size:18px;
-  }
-
-  .featured-body h3 a{
-    color:#fff;
-  }
-
-  .featured-body p{
-    margin:0;
-    color:rgba(255,255,255,.68);
-    font-size:13px;
-    line-height:1.8;
-  }
-
-  .featured-footer{
-    margin-top:14px;
+  .top-strip-clean .strip-row{
+    min-height:40px;
     display:flex;
     justify-content:space-between;
     align-items:center;
     gap:10px;
+    padding:8px 0;
   }
 
-  .featured-footer strong{
-    color:#fff4d6;
-    font-size:15px;
-  }
-
-  .featured-footer a{
-    color:#ffe2a3;
+  .top-strip-clean .strip-left{
+    color:rgba(255,255,255,.62);
     font-size:11px;
-    letter-spacing:.08em;
+    letter-spacing:.14em;
     text-transform:uppercase;
   }
 
-  .about-home-section{
-    padding:52px 18px 8px;
-  }
-
-  .about-home-card{
-    max-width:900px;
-    margin:0 auto;
-    text-align:center;
-    padding:34px 24px;
-    border:1px solid rgba(255,255,255,.06);
-    border-radius:24px;
-    background:
-      radial-gradient(700px 220px at 50% 0%, rgba(231,192,107,.08), transparent 68%),
-      rgba(255,255,255,.03);
-    box-shadow:var(--lux-shadow2);
-  }
-
-  .about-home-card p,
-  .closing-card p{
-    max-width:720px;
-    margin:14px auto 0;
-    color:rgba(255,255,255,.72);
-    font-size:15px;
-    line-height:1.9;
-  }
-
-  .home-products-wrap{
-    padding:54px 18px 20px;
-  }
-
-  .collection-head{
+  .top-strip-clean .strip-right{
     display:flex;
-    justify-content:space-between;
-    gap:12px;
-    align-items:end;
+    align-items:center;
+    gap:8px;
     flex-wrap:wrap;
-    margin-bottom:18px;
   }
 
-  .collection-label{
-    font-size:11px;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    color:rgba(255,226,163,.72);
-  }
-
-  .collection-title{
-    margin:8px 0 0;
-    font-size:24px;
-    letter-spacing:.10em;
-    text-transform:uppercase;
-    color:#fff4d6;
-  }
-
-  .result-info{
-    font-size:12px;
-  }
-
-  .products-grid-home{
-    display:grid;
-    grid-template-columns:repeat(5, minmax(0, 1fr));
-    gap:16px;
-  }
-
-  .product-card-home{
-    border:1px solid rgba(255,255,255,.07);
-    border-radius:18px;
-    overflow:hidden;
-    background:rgba(255,255,255,.035);
-    box-shadow:var(--lux-shadow2);
-    display:flex;
-    flex-direction:column;
-    transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease;
-  }
-
-  .product-card-home:hover{
-    transform:translateY(-4px);
-    border-color:rgba(231,192,107,.18);
-    box-shadow:0 20px 40px rgba(0,0,0,.22);
-  }
-
-  .product-image-link{
-    display:block;
-  }
-
-  .product-image-wrap{
-    overflow:hidden;
-    background:rgba(255,255,255,.03);
-  }
-
-  .product-image{
-    width:100%;
-    aspect-ratio:3/4;
-    object-fit:cover;
-    display:block;
-    transition:transform .35s ease;
-  }
-
-  .product-card-home:hover .product-image{
-    transform:scale(1.04);
-  }
-
-  .product-body{
-    padding:14px;
-    display:flex;
-    flex-direction:column;
-    flex:1;
-  }
-
-  .product-badges{
-    display:flex;
-    gap:6px;
-    flex-wrap:wrap;
-    margin-bottom:8px;
-  }
-
-  .product-pill{
-    padding:4px 8px;
+  .top-strip-clean .cartlink{
+    display:inline-flex;
+    align-items:center;
+    min-height:32px;
+    padding:0 12px;
     border-radius:999px;
-    border:1px solid rgba(231,192,107,.22);
-    color:#ffe2a3;
-    font-size:9px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.03);
+    color:#f5f1e8;
+    cursor:pointer;
+    font-size:11px;
     letter-spacing:.08em;
     text-transform:uppercase;
   }
 
-  .soldout-pill{
-    border-color:rgba(255,120,120,.28);
-    color:#ffd0d0;
-  }
-
-  .product-name{
-    margin:0 0 6px;
-    font-size:15px;
-    line-height:1.45;
-  }
-
-  .product-name a{
-    color:#fff;
-  }
-
-  .product-desc{
-    color:rgba(255,255,255,.68);
-    font-size:13px;
-    line-height:1.7;
-  }
-
-  .product-footer{
-    margin-top:auto;
-    padding-top:12px;
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-  }
-
-  .product-price{
-    color:#fff4d6;
-    font-size:16px;
-  }
-
-  .product-actions{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-  }
-
-  .detail-btn,
-  .add-btn{
-    min-height:36px;
-    border-radius:12px;
+  .top-strip-clean .checkout-link{
     display:inline-flex;
     align-items:center;
     justify-content:center;
+    min-height:32px;
+    padding:0 14px;
+    border-radius:999px;
+    border:1px solid rgba(231,192,107,.28);
+    background:transparent;
+    color:#ffe2a3;
     font-size:11px;
-    font-weight:800;
+    font-weight:700;
     letter-spacing:.08em;
     text-transform:uppercase;
-    transition:.2s ease;
   }
 
-  .detail-btn{
+  .header-clean{
+    position:sticky;
+    top:40px;
+    z-index:1002;
+    background:rgba(10,10,14,.94);
+    border-bottom:1px solid rgba(255,255,255,.06);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+  }
+
+  .row-clean{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:16px 0;
+    position:relative;
+  }
+
+  .row-clean .head-actions{
+    position:absolute;
+    right:0;
+  }
+
+  .brand-link-clean{
+    color:#fff;
+    text-decoration:none;
+  }
+
+  .brand-text-clean{
+    display:inline-block;
+    color:#fff4d6;
+    font-size:24px;
+    font-weight:900;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+  }
+
+  .iconbtn-clean{
+    width:40px;
+    height:40px;
+    border-radius:12px;
     border:1px solid rgba(255,255,255,.08);
     background:rgba(255,255,255,.03);
     color:#fff4d6;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
   }
 
-  .add-btn{
-    border:1px solid rgba(231,192,107,.26);
+  .nav-clean{
+    border-top:1px solid rgba(255,255,255,.05);
+  }
+
+  .nav-clean ul{
+    list-style:none;
+    margin:0;
+    padding:10px 18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  .nav-clean a{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:34px;
+    padding:0 14px;
+    border-radius:999px;
+    color:rgba(255,255,255,.82);
+    font-size:11px;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+    border:1px solid transparent;
+    transition:.2s ease;
+  }
+
+  .nav-clean a:hover{
+    color:#fff4d6;
+    border-color:rgba(231,192,107,.18);
+    background:rgba(255,255,255,.03);
+  }
+
+  .search-overlay-clean{
+    position:fixed;
+    inset:0;
+    z-index:2100;
+    display:none;
+    align-items:flex-start;
+    justify-content:center;
+    padding-top:90px;
+    padding-left:16px;
+    padding-right:16px;
+    background:rgba(0,0,0,.6);
+    backdrop-filter:blur(8px);
+  }
+
+  .searchbar-clean{
+    width:min(720px,100%);
+    padding:22px;
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(12,12,16,.96);
+    box-shadow:0 30px 80px rgba(0,0,0,.5);
+  }
+
+  .searchhint{
+    color:rgba(255,255,255,.58);
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+
+  .searchrow-clean{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-height:58px;
+    padding:0 16px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.03);
+  }
+
+  .searchrow-clean input{
+    flex:1;
+    border:none;
+    outline:none;
     background:transparent;
-    color:#ffe2a3;
+    color:#fff;
+    font-size:15px;
+  }
+
+  .searchrow-clean input::placeholder{
+    color:rgba(255,255,255,.4);
+  }
+
+  .closebtn-clean{
+    margin-top:12px;
+    min-height:38px;
+    padding:0 14px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.03);
+    color:#fff4d6;
     cursor:pointer;
   }
 
-  .detail-btn:hover,
-  .add-btn:hover{
-    background:rgba(255,255,255,.06);
-    border-color:rgba(231,192,107,.28);
+  .cartDrawerClean .cart-backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.55);
   }
 
-  .add-btn[disabled]{
-    opacity:.55;
-    cursor:not-allowed;
+  .cartDrawerClean .cart-panel{
+    position:absolute;
+    top:0;
+    right:0;
+    width:min(420px,100%);
+    height:100%;
+    padding:20px;
+    overflow:auto;
+    background:rgba(14,14,18,.98);
+    border-left:1px solid rgba(255,255,255,.08);
   }
 
-  .empty-products{
-    padding:10px 0 0;
+  .cart-panel-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
   }
 
-  .empty-products-card{
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:20px;
-    background:rgba(255,255,255,.03);
-    padding:24px;
-    text-align:center;
+  .cart-panel-head h3{
+    margin:0;
+    color:#fff4d6;
+    font-size:22px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
   }
 
-  .closing-section{
-    padding:54px 18px 10px;
+  .cart-panel-actions{
+    margin-top:16px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
   }
 
-  .closing-card{
-    max-width:820px;
-    margin:0 auto;
-    text-align:center;
-    padding:28px 20px;
+  .cart-checkout-btn{
+    min-height:40px;
+    padding:0 16px;
   }
 
-  @media (max-width:1200px){
-    .products-grid-home{
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-    }
+  .clear-cart-btn{
+    width:auto;
+    min-height:40px;
+    padding:0 14px;
   }
 
   @media (max-width:900px){
-    .featured-grid{
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-    }
-
-    .products-grid-home{
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-    }
-
-    .hero-premium h1{
-      font-size:42px;
+    .brand-text-clean{
+      font-size:20px;
       letter-spacing:.20em;
     }
   }
 
   @media (max-width:600px){
-    .hero-premium{
-      min-height:auto;
+    .top-strip-clean .strip-row{
+      justify-content:center;
     }
 
-    .hero-premium-inner{
-      padding-top:56px;
-      padding-bottom:56px;
-    }
-
-    .hero-mini,
-    .section-mini,
-    .collection-label{
-      font-size:10px;
-      letter-spacing:.12em;
-    }
-
-    .hero-premium h1{
-      font-size:28px;
-      letter-spacing:.14em;
-    }
-
-    .hero-premium p{
-      font-size:13px;
-      line-height:1.8;
-      margin-top:14px;
-    }
-
-    .hero-actions{
-      margin-top:22px;
-      gap:10px;
-    }
-
-    .btn-premium{
+    .top-strip-clean .strip-left{
       width:100%;
-      min-height:42px;
+      text-align:center;
       font-size:10px;
     }
 
-    .brand-note-row{
-      min-height:auto;
-      padding:12px 0;
-      gap:10px;
+    .top-strip-clean .strip-right{
+      justify-content:center;
     }
 
-    .brand-note-item{
-      font-size:9px;
-      letter-spacing:.10em;
+    .header-clean{
+      top:40px;
     }
 
-    .brand-note-line{
-      width:10px;
+    .brand-text-clean{
+      font-size:15px;
+      letter-spacing:.16em;
     }
 
-    .featured-section,
-    .about-home-section,
-    .home-products-wrap,
-    .closing-section{
-      padding-left:14px;
-      padding-right:14px;
+    .iconbtn-clean{
+      width:38px;
+      height:38px;
     }
 
-    .section-head-clean h2,
-    .about-home-card h2,
-    .closing-card h2{
-      font-size:20px;
-      letter-spacing:.08em;
+    .nav-clean{
+      overflow-x:auto;
+      scrollbar-width:none;
     }
 
-    .featured-grid{
-      grid-template-columns:1fr;
-      gap:14px;
-    }
-
-    .about-home-card{
-      padding:24px 16px;
-      border-radius:20px;
-    }
-
-    .about-home-card p,
-    .closing-card p{
-      font-size:13px;
-      line-height:1.8;
-    }
-
-    .products-grid-home{
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:12px;
-    }
-
-    .collection-title{
-      font-size:18px;
-      letter-spacing:.08em;
-    }
-
-    .product-card-home{
-      border-radius:14px;
-    }
-
-    .product-body{
-      padding:8px;
-    }
-
-    .product-badges{
-      gap:4px;
-      margin-bottom:6px;
-    }
-
-    .product-pill{
-      font-size:8px;
-      padding:3px 6px;
-    }
-
-    .product-name{
-      font-size:11px;
-      margin-bottom:4px;
-    }
-
-    .product-desc{
+    .nav-clean::-webkit-scrollbar{
       display:none;
     }
 
-    .product-price{
-      font-size:11px;
+    .nav-clean ul{
+      width:max-content;
+      min-width:100%;
+      flex-wrap:nowrap;
+      justify-content:flex-start;
+      padding:10px 14px;
     }
 
-    .product-footer{
-      gap:6px;
-      padding-top:8px;
+    .nav-clean a{
+      white-space:nowrap;
+      font-size:9px;
+      padding:0 12px;
     }
 
-    .detail-btn,
-    .add-btn{
-      min-height:32px;
-      font-size:10px;
-      border-radius:10px;
-      padding:0 8px;
+    .search-overlay-clean{
+      padding-top:70px;
+      padding-left:12px;
+      padding-right:12px;
+    }
+
+    .searchbar-clean{
+      padding:16px;
+      border-radius:18px;
+    }
+
+    .searchrow-clean{
+      min-height:52px;
+      padding:0 14px;
+      border-radius:14px;
+    }
+
+    .searchrow-clean input{
+      font-size:14px;
+    }
+
+    .cartDrawerClean .cart-panel{
+      width:100%;
+      padding:18px 16px;
     }
   }
 </style>
