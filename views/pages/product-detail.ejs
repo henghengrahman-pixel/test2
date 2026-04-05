@@ -94,7 +94,16 @@
           <%= product.soldOut ? 'Sold Out' : 'Add to Cart' %>
         </button>
 
-        <a class="btn-checkout" href="/checkout">Checkout</a>
+        <button
+          class="btn-checkout"
+          id="buyNowBtn"
+          type="button"
+          data-id="<%= product.id %>"
+          data-name="<%= product.name %>"
+          data-price="<%= product.price %>"
+          <%= product.soldOut ? 'disabled' : '' %>>
+          <%= product.soldOut ? 'Sold Out' : 'Checkout' %>
+        </button>
       </div>
     </section>
   </div>
@@ -459,6 +468,7 @@
     background:#fff;
     color:#222;
     box-shadow:0 8px 18px rgba(0,0,0,.04);
+    cursor:pointer;
   }
 
   .btn-cart:hover,
@@ -466,7 +476,8 @@
     transform:translateY(-2px);
   }
 
-  .btn-cart[disabled]{
+  .btn-cart[disabled],
+  .btn-checkout[disabled]{
     opacity:.55;
     cursor:not-allowed;
   }
