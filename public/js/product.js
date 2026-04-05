@@ -6,6 +6,7 @@
     const minusBtn = document.getElementById('minus');
     const plusBtn = document.getElementById('plus');
     const addToCartBtn = document.getElementById('addProductCart');
+    const buyNowBtn = document.getElementById('buyNowBtn');
 
     function getQtyValue() {
       if (!qty) return 1;
@@ -70,6 +71,27 @@
       if (typeof window.MawarCart.toggle === 'function') {
         window.MawarCart.toggle(true);
       }
+    });
+
+    buyNowBtn?.addEventListener('click', (e) => {
+      const button = e.currentTarget;
+
+      if (!window.MawarCart || typeof window.MawarCart.add !== 'function') {
+        console.error('MawarCart is not available.');
+        alert('Keranjang belum siap. Coba refresh halaman.');
+        return;
+      }
+
+      window.MawarCart.add(
+        {
+          id: button.dataset.id,
+          name: button.dataset.name,
+          price: button.dataset.price
+        },
+        getQtyValue()
+      );
+
+      window.location.href = '/checkout';
     });
   });
 })();
